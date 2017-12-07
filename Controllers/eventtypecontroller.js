@@ -1,4 +1,4 @@
-var connection = require('./../config');
+var connection = require('./../Config');
 module.exports.addeventtype = function (req, res) {
 
   var event_type_name = req.body.event_name;
@@ -28,7 +28,7 @@ module.exports.addeventtype = function (req, res) {
 
 
 }
-var connection1 = require('./../config');
+var connection1 = require('./../Config');
 module.exports.listeventtype = function (req, res) {
 
   var sql = "SELECT * FROM `club_app_event_type` ORDER BY `type_id` ASC"
@@ -60,7 +60,7 @@ module.exports.listeventtype = function (req, res) {
 
 
 }
-var connection2 = require('./../config');
+var connection2 = require('./../Config');
 module.exports.listeventtypebyid = function (req, res) {
   var codes = req.body.code;
   console.log(codes);
@@ -89,7 +89,7 @@ module.exports.listeventtypebyid = function (req, res) {
 
 }
 
-var connection3 = require('./../config');
+var connection3 = require('./../Config');
 module.exports.deleteeventtype = function (req, res) {
   var code = req.body.code;
 
@@ -110,7 +110,7 @@ module.exports.deleteeventtype = function (req, res) {
     }
   });
 }
-var connection3 = require('./../config');
+var connection3 = require('./../Config');
 module.exports.getEventType = function (req, res) {
   var sql = "SELECT * FROM `club_app_event_type";
   console.log(sql);
@@ -138,7 +138,7 @@ module.exports.getEventType = function (req, res) {
 
 
 
-var connection = require('./../config');
+var connection = require('./../Config');
 module.exports.updateventtype = function (req, res) {
   
   var event_id = req.body.event_id
@@ -170,7 +170,7 @@ module.exports.updateventtype = function (req, res) {
 
 
 
-var connection = require('./../config');
+var connection = require('./../Config');
 var uploadpath;
 var event_name = "test";
 

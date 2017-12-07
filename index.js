@@ -7,12 +7,12 @@ var app = express();
 var upload = require('express-fileupload');
 app.use(upload()); // configure middleware
 var authenticateController = require('./Controllers/authenicate_controller');
-var registerController = require('./controllers/register_controller');
-var addcategory_controller = require('./controllers/categorycontroller');
-var memberscontroller = require('./controllers/memberscontroller');
-var eventcontroller = require('./controllers/eventcontroler');
-var newstcontroller = require('./controllers/newscontroller');
-var eventtypecontroller = require('./controllers/eventtypecontroller');
+var registerController = require('./Controllers/register_controller');
+var addcategory_controller = require('./Controllers/categorycontroller');
+var memberscontroller = require('./Controllers/memberscontroller');
+var eventcontroller = require('./Controllers/eventcontroler');
+var newstcontroller = require('./Controllers/newscontroller');
+var eventtypecontroller = require('./Controllers/eventtypecontroller');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

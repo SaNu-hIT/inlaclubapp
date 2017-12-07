@@ -1,5 +1,5 @@
 var connection = require(
-  './../config');
+  './../Config');
 module.exports.addnews = function (
   req, res) {
 
@@ -42,7 +42,7 @@ module.exports.addnews = function (
 
 
 var connection1 = require(
-  './../config');
+  './../Config');
 module.exports.listnews =
   function (req, res) {
 
@@ -83,7 +83,7 @@ module.exports.listnews =
 
 
 var connection2 = require(
-  './../config');
+  './../Config');
 module.exports.listnewsbyid =
   function (req, res) {
     var codes = req.body.code;
@@ -119,7 +119,7 @@ module.exports.listnewsbyid =
 
 
 var connection3 = require(
-  './../config');
+  './../Config');
 module.exports.deletenews =
   function (req, res) {
     var code = req.body.code;
@@ -149,7 +149,7 @@ module.exports.deletenews =
 
 
 var connection = require(
-  './../config');
+  './../Config');
 module.exports.updatenews =
   function (req, res) {
 
@@ -191,7 +191,7 @@ module.exports.updatenews =
         }
       });
   }
-var connection = require('./../config');
+var connection = require('./../Config');
 module.exports.uploadimagenews = function (req, res) {
   if (req.files.upfile) {
     var file = req.files.upfile,

@@ -38,7 +38,7 @@
                         type: 'POST',
                         data: JSON.stringify(data), //input data to be sent to the server
                         contentType: 'application/json',
-                        url: 'http://localhost:8080/api/authenticate',                        
+                        url: '/api/authenticate',                        
                         success: function(res) {
                             console.log('success');
                             console.log(res);
@@ -50,7 +50,7 @@
                                 if (status) {
 
                                     
-window.location.href = "http://localhost:8080/member";
+window.location.href = "/member";
                                         // swal("Login", message, "success");
 
                                 }
@@ -81,7 +81,7 @@ window.location.href = "http://localhost:8080/member";
     <div class="container page-container">
       <div class="page-content">
         <div class="logo"><i class="ti-underline"></i></div>
-        <form method="get" action="index.html" class="form-horizontal">
+        <form   class="form-horizontal">
           <div class="form-group">
             <div class="col-xs-12">
               <input type="text" id="txtUser"  placeholder="Username" class="form-control">

@@ -132,5 +132,5 @@ app.post('/api/uploadimage', eventtypecontroller.uploadimage);
 
 
 app.listen(process.env.PORT || 3000, function(){
-  console.log('listening on', app.address().port);
+  console.log('listening on ports');
 });

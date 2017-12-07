@@ -1,4 +1,4 @@
-var connection = require('./../config');
+var connection = require('./../Config');
 module.exports.authenticate=function(req,res){
 
     var phonenumber=req.body.phonenumber;

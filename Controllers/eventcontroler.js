@@ -1,4 +1,4 @@
-    var connection = require('./../config');
+    var connection = require('./../Config');
     module.exports.addevents=function(req,res){
 
       
@@ -28,7 +28,7 @@
                      });
 
                      }
-                     var connection1 = require('./../config');
+                     var connection1 = require('./../Config');
                      module.exports.listevents=function(req,res){
 
                       var sql = "SELECT * FROM `club_app_events_list` ORDER BY `event_id` ASC"
@@ -60,7 +60,7 @@
 
 
                     }
-                    var connection2 = require('./../config');
+                    var connection2 = require('./../Config');
                     module.exports.listeventsbyid=function(req,res){
                      var codes=req.body.code;
                      console.log(codes);
@@ -89,7 +89,7 @@
 
                    }
 
-                   var connection3 = require('./../config');
+                   var connection3 = require('./../Config');
                    module.exports.deleteevents=function(req,res){
                     var code=req.body.code;
 
@@ -110,7 +110,7 @@
                    }
                  });
 }
-                  var connection3 = require('./../config');
+                  var connection3 = require('./../Config');
                   module.exports.getEventTypes=function(req,res){
                     var sql = "SELECT * FROM `club_app_event_type";
                     console.log(sql);
@@ -138,7 +138,7 @@
 
 
 
-                  var connection = require('./../config');
+                  var connection = require('./../Config');
                   module.exports.updatevents=function(req,res)
                   {
                     var event_id=req.body.event_id

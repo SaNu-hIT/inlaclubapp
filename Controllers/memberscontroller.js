@@ -1,0 +1,162 @@
+var connection = require('./../config');
+module.exports.addmember = function(req, res) {
+    var title = req.body.title; //input
+    var name = req.body.name; //input
+    var mobile_no = req.body.mobile_no; //input
+    var email = req.body.email; //input
+    var office_no = req.body.office_no; //input
+    var dob = req.body.dob; //input
+    var address = req.body.address; //input
+    var title_for_spouse = req.body.title_for_spouse; //input
+    var nameOf_spouse = req.body.nameOf_spouse; //input
+    var spouse_mobileNo = req.body.spouse_mobileNo; //input
+    var spouse_email = req.body.spouse_email; //input
+    var spouse_dob = req.body.spouse_dob; //input
+    var weeding_date = req.body.weeding_date; //input
+    var ismarried = req.body.ismarried; //input
+    var Profession = req.body.Profession; //input
+    var memberimage = req.body.memberimage; //input
+    var spouceimage = req.body.spouceimage; //input
+   console.log("memberimage"+memberimage);
+   console.log("spouceimage"+spouceimage);
+
+
+
+   
+    var sql = "INSERT INTO `club_app_member_contact_info`( `title`, `name`, `mobile_no`, `email`,`office_no`, `dob`, `address`, `title_for_spouse`, `nameOf_spouse`, `spouse_mobileNo`,`spouse_email`, `spouse_dob`, `weeding_date`, `ismarried`, `MemberImage`, `SpouseImage`,`Profession`) VALUES ('" + title + "','" + name + "','" + mobile_no + "','" + email + "','" + office_no + "','" + dob + "','" + address + "','" + title_for_spouse + "','" + nameOf_spouse + "','" + spouse_mobileNo + "','" + spouse_email + "','" + spouse_dob + "','" + weeding_date + "','" + ismarried + "','" + memberimage + "','" + spouceimage + "','" + Profession + "');"
+    connection.query(sql, function(err, result) {
+        console.log(err);
+        if (err) {
+            res.json({
+                status: false,
+                message: "Api error please report to admin"
+            })
+        } else {
+            res.json({
+                status: true,
+                message: "Successfully saved"
+            })
+        }
+    });
+
+}
+
+var connection = require('./../config');
+module.exports.updateMember = function(req, res) {
+    var cid = req.body.cid
+    var title = req.body.title; //input
+    var name = req.body.name; //input
+    var mobile_no = req.body.mobile_no; //input
+    var email = req.body.email; //input
+    var office_no = req.body.office_no; //input
+    var dob = req.body.dob; //input
+    var address = req.body.address; //input
+    var title_for_spouse = req.body.title_for_spouse; //input
+    var nameOf_spouse = req.body.nameOf_spouse; //input
+    var spouse_mobileNo = req.body.spouse_mobileNo; //input
+    var spouse_email = req.body.spouse_email; //input
+    var spouse_dob = req.body.spouse_dob; //input
+    var weeding_date = req.body.weeding_date; //input
+    var ismarried = req.body.ismarried; //input
+    var Profession = req.body.Profession; //input
+    var memberimage = req.body.memberimage; //input
+    var spouceimage = req.body.spouceimage; //input
+   console.log("memberimage"+memberimage);
+   console.log("spouceimage"+spouceimage);
+
+
+    var sql = "UPDATE club_app_member_contact_info SET title='" + title + "',name='" + name + "',mobile_no='" + mobile_no + "', email='" + email + "',office_no='" + office_no + "',dob='" + dob + "',address='" + address + "',title_for_spouse='" + title_for_spouse + "',nameOf_spouse='" + nameOf_spouse + "',spouse_mobileNo='" + spouse_mobileNo + "',spouse_email='" + spouse_email + "',spouse_dob='" + spouse_dob + "',weeding_date='" + weeding_date + "',ismarried='" + ismarried + "',MemberImage='" + memberimage + "',SpouseImage='" + spouceimage + "',Profession='" + Profession + "' WHERE cid=" + cid;
+   
+
+    // var sql = "INSERT INTO `club_app_member_contact_info`( `title`, `name`, `mobile_no`, `email`,`office_no`, `dob`, `address`, `title_for_spouse`, `nameOf_spouse`, `spouse_mobileNo`,`spouse_email`, `spouse_dob`, `weeding_date`, `ismarried`, `MemberImage`, `SpouseImage`,`Profession`) VALUES ('" + title + "','" + name + "','" + mobile_no + "','" + email + "','" + office_no + "','" + dob + "','" + address + "','" + title_for_spouse + "','" + nameOf_spouse + "','" + spouse_mobileNo + "','" + spouse_email + "','" + spouse_dob + "','" + weeding_date + "','" + ismarried + "','" + memberimage + "','" + spouceimage + "','" + Profession + "');"
+    connection.query(sql, function(err, result) {
+        console.log(err);
+        if (err) {
+            res.json({
+                status: false,
+                message: "Api error please report to admin"
+            })
+        } else {
+            res.json({
+                status: true,
+                message: "Successfully saved"
+            })
+        }
+    });
+
+}
+var connection1 = require('./../config');
+module.exports.listMembers = function(req, res) {
+    var sql = "SELECT * FROM `club_app_member_contact_info` ORDER BY `name` ASC"
+    console.log(sql);
+    connection1.query(sql, function(err, result, fields) {
+        if (err) {
+
+            res.json({
+                status: false,
+                message: "No data found"
+
+            })
+        } else {
+            // console.log(result);
+            res.json({
+                status: true,
+                message: "Successful",
+                data: result
+            })
+        }
+
+    });
+}
+
+
+var connection2 = require('./../config');
+module.exports.listMemberbyid = function(req, res) {
+    var codes = req.body.code;
+    console.log(codes);
+    var sql = "SELECT * FROM club_app_member_contact_info WHERE cid = '" + codes + "'";
+    console.log(sql);
+    connection2.query(sql, function(err, result, fields) {
+        if (err) {
+            console.log(err)
+            res.json({
+                status: false,
+                message: "No data found"
+            })
+        } else {
+            console.log(result);
+            res.json({
+                status: true,
+                message: "Successful",
+                data: result
+            })
+        }
+
+    });
+
+
+
+
+}
+
+var connection3 = require('./../config');
+module.exports.deleteMember = function(req, res) {
+    var code = req.body.code;
+
+    var sql = "DELETE FROM club_app_member_contact_info WHERE cid = '" + code + "'";
+
+    connection3.query(sql, function(err, result) {
+        console.log(err);
+        if (err) {
+            res.json({
+                status: false,
+                message: "Api error please report to admin"
+            })
+        } else {
+            res.json({
+                status: true,
+                message: "Successfully deleted"
+            })
+        }
+    });
+}

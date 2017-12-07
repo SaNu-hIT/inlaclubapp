@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include HeaderAndFooter/head.ejs%>
+       <script src="http://tristanedwards.me/u/SweetAlert/lib/sweet-alert.js"></script>
+       <link href="http://tristanedwards.me/u/SweetAlert/lib/sweet-alert.css" rel="stylesheet" />
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+       <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+       </script>
+       <style type="text/css">
+            .ml-6 {
+                padding-left: 3em;
+            }
+        </style>
+</head>
+<body data-sidebar-color="sidebar-light" class="sidebar-light">
+    <!-- Header start-->
+    <header>
+      <div class="search-bar closed">
+        <form>
+          <div class="input-group input-group-lg">
+            <input type="text" placeholder="Search for..." class="form-control"><span class="input-group-btn">
+              <button type="button" class="btn btn-default search-bar-toggle"><i class="ti-close"></i></button></span>
+          </div>
+        </form>
+      </div><a href="index.html" class="brand pull-left">
+        <h2>Connected</h2></a><a href="javascript:;" role="button" class="hamburger-menu pull-left visible-xs"><span></span></a>
+      <form class="search-form pull-left hidden-xs">
+        <div class="form-group has-feedback mb-0">
+          <input type="text" aria-describedby="inputSearchFor" placeholder="Search for..." style="width: 200px" class="form-control rounded"><span aria-hidden="true" class="ti-search form-control-feedback"></span><span id="inputSearchFor" class="sr-only">(default)</span>
+        </div>
+      </form>
+
+    </header>
+    <!-- Header end-->
+    <div class="main-container">
+      <!-- Main Sidebar start-->
+      <aside data-mcs-theme="minimal-dark" class="main-sidebar mCustomScrollbar">
+        <div class="user">
+          <div id="esp-user-profile" data-percent="65" style="height: 104px; width: 104px; line-height: 80px; padding: 12px;" class="easy-pie-chart"><img src="../build/images/users/04.jpg" alt="" class="avatar img-circle"><span class="status bg-success"></span></div>
+          <h4 class="fs-14 text-muted mt-15 mb-5 fw-300">Matthew Gonzalez</h4>
+          <p class="fs-13 mb-0 text-muted">Designer</p>
+        </div>
+        <ul class="list-unstyled navigation mb-0">
+          <li class="sidebar-header pt-0">Main</li>
+          
+
+          <li><a href="member" class="bubble"><i class="ti-home"></i> Members</a></li>
+        
+
+          <li><a href="news" class="bubble"><i class="ti-home"></i> News</a></li>
+
+      
+        <li><a href="events" class="bubble"><i class="ti-home"></i> Events</a></li>
+     
+
+                 <li><a href="eventtype" class="bubble"><i class="ti-home"></i>Event Types</a></li>
+                 <li><a href="category" class="bubble"><i class="ti-home"></i>Category</a></li>
+           </ul>
+     
+      </aside>
+    </div>
+      <!-- Main Sidebar end-->
+      <div class="page-container">
+        <div class="page-header clearfix">
+          <div class="pull-left">
+            <h4 class="mt-0 mb-5">ADMIN</h4>
+            
+          </div>
+    
+        </div>
+   
+      </div>
+   
+      <% include HeaderAndFooter/footer.ejs%>
+  </body>
+
+

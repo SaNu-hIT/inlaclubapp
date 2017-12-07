@@ -1,4 +1,4 @@
-var connection = require('./../config');
+var connection = require('./../Config');
 module.exports.register=function(req,res){
     var today = new Date();
     var users={

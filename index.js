@@ -20,7 +20,7 @@ app.use(express.static(__dirname + '/Public'));
 app.use(express.static(__dirname + '/scripts'));
 app.use(express.static('uploads'));
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/Views');
 app.engine('html', require('ejs').renderFile);
 app.engine('ejs', engine);
 

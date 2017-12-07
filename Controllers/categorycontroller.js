@@ -1,4 +1,4 @@
-var connection = require('./../config');
+var connection = require('./../Config');
 module.exports.addcategoy=function(req,res){
 
   var categoryname=req.body.categoryname;

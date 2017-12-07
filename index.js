@@ -6,7 +6,7 @@ var session = require('express-session')
 var app = express();
 var upload = require('express-fileupload');
 app.use(upload()); // configure middleware
-var authenticateController = require('../controllers/authenicate_controller');
+var authenticateController = require('./Controllers/authenicate_controller');
 var registerController = require('./controllers/register_controller');
 var addcategory_controller = require('./controllers/categorycontroller');
 var memberscontroller = require('./controllers/memberscontroller');

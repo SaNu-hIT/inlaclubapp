@@ -1,4 +1,4 @@
-var connection = require('./../config');
+var connection = require('./../Config');
 module.exports.addmember = function(req, res) {
     var title = req.body.title; //input
     var name = req.body.name; //input
@@ -41,7 +41,7 @@ module.exports.addmember = function(req, res) {
 
 }
 
-var connection = require('./../config');
+var connection = require('./../Config');
 module.exports.updateMember = function(req, res) {
     var cid = req.body.cid
     var title = req.body.title; //input
@@ -85,7 +85,7 @@ module.exports.updateMember = function(req, res) {
     });
 
 }
-var connection1 = require('./../config');
+var connection1 = require('./../Config');
 module.exports.listMembers = function(req, res) {
     var sql = "SELECT * FROM `club_app_member_contact_info` ORDER BY `name` ASC"
     console.log(sql);
@@ -110,7 +110,7 @@ module.exports.listMembers = function(req, res) {
 }
 
 
-var connection2 = require('./../config');
+var connection2 = require('./../Config');
 module.exports.listMemberbyid = function(req, res) {
     var codes = req.body.code;
     console.log(codes);
@@ -139,7 +139,7 @@ module.exports.listMemberbyid = function(req, res) {
 
 }
 
-var connection3 = require('./../config');
+var connection3 = require('./../Config');
 module.exports.deleteMember = function(req, res) {
     var code = req.body.code;
 

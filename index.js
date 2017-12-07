@@ -131,4 +131,6 @@ app.post('/api/updateventtype', eventtypecontroller.updateventtype);
 app.post('/api/uploadimage', eventtypecontroller.uploadimage);
 
 
-app.listen(8080);
+http.listen(process.env.PORT || 3000, function(){
+  console.log('listening on', http.address().port);
+});

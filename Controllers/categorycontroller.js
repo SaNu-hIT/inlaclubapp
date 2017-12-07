@@ -27,7 +27,7 @@ module.exports.addcategoy=function(req,res){
 });
 
 }
-var connection = require('./../config');
+var connection = require('./../Config');
 module.exports.updateCategory=function(req,res){
 
   var categoryname=req.body.categoryname;
@@ -56,7 +56,7 @@ module.exports.updateCategory=function(req,res){
 }
 
 
-var connection1 = require('./../config');
+var connection1 = require('./../Config');
 module.exports.listCategory=function(req,res){
 var sql = "SELECT * FROM `categories` ORDER BY `name` ASC"
 console.log(sql);
@@ -85,7 +85,7 @@ console.log(sql);
 
 
 
-var connection2 = require('./../config');
+var connection2 = require('./../Config');
 
 module.exports.listCategorybyid=function(req,res){
  var codes=req.body.code;
@@ -111,7 +111,7 @@ module.exports.listCategorybyid=function(req,res){
 });
 }
 
-var connection3 = require('./../config');
+var connection3 = require('./../Config');
 module.exports.deletecategory=function(req,res){
   var code=req.body.code;
 

@@ -27,13 +27,13 @@
                         var url;
                         if ($('#sumbitbutton').text()=="Submit")
                         {
-                          url="http://localhost:8080/api/addevents"
+                          url="/api/addevents"
                                    // console.log("MemberImage"+MemberImage);
                                  }else
                                  {
 
                                     data.event_id= window.itemid; 
-                                  url="http://localhost:8080/api/updatevents"
+                                  url="/api/updatevents"
                                 }
                             $.ajax({
                             type: 'POST',
@@ -94,7 +94,7 @@ mytable=null;
                           type: 'POST',
                           data: JSON.stringify(data),
                           contentType: 'application/json',
-                          url: 'http://localhost:8080/api/deleteevents',                        
+                          url: '/api/deleteevents',                        
                           success: function(res) {
                             console.log('success');
                             console.log(res);
@@ -182,7 +182,7 @@ mytable=null;
                       //input data to be sent to the server
                       contentType: 'application/json',
                       
-                      url: 'http://localhost:8080/api/listevents',                        
+                      url: '/api/listevents',                        
                       success: function(res) {
                         console.log('success');
                         console.log(res);

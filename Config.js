@@ -1,9 +1,9 @@
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-    database: "connectedapp"
+  host: "mysql7001.site4now.net",
+  user: "a2fe2e_connect",
+  password: "Loveyou123",
+  database: "db_a2fe2e_connect"
 });
 connection.connect(function(err){
 if(!err) {

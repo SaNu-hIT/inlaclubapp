@@ -27,7 +27,7 @@ module.exports.addcategoy=function(req,res){
 });
 
 }
-var connection = require('./../Config');
+
 module.exports.updateCategory=function(req,res){
 
   var categoryname=req.body.categoryname;

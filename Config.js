@@ -3,7 +3,10 @@ var connection = mysql.createConnection({
     host: "mysql7001.site4now.net",
     user: "a2fe2e_connect",
     password: "Loveyou123",
-    database: "db_a2fe2e_connect"
+    database: "db_a2fe2e_connect",
+     options: {
+      encrypt: true
+    }
 
 
 

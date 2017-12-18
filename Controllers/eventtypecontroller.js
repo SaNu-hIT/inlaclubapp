@@ -161,7 +161,7 @@ module.exports.updateventtype = function (req, res) {
 
 
 
-var connection = require('./../Config');
+
 var uploadpath;
 var event_name = "test";
 

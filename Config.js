@@ -138,44 +138,71 @@ var mysql = require('mysql');
 // module.exports = connection;
 
 
-var db_config = {
-     host: "mysql7001.site4now.net",
-    user: "a2fe2e_connect",
-    password: "Loveyou123",
-    database: "db_a2fe2e_connect",
-     connectionLimit: 15,
-        queueLimit: 30,
-        acquireTimeout: 1000000
-  };
+// var db_config = {
+//      host: "mysql7001.site4now.net",
+//     user: "a2fe2e_connect",
+//     password: "Loveyou123",
+//     database: "db_a2fe2e_connect",
+//      connectionLimit: 15,
+//         queueLimit: 30,
+//         acquireTimeout: 1000000
+//   };
   
-  var connection;
+//   var connection;
   
-  function handleDisconnect() {
-    connection = mysql.createConnection(db_config); // Recreate the connection, since
-                                                    // the old one cannot be reused.
+//   function handleDisconnect() {
+//     connection = mysql.createConnection(db_config); // Recreate the connection, since
+//                                                     // the old one cannot be reused.
   
-    connection.connect(function(err) {              // The server is either down
-      if(err) {                                     // or restarting (takes a while sometimes).
+//     connection.connect(function(err) {              // The server is either down
+//       if(err) {                                     // or restarting (takes a while sometimes).
+//         console.log('error when connecting to db:', err);
+      
+//         setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+//       }  
+//       else{
+
+//         console.log('Connect to db');
+//       }                                   // to avoid a hot loop, and to allow our node script to
+//     });                                     // process asynchronous requests in the meantime.
+//                                             // If you're also serving http, display a 503 error.
+//     connection.on('error', function(err) {
+//       console.log('db error', err);
+//       if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+//         handleDisconnect();                         // lost due to either server restart, or a
+//       } else {                                      // connnection idle timeout (the wait_timeout
+//         throw err;                                  // server variable configures this)
+//       }
+//     });
+//   }
+  
+//   handleDisconnect();
+
+//   module.exports = connection;
+
+
+
+var mysql = require('mysql');
+var pool  = mysql.createPool({
+  host: "mysql7001.site4now.net",
+      user: "a2fe2e_connect",
+      password: "Loveyou123",
+      database: "db_a2fe2e_connect",
+
+});
+
+pool.getConnection(function(err, connection) {
+        if(err) {                                     // or restarting (takes a while sometimes).
         console.log('error when connecting to db:', err);
       
-        setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+        // setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
       }  
       else{
 
-        console.log('Connect to db');
-      }                                   // to avoid a hot loop, and to allow our node script to
-    });                                     // process asynchronous requests in the meantime.
-                                            // If you're also serving http, display a 503 error.
-    connection.on('error', function(err) {
-      console.log('db error', err);
-      if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-        handleDisconnect();                         // lost due to either server restart, or a
-      } else {                                      // connnection idle timeout (the wait_timeout
-        throw err;                                  // server variable configures this)
-      }
-    });
-  }
-  
-  handleDisconnect();
 
-  module.exports = connection;
+        console.log('Connect to db');
+      }         
+});
+
+module.exports = pool;
+

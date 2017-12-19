@@ -142,7 +142,10 @@ var db_config = {
      host: "mysql7001.site4now.net",
     user: "a2fe2e_connect",
     password: "Loveyou123",
-    database: "db_a2fe2e_connect"
+    database: "db_a2fe2e_connect",
+     connectionLimit: 15,
+        queueLimit: 30,
+        acquireTimeout: 1000000
   };
   
   var connection;

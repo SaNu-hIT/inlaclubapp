@@ -1,13 +1,20 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-    host: "mysql7001.site4now.net",
-    user: "a2fe2e_connect",
-    password: "Loveyou123",
-    database: "db_a2fe2e_connect",
+//     host: "mysql7001.site4now.net",
+//     user: "a2fe2e_connect",
+//     password: "Loveyou123",
+//     database: "db_a2fe2e_connect",
+//      options: {
+//       encrypt: true
+//     }
+    
+ host: "mysql.hostinger.in",
+    user: "u711181266_club",
+    password: "y4Id8zJoa7neeHw",
+    database: "u711181266_club",
      options: {
       encrypt: true
     }
-
 
 
 //     host: "localhost",

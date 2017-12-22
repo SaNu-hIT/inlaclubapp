@@ -3,6 +3,8 @@
 <head>
   <script src="/sweet-alert.js"></script>
       <link href="/sweet-alert.css" rel="stylesheet" />
+      
+      <link href="/loading.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
   <script src="/news.js"></script>
@@ -21,14 +23,50 @@
      margin-left: 11%;
     
      }
+
+
+     
     </style>
 
-  
+<style>
+ 
+
+  .imagefitcover{
+   object-fit: cover;
+   height: 100px;
+  }
+  imagefixedheight{
+    height: 100px;
+  }
+</style>
 </head>
 <% include /base.ejs%>
 <body>
+
+
+    <!-- Start preloading -->
+   <div id="loading" class="loading-invisible">
+       <div class="loading-center">
+          <div class="loading-center-absolute">
+               <img class="object"  src="/loading_blue.gif" alt="loading">
+          </div>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  document.getElementById("loading").className = "loading-visible";
+  var hideDiv = function(){document.getElementById("loading").className = "loading-invisible";};
+  var oldLoad = window.onload;
+  var newLoad = oldLoad ? function(){hideDiv.call(this);oldLoad.call(this);} : hideDiv;
+  window.onload = newLoad;
+</script>
+
+
     <div class="formspacing">
+
       <form>
+
         <div class="widget">
           <div class="widget-heading">
             <h3 class="widget-title">News</h3>
@@ -39,7 +77,7 @@
               <div class="col-md-8">
                 <div class="form-group">
                   <label for="txtMovieTitle">News title</label>
-                  <input id="news_title" type="text" class="form-control">
+                  <input id="news_title" type="text" class="form-control"   required>
                 </div>
               </div>
               <div class="col-md-4">
@@ -72,6 +110,9 @@
 
               </div>
             </div>
+            <div class="col-md-5 imagefixedheight">
+              <img src="" id="memberimagesrc"  src="https://rails-assets.org/avatar.png" style="width:60%" class="imagefitcover">
+          </div>
            <div class="row">
             <div class="col-md-12">
                 <button type="submit" id="sumbitbutton" class="btn btn-outline btn-success btnright">Submit</button>
@@ -80,6 +121,8 @@
             </div>
         </div>
       </form>
+
+
       <div class="widget-body">
         <table id="newsDatatable" cellspacing="0" width="100%" class="table table-striped table-bordered">
           <thead>
@@ -96,6 +139,8 @@
         </table>
       </div>
     </div>
+
+
     </form>
   </body>
 </html>

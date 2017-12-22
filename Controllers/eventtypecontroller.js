@@ -267,3 +267,61 @@ module.exports.uploadimage = function (req, res) {
   }
 }
 
+module.exports.updateventtypes = function (req, res) {
+  var total;
+ var current;
+  if (req.files.upfile) {
+    var file = req.files.upfile,
+      name = file.name,
+      type = file.mimetype;
+      total = req.body.total;
+      current = req.body.current;
+    console.log("event_name" + event_name);
+    var event_name=req.body.eventname;
+    uploadpath =  name;
+    console.log("uploadpath" + uploadpath);
+    console.log("event_name" + event_name);
+    file.mv(uploadpath, function (err) {
+      if (err) {
+        console.log("File Upload Failed", name, err);
+        res.json({
+          status: false,
+          message: "File Upload Failed"
+        })
+      }
+      else {
+
+        var sql = "INSERT INTO `club_app_event_type`(`event_type_name`,`event_icon`) VALUES ('" + event_name + "','" + uploadpath + "')"
+        connection.query(sql, function (err, result) {
+          console.log(err);
+          if (err) {
+            res.json({
+              status: false,
+              message: "Api error please report to admin"
+            })
+          } else {
+            res.json({
+              status: true,
+              message: "Successfully saved",
+              totals:total,
+              currents:current
+            })
+          }
+        });
+
+
+        console.log("File Uploaded", name);
+
+      }
+    });
+  }
+  else {
+
+
+    res.json({
+      status: false,
+      message: "No File selected !"
+    })
+
+  }
+}

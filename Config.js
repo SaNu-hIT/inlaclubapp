@@ -64,7 +64,7 @@
 
 
 
-var mysql = require('mysql');
+// var mysql = require('mysql');
 // var connection = mysql.createConnection({
 //     host: "mysql7001.site4now.net",
 //     user: "a2fe2e_connect",

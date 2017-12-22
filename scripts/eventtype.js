@@ -15,6 +15,58 @@ $(function () {
     var event_name = $('#name').val();
     var file_data = $("#imagefile").prop("files")[0];
     var form_data = new FormData();
+
+
+
+    // if (validateForm(event_name, file_data)) {
+    //   // var MemberImage=req.files.MemberImage.name
+    //   data.event_name = event_name; //input
+    //   data.file_data = file_data; //input
+     
+    //   console.log("data json" + data);
+    //   var url;
+    //   if ($('#uploadbutton').text() == "Submit") {
+    //     url = "/api/addevents"
+    //     // console.log("MemberImage"+MemberImage);
+    //   } else {
+
+    //     data.event_id = window.itemid;
+    //     url = "/api/updatevents"
+    //   }
+    //   $.ajax({
+    //     type: 'POST',
+    //     data: JSON.stringify(data), //input data to be sent to the server
+    //     contentType: 'application/json',
+    //     url: url,
+    //     success: function (res) {
+    //       console.log('success');
+    //       console.log(res);
+
+    //       var message = res.message
+    //       var status = res.status
+    //       console.log("Message" + message);
+    //       console.log("status" + status);
+    //       if (status) {
+    //         LoadDataDromDb();
+    //         swal("Success", message, "success");
+    //         clearAll()
+
+    //       }
+    //       else {
+    //         swal("Oops", message, "error");
+
+    //       }
+
+
+    //       $("#demo").html(res);  //summation displayed in the HTML page   
+    //     }
+    //   });
+    // }
+
+
+
+    if (validateForm(event_name, file_data)) {
+
     console.log("event name" + event_name);
     form_data.append("upfile", file_data);
     form_data.append("eventname", event_name);
@@ -33,6 +85,7 @@ $(function () {
         if (status) {
           LoadDataDromDb();
           swal("Success", datas.message, "success");
+          clearAlls();
         }
         else {
 
@@ -44,67 +97,69 @@ $(function () {
         console.log(datass);
       }
     });
+
+    }
+
+
+
   });
 
 
-  $('#sumbitbutton').click(function (e) {
-    e.preventDefault();
-    console.log('Load_button clicked');
+  // $('#sumbitbutton').click(function (e) {
+  //   e.preventDefault();
+  //   console.log('sumbitbutton clicked');
 
-    var data = {};
-
-
-
-    var event_name = $('#name').val();
-    var event_name = $('#name').val();
-    data.event_name = event_name;
-    console.log("event_name" + event_name);
-
-    var url;
-    if ($('#sumbitbutton').text() == "Submit") {
-      url = "/api/addeventtype"
+  //   var data = {};
 
 
 
-    }
-    else {
-      data.event_id = window.itemid;
-      url = "api/updateventtype"
-    }
+  //   var event_name = $('#name').val();
+  //     data.event_name = event_name;
+  //   console.log("event_name" + event_name);
+
+  //   var url;
+  //   if ($('#sumbitbutton').text() == "Submit") {
+  //     url = "/api/addeventtype"
 
 
-    $.ajax({
-      type: 'POST',
-      data: JSON.stringify(data), //input data to be sent to the server
-      contentType: 'application/json',
-      url: url,
-      success: function (res) {
-        console.log('success');
-        console.log(res);
 
-        var message = res.message
-        var status = res.status
-        console.log("Message" + message);
-        console.log("status" + status);
+  //   }
+  //   else {
+  //     data.event_id = window.itemid;
+  //     url = "api/updateventtype"
+  //   }
 
 
-        if (status) {
-          LoadDataDromDb();
-          swal("Success", message, "success");
-          clearAll()
+  //   $.ajax({
+  //     type: 'POST',
+  //     data: JSON.stringify(data), //input data to be sent to the server
+  //     contentType: 'application/json',
+  //     url: url,
+  //     success: function (res) {
+  //       var message = res.message
+  //       var status = res.status
+  //       console.log("Message" + message);
+  //       console.log("status" + status);
+  //       if (status) {
 
-        }
-        else {
-          swal("Oops", message, "error");
+  //         LoadDataDromDb();
+  //         clearAlls();
+  //         swal("Success", message, "success");
+  
+        
 
-        }
+  //       }
+  //       else {
+  //         swal("Oops", message, "error");
+
+  //       }
 
 
-        $("#demo").html(res);  //summation displayed in the HTML page   
-      }
-    });
+  //       $("#demo").html(res);  //summation displayed in the HTML page   
+  //     }
+  //   });
 
-  });
+  // });
 });
 
 var mytable;
@@ -124,12 +179,8 @@ $(document).ready(function () {
       contentType: 'application/json',
       url: 'api/deleteeventtype',
       success: function (res) {
-        console.log('success');
-        console.log(res);
         var message = res.message
         var status = res.status
-        console.log("Message" + message);
-        console.log("status" + status);
         var dataarray = res.data
         if (status) {
 
@@ -167,30 +218,16 @@ $(document).ready(function () {
 
       url: '/api/listeventtypebyid',
       success: function (res) {
-        console.log('success');
-        console.log(res);
+
         var message = res.message
         var status = res.status
-        console.log("Message" + message);
-        console.log("status" + status);
-
         var dataarray = res.data
         if (status) {
-
           LoadDataDromDb();
-
           Updatevalue(res);
-
-
-
         }
         else {
-
-
         }
-
-
-
       }
     });
 
@@ -203,8 +240,6 @@ $(document).ready(function () {
 
 
 function LoadDataDromDb() {
-
-
   $.ajax({
     type: 'POST',
     //input data to be sent to the server
@@ -212,8 +247,7 @@ function LoadDataDromDb() {
 
     url: '/api/listeventtype',
     success: function (res) {
-      console.log('success');
-      console.log(res);
+
 
       var message = res.message
       var status = res.status
@@ -239,12 +273,7 @@ function LoadDataDromDb() {
   });
 
 }
-function clearAll() {
 
-  $('#name').val("");
-
-
-}
 
 function Updatevalue(res) {
 
@@ -253,15 +282,17 @@ function Updatevalue(res) {
   var data = res.data
 
   var name = data[0].event_type_name
-
+  var imagesrc = data[0].event_icon
+  console.log("imagesrc"+imagesrc);
 
 
   $('#sumbitbutton').text("UPDATE");
 
   window.itemid = data[0].type_id
-  console.log("itemid  " + itemid);
+
   $('#name').val(name);
 
+  $("#memberimagesrc").attr("src", imagesrc);
 
 
 }
@@ -299,7 +330,7 @@ function updateDataTable(dataAsJsonArry) {
     ]
 
   });
-  console.log("Reload table");
+
 
 
   mytable.draw();
@@ -331,7 +362,7 @@ function loadDrpdown() {
 
 
 function updateDropdown(res) {
-  console.log("drpp bbvalue" + res);
+
   var arry = res.data;
   var count = arry.length;
   $("#type_id").empty();
@@ -348,11 +379,62 @@ function updateDropdown(res) {
 }
 
 
+function clearAlls() {
+  console.log("clear all")
+
+  $('#name').val("");
+
+  $("#imagefile").fileinput('clear');
+
+}
 
 
 
+function validateForm(event_name, file_data) {
+  var isvaid = true;
+  if (event_name == "") {
+    alerts("event_name is required");
+    isvaid = false;
+    return isvaid;
+  }
+  else if (file_data == "") {
+    alerts("file_data is required");
+    isvaid = false;
+    return isvaid;
+  }
+
+ 
+  else {
+    isvaid = true;
+    return isvaid;
+  }
 
 
 
+}
+
+function alerts(message)
+{
+  Command: toastr["error"](message)
+  
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+
+}
 
 

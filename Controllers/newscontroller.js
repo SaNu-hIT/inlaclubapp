@@ -86,7 +86,10 @@ module.exports.listnewsbyid =
   function (req, res) {
     var codes = req.body.code;
     console.log(codes);
-    var sql =
+    // var sql =
+    //   "SELECT * FROM club_app_news_list WHERE news_id = '" +
+    //   codes + "'";
+      var sql =
       "SELECT * FROM club_app_news_list WHERE news_id = '" +
       codes + "'";
     console.log(sql);

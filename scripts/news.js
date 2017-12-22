@@ -233,7 +233,7 @@ function Updatevalue(res) {
   var news_title = data[0].news_title
   var news_description = data[0].news_description
   var news_date = data[0].news_date
-
+  var Image = data[0].news_date
 
   $('#sumbitbutton').text("UPDATE");
 
@@ -244,6 +244,8 @@ function Updatevalue(res) {
 
   $('#news_description').val(news_description);
   $('#news_date').val(news_date);
+
+  $("#memberimagesrc").attr("src", Image);
 
 
 }
@@ -370,23 +372,23 @@ function validateForm(news_title, news_description, news_date, images) {
   var isvaid = true;
 
   if (news_title == "") {
-    alert("news_title is required");
+    alerts("news_title is required");
     isvaid = false;
     return isvaid;
   }
   else if (news_description == "") {
-    alert("news_description is required");
+    alerts("news_description is required");
     isvaid = false;
     return isvaid;
   }
 
   else if (news_date == "") {
-    alert("news_date is required");
+    alerts("news_date is required");
     isvaid = false;
     return isvaid;
   }
   else if (images.length == 0) {
-    alert("images is required");
+    alerts("images is required");
     isvaid = false;
     return isvaid;
   }
@@ -396,5 +398,30 @@ function validateForm(news_title, news_description, news_date, images) {
   }
 
 
+
+}
+
+
+function alerts(message)
+{
+  Command: toastr["error"](message)
+  
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
 
 }

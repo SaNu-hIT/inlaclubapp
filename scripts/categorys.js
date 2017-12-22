@@ -22,10 +22,9 @@ $(function () {
       url = "/api/updateCategory"
 
 
-
     }
 
-
+    if (validateForm(CategoryName)) {
     $.ajax({
       type: 'POST',
       data: JSON.stringify(data), //input data to be sent to the server
@@ -54,6 +53,9 @@ $(function () {
         $("#demo").html(res);  //summation displayed in the HTML page   
       }
     });
+
+
+   }
 
   });
 
@@ -272,5 +274,52 @@ function updateDataTable(dataAsJsonArry) {
 
 
    mytable.draw();
+
+}
+
+function validateForm(CategoryName) {
+  var isvaid = true;
+  if (CategoryName == "") {
+    alerts("Category Name is required");
+    isvaid = false;
+    return isvaid;
+  }
+  // else if (file_data == "") {
+  //   alerts("file_data is required");
+  //   isvaid = false;
+  //   return isvaid;
+  // }
+
+ 
+  else {
+    isvaid = true;
+    return isvaid;
+  }
+
+
+
+}
+
+function alerts(message)
+{
+  Command: toastr["error"](message)
+  
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
 
 }

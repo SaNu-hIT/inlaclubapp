@@ -22,7 +22,11 @@ $("#MemberImage").fileinput({
     var spauceimagefile = $("#SpouseImage").prop("files")[0];
     var data = new FormData();
     var title = $('#selectBasic option:selected').text()
-    var name = $('#name').val();
+    var names = $('#name').val();
+
+    // console.log(name, "Hello, world!");
+
+
     var mobile_no = $('#mobile_no').val();
     var email = $('#email').val();
     var office_no = $('#office_no').val();
@@ -39,14 +43,24 @@ $("#MemberImage").fileinput({
     var Profession = $('#Profession').val();
     var memberimage = $('#MemberImage_value').val();
     var spouceimage = $('#SpouseImage_value').val();
-    if (validateForm(memberimage, spouceimage, title, name, mobile_no, email, office_no, dob, address,
-      title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession)) {
-      data.append("memberimage", memberimage);
+    // if (validateForm(memberimage, spouceimage, title, name, mobile_no, email, office_no, dob, address,
+    //   title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession)) {
+ 
+    
+      if (validateForm(title, names,mobile_no, email,office_no, dob, address, memberimage,title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage
+        )) {
+
+
+        // name  mobile_no office_no email dob address MemberImage nameOf_spouse spouse_mobileNo spouse_email  spouse_dob 
+        // weeding_date  Profession  ismarried SpouseImage
+      
+        data.append("memberimage", memberimage);
+      
       data.append("spouceimage", spouceimage);
 
-
+      
       data.append("title", title);
-      data.append("name", name);
+      data.append("name", names);
       data.append("mobile_no", mobile_no);
       data.append("email", email);
       data.append("office_no", office_no);
@@ -94,7 +108,12 @@ $("#MemberImage").fileinput({
           if (status) {
             LoadDataDromDb();
             // mytable.ajax.reload();
-            swal("Success", message, "success");
+            // swal("Success", message, "success");
+// alertbox
+
+UpdateChildrenDetails();
+
+
             clearAll()
           }
           else {
@@ -122,6 +141,8 @@ var mytable;
 $(document).ready(function () {
   mytable=null;
   
+  $("#memberimagesrc").hide();
+  $("#spuseimagesrc").hide();
   LoadDataDromDb();
   $(document).on('click', '.btnDelete', function () {
     var id = $(this).attr('data_id');
@@ -313,86 +334,111 @@ function LoadDataDromDb() {
   });
 
 }
-function validateForm(memberimage, spouceimage, title, name, mobile_no, email, office_no, dob, address,
-  title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession) {
+// function validateForm(memberimage, spouceimage,name, title,  mobile_no, email, office_no, dob, address,
+//   title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession) {
+  function validateForm(title, name,mobile_no, email,office_no, dob, address, memberimage,title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage) {
   var isvaid = true;
-  if (memberimage == "") {
-    alert("Memberimage is required");
+  var email_regex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+  var mob_regex = /[2-9]{2}\d{8}/;
+  var name_regex = /^[a-zA-Z]+$/;
+  if (title == ""){
+    alerts("Title is required");
+
+    isvaid =false;
+    return isvaid;
+
+  }
+  else if (!name.match(name_regex) || name.length == 0) {
+    alerts("name is required");
+    isvaid = false;
+    return isvaid;
+  }
+  else if (!mobile_no.match(mob_regex) || mobile_no.length == 0) {
+  // else if (mobile_no == "") {
+    alerts("mobile_no is required");
+    isvaid = false;
+    return isvaid;
+  }
+  else if (!email.match(email_regex) || email.length == 0) {
+  
+    alerts(" Valid email is required");
+    isvaid = false;
+    return isvaid;
+
+  }
+ 
+  else if (memberimage == "") {
+    alerts("Memberimage is required");
+
+    // swal("Good job!", "You clicked the button!", "warning")
+   
     isvaid = false;
     return isvaid;
   }
   else if (spouceimage == "") {
-    alert("spouceimage is required");
+    alerts("spouceimage is required");
     isvaid = false;
     return isvaid;
   }
 
-  else if (name == "") {
-    alert("name is required");
-    isvaid = false;
-    return isvaid;
-  }
-  else if (mobile_no == "") {
-    alert("mobile_no is required");
-    isvaid = false;
-    return isvaid;
-  }
-  else if (email == "") {
-    alert("email is required");
-    isvaid = false;
-    return isvaid;
-  }
+ 
+ 
+  
   else if (office_no == "") {
-    alert("office_no is required");
+    alerts("office_no is required");
     isvaid = false;
     return isvaid;
   }
   else if (dob == "") {
-    alert("dob is required");
+    alerts("dob is required");
     isvaid = false;
     return isvaid;
   }
   else if (address == "") {
-    alert("address is required");
+    alerts("address is required");
     isvaid = false;
     return isvaid;
   }
   else if (title_for_spouse == "") {
-    alert("title_for_spouse is required");
+    alerts("title_for_spouse is required");
     isvaid = false;
     return isvaid;
   }
-  else if (nameOf_spouse == "") {
-    alert("nameOf_spouse is required");
+
+  else if (!nameOf_spouse.match(name_regex) || nameOf_spouse.length == 0) {
+  // else if (nameOf_spouse == "") {
+    alerts("nameOf_spouse is required");
     isvaid = false;
     return isvaid;
   }
-  else if (spouse_mobileNo == "") {
-    alert("spouse_mobileNo is required");
+  else if (!spouse_mobileNo.match(mob_regex) || spouse_mobileNo.length == 0) {
+  // else if (spouse_mobileNo == "") {
+    alerts("spouse_mobileNo is required");
     isvaid = false;
     return isvaid;
   }
-  else if (spouse_email == "") {
-    alert("spouse_email is required");
+  else if (!spouse_email.match(email_regex) || spouse_email.length == 0) {
+  // else if (spouse_email == "") {
+    alerts("spouse_email is required");
     isvaid = false;
     return isvaid;
   }
   else if (spouse_dob == "") {
-    alert("spouse_dob is required");
+    alerts("spouse_dob is required");
     isvaid = false;
     return isvaid;
   }
   else if (weeding_date == "") {
-    alert("weeding_date is required");
+    alerts("weeding_date is required");
     isvaid = false;
     return isvaid;
   } else if (ismarried == "") {
-    alert("ismarried is required");
+    alerts("ismarried is required");
     isvaid = false;
     return isvaid;
   }
   else if (Profession == "") {
-    alert("Profession is required");
+    alerts("Profession is required");
     isvaid = false;
     return isvaid;
   } else {
@@ -402,6 +448,29 @@ function validateForm(memberimage, spouceimage, title, name, mobile_no, email, o
 }
 
 
+function alerts(message)
+{
+  Command: toastr["error"](message)
+  
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+
+}
 
 function clearAll() {
 
@@ -438,6 +507,8 @@ function clearAll() {
   // $ell.unwrap();
   $('#memberimagesrc').attr('src', '');
   $('#spuseimagesrc').attr('src', '');
+  $("#memberimagesrc").hide();
+  $("#spuseimagesrc").hide();
 }
 
 function Updatevalue(res) {
@@ -502,6 +573,8 @@ console.log("MemberImage "+MemberImage);
 console.log("SpouseImage "+SpouseImage);
   $("#memberimagesrc").attr("src", MemberImage);
   $("#spuseimagesrc").attr("src", SpouseImage);
+  $("#memberimagesrc").show();
+  $("#spuseimagesrc").show();
 }
 function updateTable(dataAsJsonArry) {
   //$('#memberDatatable').DataTable().destory();
@@ -566,5 +639,71 @@ function updateTable(dataAsJsonArry) {
     ]
   });
   mytable.draw();
+
+}
+function UpdateChildrenDetails()
+{
+
+
+  swal({
+    title: "Are you want to enter child details",
+    text: "You will not be able to recover this imaginary file!",
+    type: "success",
+    showCancelButton: true,
+    confirmButtonClass: "btn-primary",
+    confirmButtonText: "Yes",
+    cancelButtonText: "No",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  },
+  function(isConfirm) {
+    if (isConfirm) {
+      
+      // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+      swal.close();
+      $("#popup").click();
+    } else {
+      swal("Cancelled", "Your data will be saved", "success");
+    }
+  });
+
+  // swal({
+  //   title: "Member added",
+  //   text: "Do you want to enter child details!",
+  //   type: "success",
+  //   showCancelButton: true,
+  
+  //   confirmButtonClass: "btn-primary",
+    
+  //   confirmButtonText: "Yes, Enter child details",
+  //   closeOnConfirm: false
+  // },
+  // function(){
+  //   swal({
+  //     title: "Enter child details",
+  //     text: "Enter Child Name:",
+  //     type: "input",
+  //     showCancelButton: true,
+  //     closeOnConfirm: false,
+  //     inputPlaceholder: "Enter Child Name",
+  //     inputPlaceholder: "Enter Child Name"
+  
+  
+  
+  
+      
+  //   },
+    
+  //   function (inputValue) {
+  //     if (inputValue === false) return false;
+  //     if (inputValue === "") {
+  //       swal.showInputError("You need to write something!");
+  //       return false
+  //     }
+  //     swal("Nice!", "You wrote: " + inputValue, "success");
+  //   }
+      
+  //   );
+  // });
 
 }

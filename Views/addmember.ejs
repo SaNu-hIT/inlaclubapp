@@ -6,6 +6,7 @@
       <link href="/sweet-alert.css" rel="stylesheet" />
       <script src="/jquery.min.js"></script>
       <script src="/jquery-1.6.2.min.js"></script>
+      <link href="/loading.css" rel="stylesheet" />
       <script src="/member.js"></script>
       <style type="text/css">
          .ml-6 {
@@ -35,19 +36,42 @@
    <% include /base.ejs%>
    <body>
 
+      
+     
+      <!-- Start preloading -->
+     <div id="loading" class="loading-invisible">
+         <div class="loading-center">
+            <div class="loading-center-absolute">
+                 <img class="object"  src="/loading_blue.gif" alt="loading">
+            </div>
+        </div>
+  </div>
+ 
+ 
+  <script type="text/javascript">
+    document.getElementById("loading").className = "loading-visible";
+    var hideDiv = function(){document.getElementById("loading").className = "loading-invisible";};
+    var oldLoad = window.onload;
+    var newLoad = oldLoad ? function(){hideDiv.call(this);oldLoad.call(this);} : hideDiv;
+    window.onload = newLoad;
+  </script>
+
  <div  class="formspacing" >
-        <form>
+        <!-- <form> -->
 
       <div class="widget-body">
-         <!--  <form class="form-horizontal"> -->
+          <!-- <form class="form-horizontal"> -->
          <div class="row">
+
+          <form class="form-horizontal" method="post" action="">
+
             <div class="col-md-6">
                <div class="widget">
                   <div class="widget-heading">
                      <h3 class="widget-title">Member Details</h3>
                   </div>
                   <div class="widget-body">
-                     <!--  <form> -->
+                      <!-- <form> -->
                      <div class="row ml-6">
                         <div class="col-md-5   ">
                            <div class="form-group">
@@ -60,16 +84,18 @@
                               </select>
                            </div>
                         </div>
+                        
                         <div class="col-md-5 col-md-offset-1">
                            <div class="form-group">
                               <label for="textInput">Name</label>
-                              <input id="name" type="text" class="form-control">
+                              <input id="name" type="text" class="form-control"   >
+                              <!-- required  -->
                            </div>
                         </div>
                         <div class="col-md-5">
                            <div class="form-group">
                               <label for="textInput">Mobile No</label>
-                              <input id="mobile_no" type="text" class="form-control">
+                              <input id="mobile_no" type="number" class="form-control">
                            </div>
                         </div>
                         <div class="col-md-5 col-md-offset-1">
@@ -121,16 +147,18 @@
                         <input id="dob" type="text" class="form-control">
                         <input type="text" class="form-control"><span class="input-group-addon"><span class="ti-calendar"></span></span>
                         </div> -->
+                    <!-- </form> -->
                   </div>
                </div>
             </div>
+            
             <div class="col-md-6">
                <div class="widget">
                   <div class="widget-heading">
                      <h3 class="widget-title">Spouce Details</h3>
                   </div>
                   <div class="widget-body">
-                       <form>
+                       <!-- <form> -->
                      <div class="row ml-6">
                         <div class="col-md-5   ">
                            <div class="form-group">
@@ -232,114 +260,76 @@
                      </div>
                      
                    
-                       </form>
+                       
                   </div>
                 </div>
               </div>
               
 
 
-              <div class="row">
-                  <div class="col-md-2">
-                    <div class="form-group">
-                      <label for="txtDirector">Director</label>
-                      <input id="txtDirector" type="text" class="form-control">
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="form-group">
-                      <label for="txtWriter">Writer</label>
-                      <input id="txtWriter" type="text" class="form-control">
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="form-group">
-                      <label for="txtProducer">Producer</label>
-                      <input id="txtProducer" type="text" class="form-control">
-                    </div>
-                  </div>
-
-                  <div class="col-md-2">
-                      <div class="form-group">
-                        <label for="txtProducer">Producer</label>
-                        <input id="txtProducer" type="text" class="form-control">
-                      </div>
-                    </div>
-                    
-                  <div class="col-md-2">
-                      <div class="form-group">
-                        <label for="txtProducer">Producer</label>
-                        <input id="txtProducer" type="text" class="form-control">
-                      </div>
-                    </div>
-                    
-                  <div class="col-md-2">
-                      <div class="form-group">
-                        <label for="txtProducer">Producer</label>
-                        <input id="txtProducer" type="text" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                        <button type="button" id="sumbitbutton"    style="margin-top: 25px" class="btn btn-outline btn-black">Reset</button>
-                     </div>
-</div>
-                </div>
-
+                </form>
 
 
                </div>
             </div>
-         </div>
-      </div>
- 
-         </form>
- 
+
+
+
+
+         
       <div class="widget-body">
-         <table id="memberDatatable" cellspacing="0" width="100%" class="table table-striped table-bordered">
-            <thead>
-               <tr>
-                  <th class="text-center">NO</th>
-                  <!-- <th class="text-center">Title</th> -->
-                  <th class="text-center">MemberImage</th>
-                  <th class="text-center">name</th>
-                  <th class="text-center">Address</th>
-                  <th class="text-center">mobile_no</th>
-                  <th class="text-center">Email</th>
-                  <!-- <th class="text-center">Office No</th> -->
-                  <th class="text-center">Date of Birth</th>
-                  <!-- <th class="text-center">Title For Spouse</th> -->
-                  <th class="text-center">Name Of Spouse</th>
-                  <!-- <th class="text-center">Image Of Spouse</th> -->
-                  <!-- <th class="text-center">Spouse Mobile No</th>
-                  <th class="text-center">Spouse Email</th>
-                  <th class="text-center">Spouse Dob</th>
-                  <th class="text-center">Weeding Date</th> -->
-                  <!-- <th class="text-center">Married</th> -->
-                  <!-- <th class="text-center">Member Image</th> -->
-                  <th class="text-center">Spouse Image</th>
-                  <th class="text-center">Profession</th>
-                  <th class="text-center">Action</th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-                  <td class="text-center">Admin</td>
-                  <td class="text-center">System</td>
-                  <td class="text-center">
-                     <div role="group" aria-label="Basic example" class="btn-group btn-group-sm">
-                        <button type="button" class="btn btn-outline btn-primary"><i class="ti-eye"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline btn-success"><i class="ti-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline btn-danger"><i class="ti-trash"></i>
-                        </button>
-                     </div>
-                  </td>
-               </tr>
-            </tbody>
-         </table>
-      </div>
+        <table id="memberDatatable" cellspacing="0" width="100%" class="table table-striped table-bordered">
+           <thead>
+              <tr>
+                 <th class="text-center">NO</th>
+                 <!-- <th class="text-center">Title</th> -->
+                 <th class="text-center">MemberImage</th>
+                 <th class="text-center">name</th>
+                 <th class="text-center">Address</th>
+                 <th class="text-center">mobile_no</th>
+                 <th class="text-center">Email</th>
+                 <!-- <th class="text-center">Office No</th> -->
+                 <th class="text-center">Date of Birth</th>
+                 <!-- <th class="text-center">Title For Spouse</th> -->
+                 <th class="text-center">Name Of Spouse</th>
+                 <!-- <th class="text-center">Image Of Spouse</th> -->
+                 <!-- <th class="text-center">Spouse Mobile No</th>
+                 <th class="text-center">Spouse Email</th>
+                 <th class="text-center">Spouse Dob</th>
+                 <th class="text-center">Weeding Date</th> -->
+                 <!-- <th class="text-center">Married</th> -->
+                 <!-- <th class="text-center">Member Image</th> -->
+                 <th class="text-center">Spouse Image</th>
+                 <th class="text-center">Profession</th>
+                 <th class="text-center">Action</th>
+              </tr>
+           </thead>
+           <tbody>
+              <tr>
+                 <td class="text-center">Admin</td>
+                 <td class="text-center">System</td>
+                 <td class="text-center">
+                    <div role="group" aria-label="Basic example" class="btn-group btn-group-sm">
+                       <button type="button" class="btn btn-outline btn-primary"><i class="ti-eye"></i>
+                       </button>
+                       <button type="button" class="btn btn-outline btn-success"><i class="ti-pencil"></i>
+                       </button>
+                       <button type="button" class="btn btn-outline btn-danger"><i class="ti-trash"></i>
+                       </button>
+                    </div>
+                 </td>
+              </tr>
+           </tbody>
+        </table>
+     </div>
+
+
+
+         </div>   <!-- formspacing -->
+      <!-- </div> -->
+ 
+         <!-- </form> -->
+ 
       </div>
       </div>
       </div>
@@ -348,5 +338,35 @@
    
 
 </div>
+
+<!-- <button type="button" id="popup" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+
    </body>
 </html>

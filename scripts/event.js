@@ -4,10 +4,8 @@ $(function () {
     e.preventDefault();
     console.log('Load_button clicked');
 
-
-
     var data = {};
-    var type_id = $('#type_id option:selected').val()
+    var type_id = $('#type_id option:selected').val();
     // var type_id = e.options[e.selectedIndex].value;
     var event_title = $('#event_title').val();
     var event_description = $('#event_description').val();
@@ -61,6 +59,8 @@ $(function () {
         }
       });
     }
+
+    
   });
 
 
@@ -357,33 +357,33 @@ var event_venue = $('#event_venue').val();
 function validateForm(type_id, event_title, event_description, event_date, event_time, event_venue) {
   var isvaid = true;
   if (type_id == "") {
-    alert("type_id is required");
+    alerts("type_id is required");
     isvaid = false;
     return isvaid;
   }
   else if (event_title == "") {
-    alert("event_title is required");
+    alerts("event_title is required");
     isvaid = false;
     return isvaid;
   }
 
   else if (event_description == "") {
-    alert("event_description is required");
+    alerts("event_description is required");
     isvaid = false;
     return isvaid;
   }
   else if (event_date == "") {
-    alert("event_date is required");
+    alerts("event_date is required");
     isvaid = false;
     return isvaid;
   }
   else if (event_time == "") {
-    alert("event_time is required");
+    alerts("event_time is required");
     isvaid = false;
     return isvaid;
   }
   else if (event_venue == "") {
-    alert("event_venue is required");
+    alerts("event_venue is required");
     isvaid = false;
     return isvaid;
   }
@@ -396,3 +396,26 @@ function validateForm(type_id, event_title, event_description, event_date, event
 
 }
 
+function alerts(message)
+{
+  Command: toastr["error"](message)
+  
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+
+}

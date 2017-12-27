@@ -6,15 +6,15 @@ $(function () {
     showUpload: false,
     showClose: true,
     hideThumbnailContent: false // hide image, pdf, text or other content in the thumbnail preview
-});
+  });
 
-$("#MemberImage").fileinput({
-  theme: "gly",
-  showRemove: false,
-  showUpload: false,
-  showClose: true,
-  hideThumbnailContent: false // hide image, pdf, text or other content in the thumbnail preview
-});
+  $("#MemberImage").fileinput({
+    theme: "gly",
+    showRemove: false,
+    showUpload: false,
+    showClose: true,
+    hideThumbnailContent: false // hide image, pdf, text or other content in the thumbnail preview
+  });
   $('#sumbitbutton').click(function (e) {
     e.preventDefault();
     console.log('Load_button clicked');
@@ -45,20 +45,20 @@ $("#MemberImage").fileinput({
     var spouceimage = $('#SpouseImage_value').val();
     // if (validateForm(memberimage, spouceimage, title, name, mobile_no, email, office_no, dob, address,
     //   title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession)) {
- 
-    
-      if (validateForm(title, names,mobile_no, email,office_no, dob, address, memberimage,title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage
-        )) {
 
 
-        // name  mobile_no office_no email dob address MemberImage nameOf_spouse spouse_mobileNo spouse_email  spouse_dob 
-        // weeding_date  Profession  ismarried SpouseImage
-      
-        data.append("memberimage", memberimage);
-      
+    if (validateForm(title, names, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage
+    )) {
+
+
+      // name  mobile_no office_no email dob address MemberImage nameOf_spouse spouse_mobileNo spouse_email  spouse_dob 
+      // weeding_date  Profession  ismarried SpouseImage
+
+      data.append("memberimage", memberimage);
+
       data.append("spouceimage", spouceimage);
 
-      
+
       data.append("title", title);
       data.append("name", names);
       data.append("mobile_no", mobile_no);
@@ -106,12 +106,15 @@ $("#MemberImage").fileinput({
           console.log("Message" + message);
           console.log("status" + status);
           if (status) {
+
+            window.lastid = res.lastid;
             LoadDataDromDb();
             // mytable.ajax.reload();
             // swal("Success", message, "success");
-// alertbox
+            // alertbox
+            console.log("lasy id"+res.lastid);
 
-UpdateChildrenDetails();
+            UpdateChildrenDetails("Saved","Do you want to add  children details");
 
 
             clearAll()
@@ -139,8 +142,27 @@ UpdateChildrenDetails();
 var mytable;
 
 $(document).ready(function () {
-  mytable=null;
-  
+  mytable = null;
+
+
+  // $('#name').val("Saneesh test");
+  // $('#mobile_no').val("8086479017");
+  // $('#email').val("sanufeliz@gmail.com");
+  // $('#office_no').val("8086479017");
+  // $('#dob').val("2018-01-02");
+  // $('#address').val("varakil h kulapparachal");
+  // // $('#title_for_spouse option:selected').text()
+  // $('#nameOf_spouse').val("New spouse");
+  // $('#spouse_mobileNo').val("8086479017");
+  // $('#spouse_email').val("sanufeliz@gmail.com");
+  // $('#spouse_dob').val("2018-01-02");
+  // $('#weeding_date').val("2018-01-02");
+  // $('#ismarried').val("yes");
+
+  // $('#Profession').val("admoin");
+
+
+
   $("#memberimagesrc").hide();
   $("#spuseimagesrc").hide();
   LoadDataDromDb();
@@ -165,6 +187,7 @@ $(document).ready(function () {
         if (status) {
 
           LoadDataDromDb();
+     
           swal("Success", message, "success");
         }
         else {
@@ -219,6 +242,27 @@ $(document).ready(function () {
     // }
     uploadData(file, "spo")
   });
+
+
+  $("#childimage").change(function () {
+    // alert($(this).val());
+    var file = $("#childimage").prop("files")[0];
+    // // $("#file_data").attr("src", file_data);
+    // var reader = new FileReader();
+    // var preview = document.getElementById('spuseimagesrc');
+    // //var preview = document.querySelector('img');
+    // var reader = new FileReader();
+    // reader.addEventListener("load", function () {
+    //   preview.src = reader.result;
+    // }, false);
+    // if (file) {
+    //   reader.readAsDataURL(file);
+    // }
+    uploadData(file, "chi")
+  });
+
+
+
   $(document).on('click', '.btnEdit', function () {
     var id = $(this).attr('data_id');
     console.log(id);
@@ -260,11 +304,155 @@ $(document).ready(function () {
 
 
   });
+  $(document).on('click', '#sumbitbuttonchild', function () {
+    // child_title child_name  child_mobile_no  child_email  child_office_no  child_dob
+    // e.preventDefault();
+    console.log("submitchilc");
+    var data = new FormData();
+    var child_title = $('#child_title').val();
+    var child_name = $('#child_name').val();
+    var child_email = $('#child_email').val();
+    var child_mobile_no = $('#child_mobile_no').val();
+    var child_office_no = $('#child_office_no').val();
+    var child_dob = $('#child_dob').val();
+
+    var childimage_value = $('#childimage_value').val();
+
+        var ids = window.lastid;
+    if (validateFormchild(child_title, child_name, child_mobile_no, child_email, child_office_no, child_dob, childimage_value,ids)) {
+
+      data.append("child_title", child_title);
+      data.append("child_name", child_name);
+      data.append("child_mobile_no", child_mobile_no);
+      data.append("child_email", child_email);
+      data.append("child_office_no", child_office_no);
+      data.append("child_dob", child_dob);
+      data.append("childimage_value", childimage_value);
+      data.append("cid", ids);
+
+
+
+      var url;
+      // if ($('#sumbitbuttonchild').text() == "Submit") {
+      url = "/api/addChild"
+      console.log("child");
+      // } else {
+
+      //   var cid = window.itemid;
+      //   console.log("cid", cid);
+      //   data.append("cid", cid);
+
+      //   url = "/api/updatemember"
+
+
+
+      // }
+      jQuery.ajax({
+        type: 'POST',
+        data: data, //input data to be sent to the server
+        cache: true,
+        contentType: false,
+        processData: false,
+        type: 'post',
+        url: url,
+        success: function (res) {
+          var message = res.message
+          var status = res.status
+          console.log("Message" + message);
+          console.log("status" + status);
+          if (status) {
+            // LoadDataDromDb();
+            // mytable.ajax.reload();
+            clearModel();
+            swal("Success", message, "success");
+            // alertbox
+           
+
+            // UpdateChildrenDetails("Saved","Do you want to add another child details");
+
+
+
+          
+          }
+          else {
+            swal("Oops", message, "error");
+          }
+
+
+          $("#demo").html(res);  //summation displayed in the HTML page   
+        }
+      });
+    }
+    else {
+
+      console.log("Hey lo cancel");
+    }
+
+
+
+
+
+    // var id = $(this).attr('data_id');
+    // console.log(id);
+    // var data = {};
+    // data.code = id; //input
+    // jQuery.ajax({
+    //   type: 'POST',
+    //   data: JSON.stringify(data),
+    //   contentType: 'application/json',
+    //   url: '/api/listMemberbyid',
+    //   success: function (res) {
+    //     console.log('success');
+    //     console.log(res);
+    //     var message = res.message
+    //     var status = res.status
+    //     console.log("Message" + message);
+    //     console.log("status" + status);
+
+    //     var dataarray = res.data
+    //     if (status) {
+
+    //       // LoadDataDromDb();
+
+    //       Updatevalue(res);
+
+
+
+    //     }
+    //     else {
+
+
+    //     }
+
+
+
+    //   }
+    // });
+
+
+
+  });
 
 
 });
 
 
+function
+clearModel() {
+
+  $('#child_title').val("");
+  $('#child_name').val("");
+  $('#child_email').val("");
+  $('#child_mobile_no').val("");
+  $('#child_office_no').val("");
+  $('#child_dob').val("");
+
+  $('#childimage_value').val("");
+  $("#childimage").fileinput('clear');
+  
+
+
+}
 
 function uploadData(file_data, detail) {
   var imagedata;
@@ -295,13 +483,19 @@ function uploadData(file_data, detail) {
 
           // MemberImage_value
         }
-        else {
+        else if (detail == "spo") {
 
-         spouceimage = img;
+          spouceimage = img;
           $('#SpouseImage_value').val(spouceimage);
           console.log("spouceimage image in upload" + spouceimage);
 
         }
+        else {
+          childimage = img;
+          $('#childimage_value').val(childimage);
+          console.log("chil imahe  image in upload" + childimage);
+        }
+
       }
       else {
 
@@ -334,44 +528,103 @@ function LoadDataDromDb() {
   });
 
 }
-// function validateForm(memberimage, spouceimage,name, title,  mobile_no, email, office_no, dob, address,
-//   title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession) {
-  function validateForm(title, name,mobile_no, email,office_no, dob, address, memberimage,title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage) {
+function validateFormchild(child_title, child_name, child_mobile_no, child_email, child_office_no, child_dob, childimage_value,ids) {
   var isvaid = true;
   var email_regex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
   var mob_regex = /[2-9]{2}\d{8}/;
   var name_regex = /^[a-zA-Z]+$/;
-  if (title == ""){
+
+  if (child_title == "") {
     alerts("Title is required");
 
-    isvaid =false;
+    isvaid = false;
     return isvaid;
 
   }
-  else if (!name.match(name_regex) || name.length == 0) {
+  else if (!child_name.match(name_regex) || child_name.length == 0) {
     alerts("name is required");
     isvaid = false;
     return isvaid;
   }
-  else if (!mobile_no.match(mob_regex) || mobile_no.length == 0) {
-  // else if (mobile_no == "") {
-    alerts("mobile_no is required");
+  else if (!child_mobile_no.match(mob_regex) || child_mobile_no.length == 0) {
+    // else if (mobile_no == "") {
+    alerts("child mobile no is required");
     isvaid = false;
     return isvaid;
   }
-  else if (!email.match(email_regex) || email.length == 0) {
-  
+  else if (!child_email.match(email_regex) || child_email.length == 0) {
+
     alerts(" Valid email is required");
     isvaid = false;
     return isvaid;
 
   }
- 
+  else if (child_office_no == "") {
+    alerts("Office number is required");
+    isvaid = false;
+    return isvaid;
+  }
+  else if (child_dob == "") {
+    alerts("Dob is required");
+    isvaid = false;
+    return isvaid;
+  }
+  else if (childimage_value == "") {
+    alerts("Childimage is required");
+    isvaid = false;
+    return isvaid;
+  }
+  else if (ids == "") {
+    alerts("id is required");
+    isvaid = false;
+    return isvaid;
+  }
+  else {
+    isvaid = true;
+    return isvaid;
+  }
+
+}
+
+
+// function validateForm(memberimage, spouceimage,name, title,  mobile_no, email, office_no, dob, address,
+//   title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession) {
+function validateForm(title, name, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage) {
+  var isvaid = true;
+  var email_regex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+  var mob_regex = /[2-9]{2}\d{8}/;
+  var name_regex = /^[a-zA-Z]+$/;
+  if (title == "") {
+    alerts("Title is required");
+
+    isvaid = false;
+    return isvaid;
+
+  }
+  else if (name.length == 0) {
+    alerts("name is required");
+    isvaid = false;
+    return isvaid;
+  }
+  else if (mobile_no.length == 0) {
+    // else if (mobile_no == "") {
+    alerts("mobile no is required");
+    isvaid = false;
+    return isvaid;
+  }
+  else if (!email.match(email_regex) || email.length == 0) {
+
+    alerts(" Valid email is required");
+    isvaid = false;
+    return isvaid;
+
+  }
+
   else if (memberimage == "") {
     alerts("Memberimage is required");
 
     // swal("Good job!", "You clicked the button!", "warning")
-   
+
     isvaid = false;
     return isvaid;
   }
@@ -381,9 +634,9 @@ function LoadDataDromDb() {
     return isvaid;
   }
 
- 
- 
-  
+
+
+
   else if (office_no == "") {
     alerts("office_no is required");
     isvaid = false;
@@ -405,20 +658,20 @@ function LoadDataDromDb() {
     return isvaid;
   }
 
-  else if (!nameOf_spouse.match(name_regex) || nameOf_spouse.length == 0) {
-  // else if (nameOf_spouse == "") {
-    alerts("nameOf_spouse is required");
+  else if (nameOf_spouse.length == 0) {
+    // else if (nameOf_spouse == "") {
+    alerts("nameOf spouse is required");
     isvaid = false;
     return isvaid;
   }
-  else if (!spouse_mobileNo.match(mob_regex) || spouse_mobileNo.length == 0) {
-  // else if (spouse_mobileNo == "") {
+  else if (spouse_mobileNo.length == 0) {
+    // else if (spouse_mobileNo == "") {
     alerts("spouse_mobileNo is required");
     isvaid = false;
     return isvaid;
   }
   else if (!spouse_email.match(email_regex) || spouse_email.length == 0) {
-  // else if (spouse_email == "") {
+    // else if (spouse_email == "") {
     alerts("spouse_email is required");
     isvaid = false;
     return isvaid;
@@ -448,10 +701,9 @@ function LoadDataDromDb() {
 }
 
 
-function alerts(message)
-{
+function alerts(message) {
   Command: toastr["error"](message)
-  
+
   toastr.options = {
     "closeButton": false,
     "debug": false,
@@ -569,8 +821,8 @@ function Updatevalue(res) {
   // $('#MemberImage').val(MemberImage);
   // $('#SpouseImage').val(SpouseImage);
 
-console.log("MemberImage "+MemberImage);
-console.log("SpouseImage "+SpouseImage);
+  console.log("MemberImage " + MemberImage);
+  console.log("SpouseImage " + SpouseImage);
   $("#memberimagesrc").attr("src", MemberImage);
   $("#spuseimagesrc").attr("src", SpouseImage);
   $("#memberimagesrc").show();
@@ -578,9 +830,9 @@ console.log("SpouseImage "+SpouseImage);
 }
 function updateTable(dataAsJsonArry) {
   //$('#memberDatatable').DataTable().destory();
-  if(mytable)
-     mytable.destroy();
-   mytable = $('#memberDatatable').DataTable({
+  if (mytable)
+    mytable.destroy();
+  mytable = $('#memberDatatable').DataTable({
     destory: true,
     "scrollX": true,
     destory: true,
@@ -597,10 +849,10 @@ function updateTable(dataAsJsonArry) {
       // { data: "MemberImage"},
       {
         "render": function (data, type, JsonResultRow, meta) {
-          var image=JsonResultRow.MemberImage;
-            return '<img src="'+image+'" alt="" class="img-thumbnail img-responsive imagefit">';
+          var image = JsonResultRow.MemberImage;
+          return '<img src="' + image + '" alt="" class="img-thumbnail img-responsive imagefit">';
         }
-    },
+      },
       { data: "name" },
       { data: "address" },
       { data: "mobile_no" },
@@ -613,10 +865,10 @@ function updateTable(dataAsJsonArry) {
       // { data: "SpouseImage"},
       {
         "render": function (data, type, JsonResultRow, meta) {
-          var image=JsonResultRow.SpouseImage;
-          return '<img src="'+image+'" alt="" class="img-thumbnail img-responsive">';
+          var image = JsonResultRow.SpouseImage;
+          return '<img src="' + image + '" alt="" class="img-thumbnail img-responsive">';
         }
-    },
+      },
 
       // { data: "spouse_mobileNo" },
 
@@ -641,13 +893,12 @@ function updateTable(dataAsJsonArry) {
   mytable.draw();
 
 }
-function UpdateChildrenDetails()
-{
+function UpdateChildrenDetails(tittle,texts) {
 
 
   swal({
-    title: "Are you want to enter child details",
-    text: "You will not be able to recover this imaginary file!",
+    title: tittle,
+    text: texts,
     type: "success",
     showCancelButton: true,
     confirmButtonClass: "btn-primary",
@@ -656,25 +907,27 @@ function UpdateChildrenDetails()
     closeOnConfirm: false,
     closeOnCancel: false
   },
-  function(isConfirm) {
-    if (isConfirm) {
-      
-      // swal("Deleted!", "Your imaginary file has been deleted.", "success");
-      swal.close();
-      $("#popup").click();
-    } else {
-      swal("Cancelled", "Your data will be saved", "success");
-    }
-  });
+    function (isConfirm) {
+      if (isConfirm) {
+
+        // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+
+        $("#popup").click();
+        swal.close();
+
+      } else {
+        swal("Cancelled", "Your data will be saved", "success");
+      }
+    });
 
   // swal({
   //   title: "Member added",
   //   text: "Do you want to enter child details!",
   //   type: "success",
   //   showCancelButton: true,
-  
+
   //   confirmButtonClass: "btn-primary",
-    
+
   //   confirmButtonText: "Yes, Enter child details",
   //   closeOnConfirm: false
   // },
@@ -687,13 +940,13 @@ function UpdateChildrenDetails()
   //     closeOnConfirm: false,
   //     inputPlaceholder: "Enter Child Name",
   //     inputPlaceholder: "Enter Child Name"
-  
-  
-  
-  
-      
+
+
+
+
+
   //   },
-    
+
   //   function (inputValue) {
   //     if (inputValue === false) return false;
   //     if (inputValue === "") {
@@ -702,7 +955,7 @@ function UpdateChildrenDetails()
   //     }
   //     swal("Nice!", "You wrote: " + inputValue, "success");
   //   }
-      
+
   //   );
   // });
 

@@ -97,6 +97,9 @@ app.post('/api/listCategorybyid', addcategory_controller.listCategorybyid);
 app.post('/api/updateCategory', addcategory_controller.updateCategory);
 app.post('/api/deleteCategory', addcategory_controller.deletecategory);
 app.post('/api/addmember', memberscontroller.addmember);
+app.post('/api/addChild', memberscontroller.addChild);
+
+
 app.post('/api/updatemember', memberscontroller.updateMember);
 app.post('/api/listMembers', memberscontroller.listMembers);
 

@@ -198,7 +198,7 @@ module.exports.uploadimagenews = function (req, res) {
       type = file.mimetype;
     news_id = req.body.news_id;
 
-    uploadpath = './uploads/' + name;
+    uploadpath = 'https://inlaclubapp.herokuapp.com/uploads/' + name;
 
     file.mv(uploadpath, function (err) {
       if (err) {

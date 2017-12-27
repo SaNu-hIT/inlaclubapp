@@ -34,6 +34,49 @@ module.exports.addmember = function(req, res) {
         } else {
             res.json({
                 status: true,
+                lastid: result.insertId,
+                message: "Successfully saved"
+            })
+        }
+    });
+
+}
+
+
+
+module.exports.addChild = function(req, res) {
+
+
+
+    var cid = req.body.cid; //input
+    var title = req.body.child_title; //input
+    var name = req.body.child_name; //input
+    var mobile_no = req.body.child_mobile_no; //input
+    var email = req.body.child_email; //input
+    var office_no = req.body.child_office_no; //input
+    var dob = req.body.child_dob; //input
+ 
+    var childimage_value = req.body.childimage_value; //input
+   
+   console.log("childimage_value"+childimage_value);
+
+
+
+
+   
+    var sql = "INSERT INTO `club_app_children_contact_info`( `cid`, `title`, `name`, `mobile_no`,`email`, `office_no`, `dob`, `imageUrl`) VALUES ('" + cid + "','" + title + "','" + name +
+     "','" + mobile_no + "','" + email + "','" + office_no + "','" + dob + "','" + childimage_value +"');"
+     console.log("SQL",sql);
+     connection.query(sql, function(err, result) {
+        console.log(err);
+        if (err) {
+            res.json({
+                status: false,
+                message: "Api error please report to admin"
+            })
+        } else {
+            res.json({
+                status: true,
                 message: "Successfully saved"
             })
         }

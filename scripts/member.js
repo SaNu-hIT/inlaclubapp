@@ -39,7 +39,7 @@ $(function () {
     var spouse_email = $('#spouse_email').val();
     var spouse_dob = $('#spouse_dob').val();
     var weeding_date = $('#weeding_date').val();
-    var ismarried = $('#ismarried').val();
+    // var ismarried = $('#ismarried').val();
     var Profession = $('#Profession').val();
     var memberimage = $('#MemberImage_value').val();
     var spouceimage = $('#SpouseImage_value').val();
@@ -144,6 +144,21 @@ var mytable;
 $(document).ready(function () {
   mytable = null;
 
+
+  $("#maritalstatus_1").click( function()
+  {
+      // $("#maritalstatus_1").attr("checked","checked");
+      ismarried="YES";
+      console.log("YES");
+
+
+  });
+  $("#maritalstatus_2").click( function()
+  {
+      // $("#maritalstatus_2").attr("checked","checked");
+      ismarried="NO";
+      console.log("NO");
+  });
 
   // $('#name').val("Saneesh test");
   // $('#mobile_no').val("8086479017");
@@ -745,7 +760,7 @@ function clearAll() {
   $('#spouse_email').val("");
   $('#spouse_dob').val("");
   $('#weeding_date').val("");
-  $('#ismarried').val("");
+  // $('#ismarried').val("");
   $('#MemberImage_value').val("");
   $('#SpouseImage_value').val("");
   $('#Profession').val("");
@@ -850,6 +865,7 @@ function updateTable(dataAsJsonArry) {
       {
         "render": function (data, type, JsonResultRow, meta) {
           var image = JsonResultRow.MemberImage;
+          console.log("IMAGE"+image);
           return '<img src="' + image + '" alt="" class="img-thumbnail img-responsive imagefit">';
         }
       },
@@ -866,6 +882,7 @@ function updateTable(dataAsJsonArry) {
       {
         "render": function (data, type, JsonResultRow, meta) {
           var image = JsonResultRow.SpouseImage;
+          console.log("IMAGE"+image);
           return '<img src="' + image + '" alt="" class="img-thumbnail img-responsive">';
         }
       },

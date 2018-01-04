@@ -490,7 +490,9 @@ function uploadData(file_data, detail) {
 
 
         if (detail == "mem") {
-          memberimage = img;
+
+          var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
+          memberimage = paathwithdata;
 
           console.log("membar image in upload " + memberimage);
           $('#MemberImage_value').val(memberimage);
@@ -499,14 +501,15 @@ function uploadData(file_data, detail) {
           // MemberImage_value
         }
         else if (detail == "spo") {
-
-          spouceimage = img;
+          var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
+          spouceimage = paathwithdata;
           $('#SpouseImage_value').val(spouceimage);
           console.log("spouceimage image in upload" + spouceimage);
 
         }
         else {
-          childimage = img;
+          var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
+          childimage = paathwithdata;
           $('#childimage_value').val(childimage);
           console.log("chil imahe  image in upload" + childimage);
         }

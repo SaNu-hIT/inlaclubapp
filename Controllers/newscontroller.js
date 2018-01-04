@@ -209,7 +209,7 @@ module.exports.uploadimagenews = function (req, res) {
         })
       }
       else {
-var paathwithdata='https://inlaclubapp.herokuapp.com/uploads/'+name
+var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+name
 
         var sql = "INSERT INTO `club_app_news_image_list`(`news_id`,`news_imageurl`) VALUES ('" + news_id + "','" + paathwithdata + "')"
         connection.query(sql, function (err, result) {

@@ -1,16 +1,14 @@
-
-
 var mysql = require('mysql');
 var pool  = mysql.createPool({
-  host: "mysql7001.site4now.net",
-      user: "a2fe2e_connect",
-      password: "Loveyou123",
-      database: "db_a2fe2e_connect",
+  // host: "mysql7001.site4now.net",
+  //     user: "a2fe2e_connect",
+  //     password: "Loveyou123",
+  //     database: "db_a2fe2e_connect",
 
-    //   host: "localhost",
-    // user: "root",
-    // password: "",
-    // database: "connectedapp"
+      host: "localhost",
+    user: "root",
+    password: "",
+    database: "connectedapp"
 
 });
 

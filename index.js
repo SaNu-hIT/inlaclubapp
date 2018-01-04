@@ -18,8 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/Public'));
 app.use(express.static(__dirname + '/scripts'));
-app.use(express.static(__dirname + '/uploads'));
-
+// app.use('/uploads', express.static('/uploads'))
+// app.use(express.static(__dirname + '/uploads'));
+// app.use(express.static('./uploads'));
+app.use('/static', express.static('uploads'))
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/Views');
 app.engine('html', require('ejs').renderFile);

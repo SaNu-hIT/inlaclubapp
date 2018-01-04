@@ -174,8 +174,10 @@ module.exports.uploadimagebase = function (req, res) {
       name = file.name,
       type = file.mimetype;
 
-    uploadpath = name;
+
     console.log("uploadpath" + uploadpath);
+
+    uploadpath = './uploads/' + name;
 
     file.mv(uploadpath, function (err) {
       if (err) {

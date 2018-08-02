@@ -205,7 +205,7 @@ function LoadDataDromDb() {
 }
 function clearAll() {
 
-  $('#type_id option:selected').val(0).change();
+  $('#type_id option:selected').val(-1);
   $('#event_title').val("");
   $('#event_description').val("");
   $('#event_date').val("");

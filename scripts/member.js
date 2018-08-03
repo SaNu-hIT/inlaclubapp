@@ -1,5 +1,9 @@
 
 $(function () {
+var ismarredflag=false;
+var ismarried="NO";
+var isedit=false;
+
   $("#SpouseImage").fileinput({
     theme: "gly",
     showRemove: false,
@@ -15,18 +19,22 @@ $(function () {
     showClose: true,
     hideThumbnailContent: false // hide image, pdf, text or other content in the thumbnail preview
   });
+
+
+
+
+
+ 
+
+
   $('#sumbitbutton').click(function (e) {
     e.preventDefault();
-    console.log('Load_button clicked');
+    console.log('sumbitbutton clicked');
     var MemberImagefile = $("#MemberImage").prop("files")[0];
     var spauceimagefile = $("#SpouseImage").prop("files")[0];
     var data = new FormData();
-    var title = $('#selectBasic option:selected').text()
+    var title = $('#title_for option:selected').text()
     var names = $('#name').val();
-
-    // console.log(name, "Hello, world!");
-
-
     var mobile_no = $('#mobile_no').val();
     var email = $('#email').val();
     var office_no = $('#office_no').val();
@@ -39,20 +47,15 @@ $(function () {
     var spouse_email = $('#spouse_email').val();
     var spouse_dob = $('#spouse_dob').val();
     var weeding_date = $('#weeding_date').val();
-    // var ismarried = $('#ismarried').val();
+
+  
+    var ismarrieds = ismarried;
     var Profession = $('#Profession').val();
     var memberimage = $('#MemberImage_value').val();
     var spouceimage = $('#SpouseImage_value').val();
-    // if (validateForm(memberimage, spouceimage, title, name, mobile_no, email, office_no, dob, address,
-    //   title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession)) {
+    if (validateForm(title, names, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarrieds, Profession, spouceimage
+    ,ismarredflag)) {
 
-
-    if (validateForm(title, names, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage
-    )) {
-
-
-      // name  mobile_no office_no email dob address MemberImage nameOf_spouse spouse_mobileNo spouse_email  spouse_dob 
-      // weeding_date  Profession  ismarried SpouseImage
 
       data.append("memberimage", memberimage);
 
@@ -142,8 +145,48 @@ $(function () {
 var mytable;
 
 $(document).ready(function () {
+
+
   mytable = null;
 
+$("#maritalstatus_2").prop('checked', true);
+
+  $("#married_div").hide();
+  
+
+  $("#memberimagesrc").hide();
+  $("#spuseimagesrc").hide();
+
+
+$("#maritalstatus_1").on('click change', function() {
+  console.log("checked")
+   
+if($(this).prop("checked")) {
+
+  console.log("show div")
+  $("#married_div").show();
+  ismarredflag=true;
+      }
+      
+      
+
+
+
+});
+
+
+$("#maritalstatus_2").on('click change', function() {
+   
+if($(this).prop("checked")) {
+    $("#married_div").hide();
+     ismarredflag=false;
+      }
+   
+     
+
+
+
+});
 
   $("#maritalstatus_1").click( function()
   {
@@ -160,33 +203,33 @@ $(document).ready(function () {
       console.log("NO");
   });
 
-  // $('#name').val("Saneesh test");
-  // $('#mobile_no').val("8086479017");
-  // $('#email').val("sanufeliz@gmail.com");
-  // $('#office_no').val("8086479017");
-  // $('#dob').val("2018-01-02");
-  // $('#address').val("varakil h kulapparachal");
-  // // $('#title_for_spouse option:selected').text()
-  // $('#nameOf_spouse').val("New spouse");
-  // $('#spouse_mobileNo').val("8086479017");
-  // $('#spouse_email').val("sanufeliz@gmail.com");
-  // $('#spouse_dob').val("2018-01-02");
-  // $('#weeding_date').val("2018-01-02");
-  // $('#ismarried').val("yes");
-
-  // $('#Profession').val("admoin");
 
 
-
-  $("#memberimagesrc").hide();
-  $("#spuseimagesrc").hide();
   LoadDataDromDb();
   $(document).on('click', '.btnDelete', function () {
     var id = $(this).attr('data_id');
     console.log(id);
     var data = {};
     data.code = id; //input
-    jQuery.ajax({
+
+
+
+
+swal({
+    title: "Are you sure?",
+    text: "You will not be able to recover this member !",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#DD6B55',
+    confirmButtonText: 'Yes, I am sure!',
+    cancelButtonText: "No, cancel it!",
+    closeOnConfirm: false,
+    closeOnCancel: false
+ },
+ function(isConfirm){
+
+   if (isConfirm){
+  jQuery.ajax({
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
@@ -214,71 +257,47 @@ $(document).ready(function () {
     });
 
 
+    } else {
+      swal("Cancelled", "Click ok to close");
+         e.preventDefault();
+    }
+ });
+
+
+
+
+
 
   });
 
 
 
   $("#MemberImage").change(function () {
-    // alert($(this).val());
+   
     var file = $("#MemberImage").prop("files")[0];
-    // var file    = document.querySelector('input[type=file]').files[0];
-    // var reader = new FileReader();
-
-    // var preview = document.getElementById('memberimagesrc.spuseimagesrc');
-    // //var preview = document.querySelector('img');
-
-    // var reader = new FileReader();
-
-    // reader.addEventListener("load", function () {
-    //   preview.src = reader.result;
-    // }, false);
-
-    // if (file) {
-    //   reader.readAsDataURL(file);
-    // }
-    // $("#memberimagesrc").attr("src", file_data);
+    
     uploadData(file, "mem")
 
   });
   $("#SpouseImage").change(function () {
-    // alert($(this).val());
+   
     var file = $("#SpouseImage").prop("files")[0];
-    // // $("#file_data").attr("src", file_data);
-    // var reader = new FileReader();
-    // var preview = document.getElementById('spuseimagesrc');
-    // //var preview = document.querySelector('img');
-    // var reader = new FileReader();
-    // reader.addEventListener("load", function () {
-    //   preview.src = reader.result;
-    // }, false);
-    // if (file) {
-    //   reader.readAsDataURL(file);
-    // }
+   
     uploadData(file, "spo")
   });
 
 
   $("#childimage").change(function () {
-    // alert($(this).val());
+ 
     var file = $("#childimage").prop("files")[0];
-    // // $("#file_data").attr("src", file_data);
-    // var reader = new FileReader();
-    // var preview = document.getElementById('spuseimagesrc');
-    // //var preview = document.querySelector('img');
-    // var reader = new FileReader();
-    // reader.addEventListener("load", function () {
-    //   preview.src = reader.result;
-    // }, false);
-    // if (file) {
-    //   reader.readAsDataURL(file);
-    // }
+   
     uploadData(file, "chi")
   });
 
 
 
   $(document).on('click', '.btnEdit', function () {
+    isedit=true;
     var id = $(this).attr('data_id');
     console.log(id);
     var data = {};
@@ -348,22 +367,14 @@ $(document).ready(function () {
 
 
       var url;
-      // if ($('#sumbitbuttonchild').text() == "Submit") {
+     
       url = "/api/addChild"
-      console.log("child");
-      // } else {
-
-      //   var cid = window.itemid;
-      //   console.log("cid", cid);
-      //   data.append("cid", cid);
-
-      //   url = "/api/updatemember"
-
+    
 
 
       // }
       jQuery.ajax({
-        type: 'POST',
+        type: 'POST', 
         data: data, //input data to be sent to the server
         cache: true,
         contentType: false,
@@ -407,44 +418,7 @@ $(document).ready(function () {
 
 
 
-    // var id = $(this).attr('data_id');
-    // console.log(id);
-    // var data = {};
-    // data.code = id; //input
-    // jQuery.ajax({
-    //   type: 'POST',
-    //   data: JSON.stringify(data),
-    //   contentType: 'application/json',
-    //   url: '/api/listMemberbyid',
-    //   success: function (res) {
-    //     console.log('success');
-    //     console.log(res);
-    //     var message = res.message
-    //     var status = res.status
-    //     console.log("Message" + message);
-    //     console.log("status" + status);
-
-    //     var dataarray = res.data
-    //     if (status) {
-
-    //       // LoadDataDromDb();
-
-    //       Updatevalue(res);
-
-
-
-    //     }
-    //     else {
-
-
-    //     }
-
-
-
-    //   }
-    // });
-
-
+ 
 
   });
 
@@ -607,104 +581,77 @@ function validateFormchild(child_title, child_name, child_mobile_no, child_email
 
 // function validateForm(memberimage, spouceimage,name, title,  mobile_no, email, office_no, dob, address,
 //   title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession) {
-function validateForm(title, name, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage) {
-  var isvaid = true;
+function validateForm(title, name, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage,ismarredflag) {
+
+console.log("ismarried",ismarried)
+ var isvaid = true;
   var email_regex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
   var mob_regex = /[2-9]{2}\d{8}/;
   var name_regex = /^[a-zA-Z]+$/;
   if (title == "") {
-    alerts("Title is required");
-
+    alerts("Title  Required");
     isvaid = false;
     return isvaid;
 
   }
   else if (name.length == 0) {
-    alerts("name is required");
+    alerts("Name  Required");
     isvaid = false;
     return isvaid;
   }
-  else if (mobile_no.length == 0) {
+  else if (!mobile_no.match(mob_regex) || mobile_no.length == 0) {
     // else if (mobile_no == "") {
-    alerts("mobile no is required");
+    alerts("Mobile Number Required");
     isvaid = false;
     return isvaid;
   }
   else if (!email.match(email_regex) || email.length == 0) {
 
-    alerts(" Valid email is required");
+    alerts("Email Id Required");
     isvaid = false;
     return isvaid;
 
   }
-
-  else if (memberimage == "") {
-    alerts("Memberimage is required");
-
-    // swal("Good job!", "You clicked the button!", "warning")
-
-    isvaid = false;
-    return isvaid;
-  }
-  else if (spouceimage == "") {
-    alerts("spouceimage is required");
-    isvaid = false;
-    return isvaid;
-  }
-
-
-
-
+  
   else if (office_no == "") {
-    alerts("office_no is required");
+    alerts("Office Number Required");
     isvaid = false;
     return isvaid;
   }
   else if (dob == "") {
-    alerts("dob is required");
+    alerts("Date Of Birth Required");
     isvaid = false;
     return isvaid;
   }
   else if (address == "") {
-    alerts("address is required");
+    alerts("Address  Required");
     isvaid = false;
     return isvaid;
   }
   else if (title_for_spouse == "") {
-    alerts("title_for_spouse is required");
+    alerts("Spouse Tittle Required");
     isvaid = false;
     return isvaid;
   }
 
   else if (nameOf_spouse.length == 0) {
-    // else if (nameOf_spouse == "") {
-    alerts("nameOf spouse is required");
+    alerts("Spouse Name Required");
     isvaid = false;
     return isvaid;
   }
   else if (spouse_mobileNo.length == 0) {
-    // else if (spouse_mobileNo == "") {
-    alerts("spouse_mobileNo is required");
+    alerts("Spouse Mobile Number Required");
     isvaid = false;
     return isvaid;
   }
   else if (!spouse_email.match(email_regex) || spouse_email.length == 0) {
     // else if (spouse_email == "") {
-    alerts("spouse_email is required");
+    alerts("Spouse Email Id Required");
     isvaid = false;
     return isvaid;
   }
   else if (spouse_dob == "") {
-    alerts("spouse_dob is required");
-    isvaid = false;
-    return isvaid;
-  }
-  else if (weeding_date == "") {
-    alerts("weeding_date is required");
-    isvaid = false;
-    return isvaid;
-  } else if (ismarried == "") {
-    alerts("ismarried is required");
+    alerts("Spouse Date Of Birth Required");
     isvaid = false;
     return isvaid;
   }
@@ -712,7 +659,33 @@ function validateForm(title, name, mobile_no, email, office_no, dob, address, me
     alerts("Profession is required");
     isvaid = false;
     return isvaid;
-  } else {
+  } 
+  else if (ismarredflag) {
+  if (weeding_date == "") {
+    alerts("weeding_date is required");
+    isvaid = false;
+    return isvaid;
+  }
+  else if (isedit) {
+     if (memberimage == "") {
+    alerts("Memberimage Required");
+
+    // swal("Good job!", "You clicked the button!", "warning")
+
+    isvaid = false;
+    return isvaid;
+  }
+  }
+  else if (spouceimage == "") {
+    alerts("Spouce Image  Required");
+    isvaid = false;
+    return isvaid;
+  }
+  
+  
+
+  }
+else {
     isvaid = true;
     return isvaid;
   }
@@ -746,35 +719,23 @@ function clearAll() {
 
   $("#SpouseImage").fileinput('clear');
   $("#MemberImage").fileinput('clear');
-
-
   $('#textCategoryName').val("");
   $('#textCategoryId').val("");
-  // $('#selectBasic option:selected').selected=1
   $('#name').val("");
   $('#mobile_no').val("");
   $('#email').val("");
   $('#office_no').val("");
   $('#dob').val("");
   $('#address').val("");
-  // $('#title_for_spouse option:selected').text()
   $('#nameOf_spouse').val("");
   $('#spouse_mobileNo').val("");
   $('#spouse_email').val("");
   $('#spouse_dob').val("");
   $('#weeding_date').val("");
-  // $('#ismarried').val("");
   $('#MemberImage_value').val("");
   $('#SpouseImage_value').val("");
   $('#Profession').val("");
 
-
-  // var $el = $('#SpouseImage');
-  // $el.wrap('<form>').closest('form').get(0).reset();
-  // $el.unwrap();
-  // var $ell = $('#MemberImage');
-  // $ell.wrap('<form>').closest('form').get(0).reset();
-  // $ell.unwrap();
   $('#memberimagesrc').attr('src', '');
   $('#spuseimagesrc').attr('src', '');
   $("#memberimagesrc").hide();
@@ -790,7 +751,8 @@ function Updatevalue(res) {
 
   window.itemid = data[0].cid
 
-  var title = data[0].title
+  var titl = data[0].title
+  console.log(titl);
   var mobile_no = data[0].mobile_no
 
   var email = data[0].email
@@ -814,19 +776,31 @@ function Updatevalue(res) {
   var SpouseImage = data[0].SpouseImage
   var Profession = data[0].Profession
 
+
+
+if (ismarried=="YES") {
+$("#maritalstatus_1").prop('checked', true);
+
+  $("#married_div").show();
+}
+if (ismarried=="NO") {
+
+$("#maritalstatus_2").prop('checked', true);
+
+  $("#married_div").hide();
+}
+
   $('#sumbitbutton').text("UPDATE");
   $('#textCategoryName').val("");
   $('#textCategoryId').val("");
-  $('#selectBasic').val(title);
+  $('#title_for').val(titl);
   $('#title_for_spouse').val(title_for_spouse);
-  // $('#selectBasic option:selected').selected=1
   $('#name').val(name);
   $('#mobile_no').val(mobile_no);
   $('#email').val(email);
   $('#office_no').val(office_no);
   $('#dob').val(dob);
   $('#address').val(address);
-  // $('#title_for_spouse option:selected').text()
   $('#nameOf_spouse').val(nameOf_spouse);
   $('#spouse_mobileNo').val(spouse_mobileNo);
   $('#spouse_email').val(spouse_email);
@@ -836,18 +810,12 @@ function Updatevalue(res) {
   $('#Profession').val(Profession);
   $('#MemberImage_value').val(MemberImage);
   $('#SpouseImage_value').val(SpouseImage);
-  // $('#MemberImage').val(MemberImage);
-  // $('#SpouseImage').val(SpouseImage);
-
-  console.log("MemberImage " + MemberImage);
-  console.log("SpouseImage " + SpouseImage);
   $("#memberimagesrc").attr("src", MemberImage);
   $("#spuseimagesrc").attr("src", SpouseImage);
   $("#memberimagesrc").show();
   $("#spuseimagesrc").show();
 }
 function updateTable(dataAsJsonArry) {
-  //$('#memberDatatable').DataTable().destory();
   if (mytable)
     mytable.destroy();
   mytable = $('#memberDatatable').DataTable({
@@ -857,14 +825,10 @@ function updateTable(dataAsJsonArry) {
     bRetrieve: true,
     searching: true,
     data: dataAsJsonArry.data,
-    // "columnsDefs":[
-    //   {className:"hiddencnt" , "target":[4]},
-    //   {className:"hiddencnt"  , "target":[5]}
-    //   ],
+ 
     columns: [
       { data: "cid" },
-      // { data: "title" },
-      // { data: "MemberImage"},
+      
       {
         "render": function (data, type, JsonResultRow, meta) {
           var image = JsonResultRow.MemberImage;
@@ -890,18 +854,10 @@ function updateTable(dataAsJsonArry) {
         }
       },
 
-      // { data: "spouse_mobileNo" },
-
-      // { data: "spouse_email" },
-      // { data: "spouse_dob" },
-
-      // { data: "weeding_date" },
-      // { data: "ismarried" },
       { data: "Profession" },
       {
         data: null, render: function (data, row, type) {
           var html = '<div role="group" aria-label="Basic example" class="btn-group btn-group-sm alignclass">';
-          html += '<button type="button" data_id=' + data.cid + ' class="btnView btn btn-outline btn-primary"><i class="ti-eye"></i></button>';
           html += '<button type="button" data_id=' + data.cid + ' class="btnEdit btn btn-outline btn-success"><i class="ti-pencil"></i></button>';
           html += '<button type="button" data_id=' + data.cid + '  class="btnDelete btn btn-outline btn-danger"><i class="ti-trash"></i></button>';
           html += '</div>';
@@ -940,43 +896,6 @@ function UpdateChildrenDetails(tittle,texts) {
       }
     });
 
-  // swal({
-  //   title: "Member added",
-  //   text: "Do you want to enter child details!",
-  //   type: "success",
-  //   showCancelButton: true,
-
-  //   confirmButtonClass: "btn-primary",
-
-  //   confirmButtonText: "Yes, Enter child details",
-  //   closeOnConfirm: false
-  // },
-  // function(){
-  //   swal({
-  //     title: "Enter child details",
-  //     text: "Enter Child Name:",
-  //     type: "input",
-  //     showCancelButton: true,
-  //     closeOnConfirm: false,
-  //     inputPlaceholder: "Enter Child Name",
-  //     inputPlaceholder: "Enter Child Name"
-
-
-
-
-
-  //   },
-
-  //   function (inputValue) {
-  //     if (inputValue === false) return false;
-  //     if (inputValue === "") {
-  //       swal.showInputError("You need to write something!");
-  //       return false
-  //     }
-  //     swal("Nice!", "You wrote: " + inputValue, "success");
-  //   }
-
-  //   );
-  // });
+ 
 
 }

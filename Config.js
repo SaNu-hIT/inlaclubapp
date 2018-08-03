@@ -5,10 +5,6 @@ var pool  = mysql.createPool({
       password: "connected7273",
       database: "db_a16b8c_connect"
 
-    //   host: "localhost",
-    // user: "root",
-    // password: "",
-    // database: "connectedapp"
 
 });
 

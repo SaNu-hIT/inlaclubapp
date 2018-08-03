@@ -74,6 +74,9 @@ var mytable;
 $(document).ready(function () {
   mytable = null;
 
+
+
+
   LoadDataDromDb();
 
 
@@ -85,6 +88,25 @@ $(document).ready(function () {
     console.log(id);
     var data = {};
     data.code = id; //input
+
+
+
+swal({
+    title: "Are you sure?",
+    text: "You will not be able to recover this event !",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#DD6B55',
+    confirmButtonText: 'Yes, I am sure!',
+    cancelButtonText: "No, cancel it!",
+    closeOnConfirm: false,
+    closeOnCancel: false
+ },
+ function(isConfirm){
+
+   if (isConfirm){
+ 
+
     $.ajax({
       type: 'POST',
       data: JSON.stringify(data),
@@ -113,6 +135,11 @@ $(document).ready(function () {
       }
     });
 
+    } else {
+      swal("Cancelled", "Click ok to close");
+         e.preventDefault();
+    }
+ });
 
 
   });
@@ -205,7 +232,7 @@ function LoadDataDromDb() {
 }
 function clearAll() {
 
-  $('#type_id option:selected').val(-1);
+  $('#type_id').val(-1).change();
   $('#event_title').val("");
   $('#event_description').val("");
   $('#event_date').val("");
@@ -233,8 +260,9 @@ function Updatevalue(res) {
   $('#sumbitbutton').text("UPDATE");
 
   window.itemid = data[0].event_id
-  console.log("itemid  " + itemid);
-  $('#type_id').val(itemid).change();
+  console.log("type_id  " + type_id);
+  
+  $('#type_id').val(type_id).change();
   $('#event_title').val(event_title);
 
 
@@ -274,7 +302,6 @@ function updateDataTable(dataAsJsonArry) {
       {
         data: null, render: function (data, row, type) {
           var html = '<div role="group" aria-label="Basic example" class="btn-group btn-group-sm alignclass ">';
-          html += '<button type="button" data_id=' + data.event_id + ' class="btnView btn btn-outline btn-primary"><i class="ti-eye"></i></button>';
           html += '<button type="button" data_id=' + data.event_id + ' class="btnEdit btn btn-outline btn-success"><i class="ti-pencil"></i></button>';
           html += '<button type="button" data_id=' + data.event_id + '  class="btnDelete btn btn-outline btn-danger"><i class="ti-trash"></i></button>';
           html += '</div>';
@@ -320,7 +347,6 @@ function loadDrpdown() {
 
 
 function updateDropdown(res) {
-  console.log("drpp bbvalue" + res);
 
 
   var arry = res.data;
@@ -331,7 +357,7 @@ function updateDropdown(res) {
    
     var id = res.data[i].type_id
     var event_type_name = res.data[i].event_type_name
-    console.log("drpp bbvalue" + event_type_name);
+  
 
     $("#type_id").append("<option value='" + id + "'>" + event_type_name + "</option>");
   }
@@ -355,35 +381,40 @@ var event_venue = $('#event_venue').val();
 
 
 function validateForm(type_id, event_title, event_description, event_date, event_time, event_venue) {
+
+
+  console.log("type_id ",type_id);
+
+
   var isvaid = true;
-  if (type_id == "") {
-    alerts("type_id is required");
+  if (type_id == ""||type_id == "-1") {
+    alerts("Event Type  Required");
     isvaid = false;
     return isvaid;
   }
   else if (event_title == "") {
-    alerts("event_title is required");
+    alerts("Event Title Required");
     isvaid = false;
     return isvaid;
   }
 
   else if (event_description == "") {
-    alerts("event_description is required");
+    alerts("Event Description Required");
     isvaid = false;
     return isvaid;
   }
   else if (event_date == "") {
-    alerts("event_date is required");
+    alerts("Event Date Required");
     isvaid = false;
     return isvaid;
   }
   else if (event_time == "") {
-    alerts("event_time is required");
+    alerts("Event Time Required");
     isvaid = false;
     return isvaid;
   }
   else if (event_venue == "") {
-    alerts("event_venue is required");
+    alerts("Event Venue Required");
     isvaid = false;
     return isvaid;
   }

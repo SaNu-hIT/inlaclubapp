@@ -18,9 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/Public'));
 app.use(express.static(__dirname + '/scripts'));
-// app.use('/uploads', express.static('/uploads'))
-// app.use(express.static(__dirname + '/uploads'));
-// app.use(express.static('./uploads'));
+
 app.use('/static', express.static('uploads'))
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/Views');
@@ -80,11 +78,20 @@ app.get('/news', function (req, res) {
     res.render('addnews.ejs');
 
 });
-
+    
 app.get('/eventtype', function (req, res) {
     res.render('eventtype.ejs');
 
 });
+
+
+app.get('/mem', function (req, res) {
+    res.render('memberwithchildren.ejs');
+
+});
+
+
+
 
 app.get('/upload', function (req, res) {
     res.render('uploadfile.html');

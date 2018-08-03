@@ -105,67 +105,14 @@ $(function () {
   });
 
 
-  // $('#sumbitbutton').click(function (e) {
-  //   e.preventDefault();
-  //   console.log('sumbitbutton clicked');
-
-  //   var data = {};
-
-
-
-  //   var event_name = $('#name').val();
-  //     data.event_name = event_name;
-  //   console.log("event_name" + event_name);
-
-  //   var url;
-  //   if ($('#sumbitbutton').text() == "Submit") {
-  //     url = "/api/addeventtype"
-
-
-
-  //   }
-  //   else {
-  //     data.event_id = window.itemid;
-  //     url = "api/updateventtype"
-  //   }
-
-
-  //   $.ajax({
-  //     type: 'POST',
-  //     data: JSON.stringify(data), //input data to be sent to the server
-  //     contentType: 'application/json',
-  //     url: url,
-  //     success: function (res) {
-  //       var message = res.message
-  //       var status = res.status
-  //       console.log("Message" + message);
-  //       console.log("status" + status);
-  //       if (status) {
-
-  //         LoadDataDromDb();
-  //         clearAlls();
-  //         swal("Success", message, "success");
   
-        
-
-  //       }
-  //       else {
-  //         swal("Oops", message, "error");
-
-  //       }
-
-
-  //       $("#demo").html(res);  //summation displayed in the HTML page   
-  //     }
-  //   });
-
-  // });
 });
 
 var mytable;
 
 $(document).ready(function () {
   mytable=null;
+    $("#memberimagesrc").hide();
   LoadDataDromDb();
   loadDrpdown();
   $(document).on('click', '.btnDelete', function () {
@@ -173,7 +120,27 @@ $(document).ready(function () {
     console.log(id);
     var data = {};
     data.code = id; //input
-    $.ajax({
+   
+
+
+
+swal({
+    title: "Are you sure?",
+    text: "You will not be able to recover this event type !",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#DD6B55',
+    confirmButtonText: 'Yes, I am sure!',
+    cancelButtonText: "No, cancel it!",
+    closeOnConfirm: false,
+    closeOnCancel: false
+ },
+ function(isConfirm){
+
+   if (isConfirm){
+ 
+
+  $.ajax({
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
@@ -197,6 +164,16 @@ $(document).ready(function () {
       }
     });
 
+
+
+    } else {
+      swal("Cancelled", "Click ok to close");
+         e.preventDefault();
+    }
+ });
+
+
+  
 
 
   });
@@ -294,7 +271,7 @@ function Updatevalue(res) {
 
   $("#memberimagesrc").attr("src", imagesrc);
 
-
+  $("#memberimagesrc").show();
 }
 
 
@@ -320,7 +297,6 @@ function updateDataTable(dataAsJsonArry) {
       {
         data: null, render: function (data, row, type) {
           var html = '<div role="group" aria-label="Basic example" class="btn-group btn-group-sm  alignclass  ">';
-          html += '<button type="button" data_id=' + data.type_id + ' class="btnView btn btn-outline btn-primary"><i class="ti-eye"></i></button>';
           html += '<button type="button" data_id=' + data.type_id + ' class="btnEdit btn btn-outline btn-success"><i class="ti-pencil"></i></button>';
           html += '<button type="button" data_id=' + data.type_id + '  class="btnDelete btn btn-outline btn-danger"><i class="ti-trash"></i></button>';
           html += '</div>';

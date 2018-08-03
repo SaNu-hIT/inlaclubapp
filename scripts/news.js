@@ -81,13 +81,31 @@ var mytable;
 
 $(document).ready(function () {
   mytable=null;
+$("#memberimagesrc").hide();
+
   LoadDataDromDb();
   $(document).on('click', '.btnDelete', function () {
     var id = $(this).attr('data_id');
     console.log(id);
     var data = {};
     data.code = id; //input
-    $.ajax({
+
+
+swal({
+    title: "Are you sure?",
+    text: "You will not be able to recover this news !",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#DD6B55',
+    confirmButtonText: 'Yes, I am sure!',
+    cancelButtonText: "No, cancel it!",
+    closeOnConfirm: false,
+    closeOnCancel: false
+ },
+ function(isConfirm){
+
+   if (isConfirm){
+     $.ajax({
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
@@ -105,14 +123,48 @@ $(document).ready(function () {
           swal("Success", message, "success");
         }
         else {
-
-
           swal("Failed", "Error", "Error");
         }
 
 
       }
     });
+
+
+    } else {
+      swal("Cancelled", "Click ok to close");
+         e.preventDefault();
+    }
+ });
+
+
+
+    // $.ajax({
+    //   type: 'POST',
+    //   data: JSON.stringify(data),
+    //   contentType: 'application/json',
+    //   url: '/api/deletenews',
+    //   success: function (res) {
+    //     console.log('success');
+    //     console.log(res);
+    //     var message = res.message
+    //     var status = res.status
+    //     console.log("Message" + message);
+    //     console.log("status" + status);
+    //     var dataarray = res.data
+    //     if (status) {
+    //       LoadDataDromDb();
+    //       swal("Success", message, "success");
+    //     }
+    //     else {
+
+
+    //       swal("Failed", "Error", "Error");
+    //     }
+
+
+    //   }
+    // });
 
 
 
@@ -246,6 +298,7 @@ function Updatevalue(res) {
   $('#news_date').val(news_date);
 
   $("#memberimagesrc").attr("src", Image);
+  $("#memberimagesrc").show();
 
 
 }
@@ -274,7 +327,6 @@ function updateDataTable(dataAsJsonArry) {
       {
         data: null, render: function (data, row, type) {
           var html = '<div role="group" aria-label="Basic example" class="btn-group btn-group-sm alignclass">';
-          html += '<button type="button" data_id=' + data.news_id + ' class="btnView btn btn-outline btn-primary"><i class="ti-eye"></i></button>';
           html += '<button type="button" data_id=' + data.news_id + ' class="btnEdit btn btn-outline btn-success"><i class="ti-pencil"></i></button>';
           html += '<button type="button" data_id=' + data.news_id + '  class="btnDelete btn btn-outline btn-danger"><i class="ti-trash"></i></button>';
           html += '</div>';
@@ -372,23 +424,23 @@ function validateForm(news_title, news_description, news_date, images) {
   var isvaid = true;
 
   if (news_title == "") {
-    alerts("news_title is required");
+    alerts("News Title  Required");
     isvaid = false;
     return isvaid;
   }
   else if (news_description == "") {
-    alerts("news_description is required");
+    alerts("News Description  Required");
     isvaid = false;
     return isvaid;
   }
 
   else if (news_date == "") {
-    alerts("news_date is required");
+    alerts("News date  Required");
     isvaid = false;
     return isvaid;
   }
   else if (images.length == 0) {
-    alerts("images is required");
+    alerts("Images is required");
     isvaid = false;
     return isvaid;
   }

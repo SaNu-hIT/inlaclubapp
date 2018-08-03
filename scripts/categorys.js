@@ -3,27 +3,18 @@ $(function () {
     e.preventDefault();
     console.log('Load_button clicked');
     var data = {};
-
     var CategoryName = $('#textCategoryName').val();
-    // var CategoryId = $('#textCategoryId').val();
-
     data.categoryname = CategoryName; //input
-    // data.code = CategoryId; //input
-
     var url;
     if ($('#sumbitbutton').text() == "Submit") {
       url = "/api/addcategoy"
 
     } else {
-
       var cid = window.id;
       console.log("cid", cid);
      data.code = cid; //input
       url = "/api/updateCategory"
-
-
     }
-
     if (validateForm(CategoryName)) {
     $.ajax({
       type: 'POST',
@@ -46,32 +37,20 @@ $(function () {
         }
         else {
           swal("Oops", message, "error");
-
         }
-
-
         $("#demo").html(res);  //summation displayed in the HTML page   
       }
     });
-
-
    }
 
   });
 
-
 });
 
-
-
-
-
 var mytable;
-
 $(document).ready(function () {
   mytable=null;
   LoadDataDromDb();
-
   $(document).on('click', '.btnDelete', function () {
     var id = $(this).attr('data_id');
     console.log(id);
@@ -80,41 +59,54 @@ $(document).ready(function () {
 
 
 
-    $.ajax({
+
+swal({
+    title: "Are you sure?",
+    text: "You will not be able to recover this category !",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#DD6B55',
+    confirmButtonText: 'Yes, I am sure!',
+    cancelButtonText: "No, cancel it!",
+    closeOnConfirm: false,
+    closeOnCancel: false
+ },
+ function(isConfirm){
+
+   if (isConfirm){
+ $.ajax({
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-
       url: '/api/deleteCategory',
       success: function (res) {
-        console.log('success');
-        console.log(res);
-
         var message = res.message
         var status = res.status
-        console.log("Message" + message);
-        console.log("status" + status);
-
         var dataarray = res.data
         if (status) {
-
           LoadDataDromDb();
           swal("Cartegory", message, "success");
-
-
-
-
         }
         else {
 
-
         }
 
-
-        $("#demo").html(res);  //summation displayed in the HTML page   
+        $("#demo").html(res);  
       }
     });
 
+
+
+
+    } else {
+      swal("Cancelled", "Click ok to close");
+         e.preventDefault();
+    }
+ });
+
+
+
+   
 
 
   });
@@ -123,29 +115,18 @@ $(document).ready(function () {
     var id = $(this).attr('data_id');
     console.log("DATA ID"+id);
     var data = {};
-
-
-
-    data.code = id; //input
-
-
-
-
-
-    $.ajax({
+    data.code = id; 
+      $.ajax({
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-
       url: '/api/listCategorybyid',
       success: function (res) {
-        console.log('success');
-        console.log(res);
+       
 
         var message = res.message
         var status = res.status
-        console.log("Message" + message);
-        console.log("status" + status);
+  
 
         var dataarray = res.data
         if (status) {
@@ -260,7 +241,6 @@ function updateDataTable(dataAsJsonArry) {
       {
         data: null, render: function (data, row, type) {
           var html = '<div role="group" aria-label="Basic example" class="btn-group btn-group-sm  alignclass  ">';
-          html += '<button type="button" data_id=' + data.id + ' class="btnView btn btn-outline btn-primary"><i class="ti-eye"></i></button>';
           html += '<button type="button" data_id=' + data.id + ' class="btnEdit btn btn-outline btn-success"><i class="ti-pencil"></i></button>';
           html += '<button type="button" data_id=' + data.id + '  class="btnDelete btn btn-outline btn-danger"><i class="ti-trash"></i></button>';
           html += '</div>';
@@ -284,13 +264,7 @@ function validateForm(CategoryName) {
     isvaid = false;
     return isvaid;
   }
-  // else if (file_data == "") {
-  //   alerts("file_data is required");
-  //   isvaid = false;
-  //   return isvaid;
-  // }
 
- 
   else {
     isvaid = true;
     return isvaid;

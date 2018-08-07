@@ -34,7 +34,7 @@
 <script type="text/javascript" src="../build/js/page-content/tables/data-tables.js"></script>
 <script type="text/javascript" src="../plugins/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap JavaScript-->
-<script type="text/javascript" src="../plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../plugins/bootstrap/dist/js/bootstrap.min.js"></srccript>
 <!-- Malihu Scrollbar-->
 <script type="text/javascript" src="../plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 <!-- Animo.js-->
@@ -70,7 +70,11 @@ $( document ).ready(function() {
 console.log( "ready!" );
 
 $(".date").datetimepicker({
-format: 'YYYY-MM-DD'});
+format: 'YYYY-MM-DD',maxDate: new Date() });
+
+$(".dates").datetimepicker({
+format: 'YYYY-MM-DD' });
+
 });
 </script>
 <script type="text/javascript" src="../plugins/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js"></script>

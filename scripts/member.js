@@ -21,12 +21,6 @@ var isedit=false;
   });
 
 
-
-
-
- 
-
-
   $('#sumbitbutton').click(function (e) {
     e.preventDefault();
     console.log('sumbitbutton clicked');
@@ -54,7 +48,7 @@ var isedit=false;
     var memberimage = $('#MemberImage_value').val();
     var spouceimage = $('#SpouseImage_value').val();
     if (validateForm(title, names, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarrieds, Profession, spouceimage
-    ,ismarredflag)) {
+    ,ismarredflag,isedit)) {
 
 
       data.append("memberimage", memberimage);
@@ -83,17 +77,12 @@ var isedit=false;
       var url;
       if ($('#sumbitbutton').text() == "Submit") {
         url = "/api/addmember"
-        // console.log("MemberImage"+MemberImage);
       } else {
 
         var cid = window.itemid;
         console.log("cid", cid);
         data.append("cid", cid);
-
         url = "/api/updatemember"
-
-
-
       }
       jQuery.ajax({
         type: 'POST',
@@ -112,11 +101,6 @@ var isedit=false;
 
             window.lastid = res.lastid;
             LoadDataDromDb();
-            // mytable.ajax.reload();
-            // swal("Success", message, "success");
-            // alertbox
-            console.log("lasy id"+res.lastid);
-
             UpdateChildrenDetails("Saved","Do you want to add  children details");
 
 
@@ -151,8 +135,8 @@ $(document).ready(function () {
 
 $("#maritalstatus_2").prop('checked', true);
 
+
   $("#married_div").hide();
-  
 
   $("#memberimagesrc").hide();
   $("#spuseimagesrc").hide();
@@ -165,9 +149,12 @@ if($(this).prop("checked")) {
 
   console.log("show div")
   $("#married_div").show();
+        ismarried="YES";
   ismarredflag=true;
+     console.log("ismarredflag 1",ismarredflag)
       }
       
+    
       
 
 
@@ -178,8 +165,10 @@ if($(this).prop("checked")) {
 $("#maritalstatus_2").on('click change', function() {
    
 if($(this).prop("checked")) {
-    $("#married_div").hide();
+    $("#married_div").hide();  
+    ismarried="NO";
      ismarredflag=false;
+            console.log("ismarredflag  2",ismarredflag)
       }
    
      
@@ -188,20 +177,6 @@ if($(this).prop("checked")) {
 
 });
 
-  $("#maritalstatus_1").click( function()
-  {
-      // $("#maritalstatus_1").attr("checked","checked");
-      ismarried="YES";
-      console.log("YES");
-
-
-  });
-  $("#maritalstatus_2").click( function()
-  {
-      // $("#maritalstatus_2").attr("checked","checked");
-      ismarried="NO";
-      console.log("NO");
-  });
 
 
 
@@ -298,6 +273,7 @@ swal({
 
   $(document).on('click', '.btnEdit', function () {
     isedit=true;
+
     var id = $(this).attr('data_id');
     console.log(id);
     var data = {};
@@ -312,8 +288,7 @@ swal({
         console.log(res);
         var message = res.message
         var status = res.status
-        console.log("Message" + message);
-        console.log("status" + status);
+
 
         var dataarray = res.data
         if (status) {
@@ -387,16 +362,9 @@ swal({
           console.log("Message" + message);
           console.log("status" + status);
           if (status) {
-            // LoadDataDromDb();
-            // mytable.ajax.reload();
+
             clearModel();
             swal("Success", message, "success");
-            // alertbox
-           
-
-            // UpdateChildrenDetails("Saved","Do you want to add another child details");
-
-
 
           
           }
@@ -461,12 +429,12 @@ function uploadData(file_data, detail) {
       if (status) {
         // swal("Success", datas.message, "success");
         img = datas.path;
-
+  console.log("membar image in upload with out path " + img);
 
         if (detail == "mem") {
 
-          var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
-          memberimage = paathwithdata;
+          // var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
+          memberimage = img;
 
           console.log("membar image in upload " + memberimage);
           $('#MemberImage_value').val(memberimage);
@@ -475,15 +443,15 @@ function uploadData(file_data, detail) {
           // MemberImage_value
         }
         else if (detail == "spo") {
-          var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
-          spouceimage = paathwithdata;
+          // var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
+          spouceimage = img;
           $('#SpouseImage_value').val(spouceimage);
           console.log("spouceimage image in upload" + spouceimage);
 
         }
         else {
-          var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
-          childimage = paathwithdata;
+          // var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
+          childimage = img;
           $('#childimage_value').val(childimage);
           console.log("chil imahe  image in upload" + childimage);
         }
@@ -551,7 +519,7 @@ function validateFormchild(child_title, child_name, child_mobile_no, child_email
     return isvaid;
 
   }
-  else if (child_office_no == "") {
+  else if (!child_office_no.match(mob_regex) ) {
     alerts("Office number is required");
     isvaid = false;
     return isvaid;
@@ -581,9 +549,11 @@ function validateFormchild(child_title, child_name, child_mobile_no, child_email
 
 // function validateForm(memberimage, spouceimage,name, title,  mobile_no, email, office_no, dob, address,
 //   title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession) {
-function validateForm(title, name, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage,ismarredflag) {
+function validateForm(title, name, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage,ismarredflag,isedit) {
 
 console.log("ismarried",ismarried)
+console.log("ismarredflag 3",ismarredflag)
+
  var isvaid = true;
   var email_regex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
   var mob_regex = /[2-9]{2}\d{8}/;
@@ -628,7 +598,25 @@ console.log("ismarried",ismarried)
     isvaid = false;
     return isvaid;
   }
-  else if (title_for_spouse == "") {
+  else if (isedit) {
+     if (memberimage == "") {
+    alerts("Memberimage Required");
+
+    // swal("Good job!", "You clicked the button!", "warning")
+
+    isvaid = false;
+    return isvaid;
+  }
+  }
+  
+  else if (ismarredflag) {
+
+
+  if (weeding_date == "") {
+    alerts("Wedding Date Required");
+    isvaid = false;
+    return isvaid;
+  }else if (title_for_spouse == "") {
     alerts("Spouse Tittle Required");
     isvaid = false;
     return isvaid;
@@ -656,33 +644,16 @@ console.log("ismarried",ismarried)
     return isvaid;
   }
   else if (Profession == "") {
-    alerts("Profession is required");
+    alerts("Profession  required");
     isvaid = false;
     return isvaid;
   } 
-  else if (ismarredflag) {
-  if (weeding_date == "") {
-    alerts("weeding_date is required");
-    isvaid = false;
-    return isvaid;
-  }
-  else if (isedit) {
-     if (memberimage == "") {
-    alerts("Memberimage Required");
-
-    // swal("Good job!", "You clicked the button!", "warning")
-
-    isvaid = false;
-    return isvaid;
-  }
-  }
   else if (spouceimage == "") {
     alerts("Spouce Image  Required");
     isvaid = false;
     return isvaid;
   }
-  
-  
+
 
   }
 else {
@@ -735,11 +706,11 @@ function clearAll() {
   $('#MemberImage_value').val("");
   $('#SpouseImage_value').val("");
   $('#Profession').val("");
-
   $('#memberimagesrc').attr('src', '');
   $('#spuseimagesrc').attr('src', '');
   $("#memberimagesrc").hide();
   $("#spuseimagesrc").hide();
+  $('#sumbitbutton').text("Submit");
 }
 
 function Updatevalue(res) {
@@ -814,6 +785,10 @@ $("#maritalstatus_2").prop('checked', true);
   $("#spuseimagesrc").attr("src", SpouseImage);
   $("#memberimagesrc").show();
   $("#spuseimagesrc").show();
+
+
+
+
 }
 function updateTable(dataAsJsonArry) {
   if (mytable)
@@ -892,7 +867,7 @@ function UpdateChildrenDetails(tittle,texts) {
         swal.close();
 
       } else {
-        swal("Cancelled", "Your data will be saved", "success");
+        swal("Cancelled", "", "success");
       }
     });
 

@@ -192,11 +192,11 @@ module.exports.uploadimagebase = function (req, res) {
         res.json({
           status: true,
           message: "File Upload success",
-          path:  name
+          path:  paathwithdata
         })
 
 
-        console.log("File Uploaded", name);
+        console.log("File Uploaded", paathwithdata);
 
       }
     });

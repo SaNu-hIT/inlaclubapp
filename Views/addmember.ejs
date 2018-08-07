@@ -78,7 +78,7 @@
                                         <div class="row ml-6">
                                             <div class="col-md-5   ">
                                                 <div class="form-group">
-                                                    <label for="selectBasic">Tittle</label>
+                                                    <label for="selectBasic">Title</label>
                                                     <select id="title_for" class="form-control">
                                                         <option value="Mr.">Mr.</option>
                                                         <option value="Mrs.">Mrs.</option>
@@ -110,30 +110,54 @@
                                             <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label for="txtFullName">Email</label>
-                                                    <input id="email" type="text" class="form-control">
+                                                    <input id="email" type="text"  name="email" class="form-control">
                                                 </div>
                                             </div>
+
+
                                             <div class="col-md-5 col-md-offset-1">
                                                 <div class="form-group">
                                                     <label>Date Of Birth</label>
 
-                                                    <div class="input-group">
+                                                    <div class="input-group date">
                                                         <input type="text" id="dob" class="form-control date"><span class="input-group-addon"><span class="ti-calendar"></span></span>
 
                                                     </div>
                                                 </div>
                                             </div>
+
+
                                             <div class="col-md-11">
                                                 <div class="form-group">
                                                     <label for="txtMessage">Address</label>
                                                     <textarea id="address" rows="2" class="form-control" style="margin: 0px 4.78125px 0px 0px;"></textarea>
                                                 </div>
                                             </div>
+
+                                                <div class="col-md-5 ">
+                                                <div class="form-group" align="text-center">
+                                                    <label  for="txtFullName">Is Married</label>
+                                                     <input type="radio" name="maritalstatus" id="maritalstatus_2" value="married" /> NO
+                                                    <input type="radio" name="maritalstatus" id="maritalstatus_1" value="single" /> YES
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-5 col-md-offset-1">
+                                                <div id="married_div" class="form-group date">
+                                                    <label>Wedding Date</label>
+
+                                                    <div class="input-group ">
+                                                        <input type="text" id="weeding_date" class="form-control date"><span class="input-group-addon"><span class="ti-calendar"></span></span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-md-11 ">
                                                 <div class="form-group">
                                                     <label for="fileInput"> Member Image</label>
                                                     <input id="MemberImage_value" type="hidden" class="form-control">
-                                                    <input id="MemberImage" name="input14[]" type="file" multiple="" class="file-loading">
+                                                    <input id="MemberImage" name="input14[]" accept="image/*" type="file" multiple="" class="file-loading">
 
                                                 </div>
                                                 <div class="col-md-5 imagefixedheight">
@@ -156,7 +180,7 @@
                                         <div class="row ml-6">
                                             <div class="col-md-5   ">
                                                 <div class="form-group">
-                                                    <label for="selectBasic">Tittle</label>
+                                                    <label for="selectBasic">Title</label>
                                                     <select id="title_for_spouse" class="form-control">
                                                         <option value="Mr.">Mr.</option>
                                                         <option value="Mrs.">Mrs.</option>
@@ -182,7 +206,7 @@
                                             <div class="col-md-5 col-md-offset-1">
                                                 <div class="form-group">
                                                     <label for="txtEmailAddress">Email Address</label>
-                                                    <input id="spouse_email" type="text" class="form-control">
+                                                    <input id="spouse_email" type="text"  name="email" class="form-control">
                                                 </div>
                                             </div>
 
@@ -197,6 +221,8 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+
                                               <div class="col-md-5 col-md-offset-1">
                                                 <div class="form-group">
                                                     <label for="txtFullName">Profession </label>
@@ -206,32 +232,14 @@
 
 
 
-                                            <div class="col-md-5 ">
-                                                <div class="form-group" align="text-center">
-                                                    <label  for="txtFullName">Is Married</label>
-                                                     <input type="radio" name="maritalstatus" id="maritalstatus_2" value="married" /> NO
-                                                    <input type="radio" name="maritalstatus" id="maritalstatus_1" value="single" /> YES
-                                                   
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-5 col-md-offset-1">
-                                                <div id="married_div" class="form-group">
-                                                    <label>Wedding Date</label>
-
-                                                    <div class="input-group ">
-                                                        <input type="text" id="weeding_date" class="form-control date"><span class="input-group-addon"><span class="ti-calendar"></span></span>
-
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        
                                           
 
                                             <div class="col-md-11   ">
                                                 <div class="form-group">
                                                     <label for="fileInput"> Spouse Image</label>
                                                     <input id="SpouseImage_value" type="hidden" class="form-control">
-                                                    <input id="SpouseImage" name="input14[]" type="file" multiple="" class="file-loading">
+                                                    <input id="SpouseImage" name="input14[]" accept="image/*" type="file" multiple="" class="file-loading">
 
                                                 </div>
 
@@ -331,7 +339,7 @@
                                             <div class="col-md-6">
 
                                                 <div class="form-group">
-                                                    <label for="child_title">Tittle</label>
+                                                    <label for="child_title">Title</label>
                                                     <select id="child_title" class="form-control">
                                                         <option value="Mr.">Mr.</option>
                                                         <option value="Mrs.">Mrs.</option>
@@ -358,7 +366,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="txtFullName">Email</label>
-                                                    <input id="child_email" type="text" class="form-control">
+                                                    <input id="child_email"  name="email" type="text" class="form-control">
                                                 </div>
                                             </div>
 
@@ -370,7 +378,7 @@
                                                 <div class="form-group">
                                                     <label for="txtFullName">Child Image</label>
                                                     <input id="childimage_value" type="hidden" class="form-control">
-                                                    <input id="childimage" name="input14[]" type="file">
+                                                    <input id="childimage" name="input14[]"  accept="image/*" type="file">
                                                 </div>
                                             </div>
 

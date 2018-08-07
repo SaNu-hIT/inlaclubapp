@@ -15,56 +15,6 @@ $(function () {
     var event_name = $('#name').val();
     var file_data = $("#imagefile").prop("files")[0];
     var form_data = new FormData();
-
-
-
-    // if (validateForm(event_name, file_data)) {
-    //   // var MemberImage=req.files.MemberImage.name
-    //   data.event_name = event_name; //input
-    //   data.file_data = file_data; //input
-     
-    //   console.log("data json" + data);
-    //   var url;
-    //   if ($('#uploadbutton').text() == "Submit") {
-    //     url = "/api/addevents"
-    //     // console.log("MemberImage"+MemberImage);
-    //   } else {
-
-    //     data.event_id = window.itemid;
-    //     url = "/api/updatevents"
-    //   }
-    //   $.ajax({
-    //     type: 'POST',
-    //     data: JSON.stringify(data), //input data to be sent to the server
-    //     contentType: 'application/json',
-    //     url: url,
-    //     success: function (res) {
-    //       console.log('success');
-    //       console.log(res);
-
-    //       var message = res.message
-    //       var status = res.status
-    //       console.log("Message" + message);
-    //       console.log("status" + status);
-    //       if (status) {
-    //         LoadDataDromDb();
-    //         swal("Success", message, "success");
-    //         clearAll()
-
-    //       }
-    //       else {
-    //         swal("Oops", message, "error");
-
-    //       }
-
-
-    //       $("#demo").html(res);  //summation displayed in the HTML page   
-    //     }
-    //   });
-    // }
-
-
-
     if (validateForm(event_name, file_data)) {
 
     console.log("event name" + event_name);
@@ -298,7 +248,6 @@ function updateDataTable(dataAsJsonArry) {
         data: null, render: function (data, row, type) {
           var html = '<div role="group" aria-label="Basic example" class="btn-group btn-group-sm  alignclass  ">';
           html += '<button type="button" data_id=' + data.type_id + ' class="btnEdit btn btn-outline btn-success"><i class="ti-pencil"></i></button>';
-          html += '<button type="button" data_id=' + data.type_id + '  class="btnDelete btn btn-outline btn-danger"><i class="ti-trash"></i></button>';
           html += '</div>';
           return html;
         }
@@ -349,7 +298,7 @@ function updateDropdown(res) {
 
     $("#type_id").append("<option value='" + id + "'>" + event_type_name + "</option>");
   }
-  $("#type_id").append('<option value="-1">Select event type</option>');
+  $("#type_id").append('<option value="-1">Select Event Type</option>');
   $("#type_id").val('-1');
 
 }

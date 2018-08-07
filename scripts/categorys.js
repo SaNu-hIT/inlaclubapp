@@ -194,7 +194,7 @@ function LoadDataDromDb() {
 
 }
 function clearAll() {
-
+$('#sumbitbutton').text("Submit");
   $('#textCategoryName').val("");
   $('#textCategoryId').val("");
 

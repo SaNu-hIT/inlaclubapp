@@ -1,6 +1,5 @@
 
 $(function () {
-
   $("#input-14").fileinput({
     theme: "gly",
     showRemove: false,
@@ -16,11 +15,17 @@ $(function () {
     var news_description = $('#news_description').val();
     var news_date = $('#news_date').val();
     var images = $("#input-14").prop("files");
-    if (validateForm(news_title, news_description, news_date, images)) {
+
+    var hasimages = $('#hasimage').val();
+     console.log("hasimage" + hasimages);
+
+    if (validateForm(news_title, news_description, news_date, images,hasimages)) {
+
+      
       data.news_title = news_title; //input
       data.news_description = news_description; //input
       data.news_date = news_date; //input
-      console.log("data json NEWS" + data.news_date);
+     
       var url;
       if ($('#sumbitbutton').text() == "Submit") {
         url = "/api/addnews"
@@ -73,15 +78,50 @@ $(function () {
   });
 
 
+ 
+
+
+
+
+
 });
-//data
+
 
 
 var mytable;
 
 $(document).ready(function () {
   mytable=null;
+
+
+$("#hasimage").val("false");
+    
+  $("#input-14").change(function () {
+
+
+  var files = $("#input-14").prop("files");
+
+  var total = files.length
+   
+   if (total>0) {
+  
+ 
+
+  $("#hasimage").val("true");
+  }
+  else
+  {
+     
+ 
+    $("#hasimage").val("false");
+  }
+
+
+
+  });
+
 $("#memberimagesrc").hide();
+
 
   LoadDataDromDb();
   $(document).on('click', '.btnDelete', function () {
@@ -139,34 +179,77 @@ swal({
 
 
 
-    // $.ajax({
-    //   type: 'POST',
-    //   data: JSON.stringify(data),
-    //   contentType: 'application/json',
-    //   url: '/api/deletenews',
-    //   success: function (res) {
-    //     console.log('success');
-    //     console.log(res);
-    //     var message = res.message
-    //     var status = res.status
-    //     console.log("Message" + message);
-    //     console.log("status" + status);
-    //     var dataarray = res.data
-    //     if (status) {
-    //       LoadDataDromDb();
-    //       swal("Success", message, "success");
-    //     }
-    //     else {
 
 
-    //       swal("Failed", "Error", "Error");
-    //     }
+  });
 
 
-    //   }
-    // });
+
+$(document).on('click', '.btnDeleteImage', function (e){
+    e.preventDefault();
+    console.log('Load_button clicked');
+    var data = {};
+   var id = $(this).attr('data_ids');
+    var news_ids = $(this).attr('news_ids');
+    console.log(id);
+    var data = {};
+    data.code = id; 
+  console.log('Delete button clicked',data);
+     
+   swal({
+    title: "Are you sure?",
+    text: "You will not be able to recover this news image !",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#DD6B55',
+    confirmButtonText: 'Yes, I am sure!',
+    cancelButtonText: "No, cancel it!",
+    closeOnConfirm: false,
+    closeOnCancel: false
+ },
+ function(isConfirm){
+
+   if (isConfirm){
+     $.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      url: '/api/deletenewsImage',
+      success: function (res) {
+        e.preventDefault();
+        console.log('success');
+        console.log(res);
+        var message = res.message
+        var status = res.status
+        console.log("Delete Message" + message);
+        console.log("Delete status" + status);
+
+        var dataarray = res.data
+        if (status) {
+
+           console.log('Delete button clicked id',id);
+         LoadImageAlso(news_ids)
+          swal("Success", message, "success");
+        }
+        else {
+          swal("Failed", "Error", "Error");
+        }
 
 
+      }
+    });
+
+
+    } else {
+      swal("Cancelled", "Click ok to close");
+         e.preventDefault();
+    }
+ });
+
+    
+
+
+ 
 
   });
 
@@ -194,10 +277,12 @@ swal({
         var dataarray = res.data
         if (status) {
 
-          // LoadDataDromDb();
+      
+
+
 
           Updatevalue(res);
-
+         
 
 
         }
@@ -210,17 +295,22 @@ swal({
 
       }
     });
+     LoadImageAlso(id);
 
 
 
   });
 
 
+
+  
+
+
 });
 
 
 function LoadDataDromDb() {
-
+clearAll();
 
   $.ajax({
     type: 'POST',
@@ -256,24 +346,69 @@ function LoadDataDromDb() {
   });
 
 }
+
+
+
+function LoadImageAlso(id) {
+
+      console.log("data before call ",data);
+ var data = {};
+    data.code = id; 
+
+    console.log("data before call ",data);
+  $.ajax({
+    type: 'POST',
+    //input data to be sent to the server
+    data: JSON.stringify(data),
+    contentType: 'application/json',
+
+    url: '/api/listnewsimagebyid',
+    success: function (res) {
+      console.log('success');
+      console.log(res);
+
+      var message = res.message
+      var status = res.status
+
+      var dataarray = res.data
+      if (status) {
+
+
+
+       UpdateNewsImageGrid(res);
+
+
+
+      }
+      else {
+
+
+      }
+
+
+
+    }
+  });
+
+}
 function clearAll() {
 
-
+$('#sumbitbutton').text("Submit");
   $('#news_title').val("");
   $('#news_description').val("");
   $('#news_date').val("");
   $("#input-14").fileinput('clear');
- 
-  // var $el = $('#input-14');
-  // $el.fileinput('destroy');
-  // $el.fileinput(fileinput_options)
-  //  var $el = $('#input-14');
-  //  $el.wrap('<form>').closest('form').get(0).reset();
-  //  $el.unwrap();
+ $("#newsimags").html("");
+  
 
   
 
 }
+
+
+
+
+
 
 function Updatevalue(res) {
 
@@ -302,6 +437,42 @@ function Updatevalue(res) {
 
 
 }
+
+
+function UpdateNewsImageGrid(res) {
+
+  console.log("News Image list",res);
+
+  var data = res.data
+if (data.length>0) {
+
+
+$("#hasimage").val("true");
+
+
+  let Html='';
+ for (i = 0; i < data.length; i++) {
+  Html+= '<div class="col-md-3">';
+ Html+= '                  <div class="imageFixedDiv">';
+Html+= '                      <img id="memberimagesrc_"  src="'+data[i].news_imageurl+'" style="width:100%"  class="imagefitcover">';
+ Html+= '                    </div>';
+   Html+= '                 <div class="imageFixedDiv text-center">';
+                      Html+= '<button type="button"  data_ids="'+data[i].image_id+'" news_ids="'+data[i].news_id+'" class="btnDeleteImage btn btn-outline btn-danger"><i class="ti-trash"></i></button>';
+   Html+= '              </div>';
+Html+= '               </div>';
+
+}
+  $("#newsimags").html(Html);
+}
+else{
+
+  
+$("#hasimage").val("false");
+$("#newsimags").html("");
+}
+
+}
+
 
 
 function updateDataTable(dataAsJsonArry) {
@@ -419,7 +590,7 @@ function upload(form_data) {
 }
 
 
-function validateForm(news_title, news_description, news_date, images) {
+function validateForm(news_title, news_description, news_date, images,hasimage) {
 
   var isvaid = true;
 
@@ -439,10 +610,13 @@ function validateForm(news_title, news_description, news_date, images) {
     isvaid = false;
     return isvaid;
   }
-  else if (images.length == 0) {
+
+  else if (hasimage=="false") {
+   
     alerts("Images is required");
     isvaid = false;
     return isvaid;
+  
   }
   else {
     isvaid = true;

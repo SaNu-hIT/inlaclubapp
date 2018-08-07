@@ -114,17 +114,24 @@ app.post('/api/updatevents', eventcontroller.updatevents);
 app.post('/api/addnews', newstcontroller.addnews);
 
 app.post('/api/listnews', newstcontroller.listnews);
+app.post('/api/listnewsimagebyid', newstcontroller.listnewsimagebyid);
 app.post('/api/listnewssbyid', newstcontroller.listnewsbyid);
+app.post('/api/updateventtype', eventtypecontroller.updateventtype);
 app.post('/api/deletenews', newstcontroller.deletenews);
+app.post('/api/deletenewsImage', newstcontroller.deletenewsImage);
 app.post('/api/updatenews', newstcontroller.updatenews);
+
+
 app.post('/api/addeventtype', eventtypecontroller.addeventtype);
+
+
 
 app.post('/api/listeventtype', eventtypecontroller.listeventtype);
 app.post('/api/listeventtypebyid', eventtypecontroller.listeventtypebyid);
 app.post('/api/deleteeventtype', eventtypecontroller.deleteeventtype);
 app.post('/api/getEventType', eventtypecontroller.getEventType);
 app.post('/api/updateventtype', eventtypecontroller.updateventtype);
-app.post('/api/uploadimage', eventtypecontroller.uploadimage);
+
 app.listen(process.env.PORT || 8080, function(){
   console.log('listening on ports');
 });

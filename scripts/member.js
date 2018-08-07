@@ -1,7 +1,7 @@
 
 $(function () {
-var ismarredflag=false;
-var ismarried="NO";
+
+
 var isedit=false;
 
   $("#SpouseImage").fileinput({
@@ -23,32 +23,68 @@ var isedit=false;
 
   $('#sumbitbutton').click(function (e) {
     e.preventDefault();
-    console.log('sumbitbutton clicked');
     var MemberImagefile = $("#MemberImage").prop("files")[0];
     var spauceimagefile = $("#SpouseImage").prop("files")[0];
     var data = new FormData();
-    var title = $('#title_for option:selected').text()
+    var title = $('#title_for option:selected').text();
     var names = $('#name').val();
     var mobile_no = $('#mobile_no').val();
     var email = $('#email').val();
     var office_no = $('#office_no').val();
     var dob = $('#dob').val();
-    console.log('Load' + dob);
     var address = $('#address').val();
-    var title_for_spouse = $('#title_for_spouse option:selected').text()
+    var title_for_spouse = $('#title_for_spouse option:selected').text();
     var nameOf_spouse = $('#nameOf_spouse').val();
     var spouse_mobileNo = $('#spouse_mobileNo').val();
     var spouse_email = $('#spouse_email').val();
     var spouse_dob = $('#spouse_dob').val();
     var weeding_date = $('#weeding_date').val();
-
-  
-    var ismarrieds = ismarried;
     var Profession = $('#Profession').val();
     var memberimage = $('#MemberImage_value').val();
     var spouceimage = $('#SpouseImage_value').val();
-    if (validateForm(title, names, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarrieds, Profession, spouceimage
+
+var ismarredflag=false;
+
+var ismarred=$("#ismarried").val();
+
+console.log("YES ismarried",ismarred);
+if (ismarred=="YES") {
+ismarredflag=true
+}
+else
+{
+  ismarredflag=false;
+}
+
+var isedit=false;
+var isedits=$("#isedits").val();
+console.log("YES isedits",isedits);
+if (isedits=="YES") {
+isedit=true
+}
+else
+{
+  isedit=false;
+}
+console.log("isedit","isedit");
+
+
+console.log("isedit",isedit);
+
+
+console.log("ismarredflag",ismarredflag);
+
+    if (validateForm(title, names, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date,  Profession, spouceimage
     ,ismarredflag,isedit)) {
+
+if (ismarredflag) {
+
+  ismarried="YES";
+}
+else
+{
+  ismarried="NO";
+}
 
 
       data.append("memberimage", memberimage);
@@ -80,7 +116,6 @@ var isedit=false;
       } else {
 
         var cid = window.itemid;
-        console.log("cid", cid);
         data.append("cid", cid);
         url = "/api/updatemember"
       }
@@ -95,13 +130,20 @@ var isedit=false;
         success: function (res) {
           var message = res.message
           var status = res.status
-          console.log("Message" + message);
-          console.log("status" + status);
           if (status) {
 
             window.lastid = res.lastid;
             LoadDataDromDb();
+
+            if (ismarredflag) {
+
+
             UpdateChildrenDetails("Saved","Do you want to add  children details");
+          }
+          else
+          {
+              swal("Success", "Member Added", "success");
+          }
 
 
             clearAll()
@@ -117,7 +159,10 @@ var isedit=false;
     }
     else {
 
-      console.log("Hey lo cancel");
+swal("Oops", "Member can not add spouce deatils, Check Married Option for", "error");
+
+
+      console.log("Hey lo cancelss");
     }
 
 
@@ -131,27 +176,34 @@ var mytable;
 $(document).ready(function () {
 
 
+
+$("#isedits").val("NO");
+
   mytable = null;
+
 
 $("#maritalstatus_2").prop('checked', true);
 
 
   $("#married_div").hide();
+  // $("#spousediv").hide();
+
+
+ $("#ismarried").val("NO");
+
 
   $("#memberimagesrc").hide();
   $("#spuseimagesrc").hide();
 
 
 $("#maritalstatus_1").on('click change', function() {
-  console.log("checked")
    
 if($(this).prop("checked")) {
 
-  console.log("show div")
   $("#married_div").show();
-        ismarried="YES";
-  ismarredflag=true;
-     console.log("ismarredflag 1",ismarredflag)
+    $("#spousediv").show();
+        $("#ismarried").val("YES");
+
       }
       
     
@@ -166,9 +218,10 @@ $("#maritalstatus_2").on('click change', function() {
    
 if($(this).prop("checked")) {
     $("#married_div").hide();  
-    ismarried="NO";
-     ismarredflag=false;
-            console.log("ismarredflag  2",ismarredflag)
+     // $("#spousediv").hide();
+    $("#ismarried").val("NO");
+     
+        
       }
    
      
@@ -183,7 +236,6 @@ if($(this).prop("checked")) {
   LoadDataDromDb();
   $(document).on('click', '.btnDelete', function () {
     var id = $(this).attr('data_id');
-    console.log(id);
     var data = {};
     data.code = id; //input
 
@@ -210,15 +262,11 @@ swal({
       contentType: 'application/json',
       url: 'api/deleteMember',
       success: function (res) {
-        console.log('success');
-        console.log(res);
         var message = res.message
         var status = res.status
-        console.log("Message" + message);
-        console.log("status" + status);
         var dataarray = res.data
         if (status) {
-
+clearAll();
           LoadDataDromDb();
      
           swal("Success", message, "success");
@@ -272,10 +320,9 @@ swal({
 
 
   $(document).on('click', '.btnEdit', function () {
-    isedit=true;
+   $('#isedits').val("YES");
 
     var id = $(this).attr('data_id');
-    console.log(id);
     var data = {};
     data.code = id; //input
     jQuery.ajax({
@@ -284,8 +331,6 @@ swal({
       contentType: 'application/json',
       url: '/api/listMemberbyid',
       success: function (res) {
-        console.log('success');
-        console.log(res);
         var message = res.message
         var status = res.status
 
@@ -316,7 +361,7 @@ swal({
   $(document).on('click', '#sumbitbuttonchild', function () {
     // child_title child_name  child_mobile_no  child_email  child_office_no  child_dob
     // e.preventDefault();
-    console.log("submitchilc");
+
     var data = new FormData();
     var child_title = $('#child_title').val();
     var child_name = $('#child_name').val();
@@ -359,8 +404,6 @@ swal({
         success: function (res) {
           var message = res.message
           var status = res.status
-          console.log("Message" + message);
-          console.log("status" + status);
           if (status) {
 
             clearModel();
@@ -424,19 +467,16 @@ function uploadData(file_data, detail) {
     data: form_data, // Setting the data attribute of ajax with file_data
     type: 'post',
     success: function (datas) {
-      console.log('data' + datas);
       var status = datas.status;
       if (status) {
         // swal("Success", datas.message, "success");
         img = datas.path;
-  console.log("membar image in upload with out path " + img);
 
         if (detail == "mem") {
 
           // var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
           memberimage = img;
 
-          console.log("membar image in upload " + memberimage);
           $('#MemberImage_value').val(memberimage);
 
 
@@ -446,14 +486,12 @@ function uploadData(file_data, detail) {
           // var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
           spouceimage = img;
           $('#SpouseImage_value').val(spouceimage);
-          console.log("spouceimage image in upload" + spouceimage);
 
         }
         else {
           // var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
           childimage = img;
           $('#childimage_value').val(childimage);
-          console.log("chil imahe  image in upload" + childimage);
         }
 
       }
@@ -474,8 +512,6 @@ function LoadDataDromDb() {
     contentType: 'application/json',
     url: '/api/listMembers',
     success: function (res) {
-      console.log('success');
-      console.log(res);
       var message = res.message
       var status = res.status
       var dataarray = res.data
@@ -489,6 +525,8 @@ function LoadDataDromDb() {
 
 }
 function validateFormchild(child_title, child_name, child_mobile_no, child_email, child_office_no, child_dob, childimage_value,ids) {
+ console.log("ismarredflag in vaidation",ismarredflag)
+
   var isvaid = true;
   var email_regex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
   var mob_regex = /[2-9]{2}\d{8}/;
@@ -547,16 +585,16 @@ function validateFormchild(child_title, child_name, child_mobile_no, child_email
 }
 
 
+
 // function validateForm(memberimage, spouceimage,name, title,  mobile_no, email, office_no, dob, address,
 //   title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession) {
-function validateForm(title, name, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession, spouceimage,ismarredflag,isedit) {
+function validateForm(title, name, mobile_no, email, office_no, dob, address, memberimage, title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date,  Profession, spouceimage,ismarredflag,isedit) {
 
-console.log("ismarried",ismarried)
-console.log("ismarredflag 3",ismarredflag)
+ console.log("ismarredflag in vaidation",ismarredflag)
 
- var isvaid = true;
+  var isvaid = true;
   var email_regex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
-  var mob_regex = /[2-9]{2}\d{8}/;
+  var mob_regex = /^[789]\d{9}$/;
   var name_regex = /^[a-zA-Z]+$/;
   if (title == "") {
     alerts("Title  Required");
@@ -598,19 +636,17 @@ console.log("ismarredflag 3",ismarredflag)
     isvaid = false;
     return isvaid;
   }
-  else if (isedit) {
-     if (memberimage == "") {
+  else if (memberimage == "") {
+    
     alerts("Memberimage Required");
 
     // swal("Good job!", "You clicked the button!", "warning")
-
     isvaid = false;
     return isvaid;
-  }
+  
   }
   
   else if (ismarredflag) {
-
 
   if (weeding_date == "") {
     alerts("Wedding Date Required");
@@ -653,14 +689,24 @@ console.log("ismarredflag 3",ismarredflag)
     isvaid = false;
     return isvaid;
   }
+  else
+  {
 
-
-  }
-else {
     isvaid = true;
     return isvaid;
   }
+
+
+  }
+  else
+  {
+    isvaid = true;
+    return isvaid;
+  }
+
 }
+
+
 
 
 function alerts(message) {
@@ -711,11 +757,27 @@ function clearAll() {
   $("#memberimagesrc").hide();
   $("#spuseimagesrc").hide();
   $('#sumbitbutton').text("Submit");
+
+
+  $("#isedits").val("NO");
+
+
+
+
+$("#maritalstatus_2").prop('checked', true);
+
+
+  $("#married_div").hide();
+  // $("#spousediv").hide();
+
+
+ $("#ismarried").val("NO");
+
+
 }
 
 function Updatevalue(res) {
 
-  console.log(res);
 
   var data = res.data
   var name = data[0].name
@@ -723,7 +785,6 @@ function Updatevalue(res) {
   window.itemid = data[0].cid
 
   var titl = data[0].title
-  console.log(titl);
   var mobile_no = data[0].mobile_no
 
   var email = data[0].email
@@ -751,14 +812,17 @@ function Updatevalue(res) {
 
 if (ismarried=="YES") {
 $("#maritalstatus_1").prop('checked', true);
-
+   $("#spousediv").show();
   $("#married_div").show();
+   $("#ismarried").val("YES");
 }
 if (ismarried=="NO") {
 
 $("#maritalstatus_2").prop('checked', true);
 
   $("#married_div").hide();
+     $("#ismarried").val("NO");
+     // $("#spousediv").hide();
 }
 
   $('#sumbitbutton').text("UPDATE");
@@ -778,6 +842,8 @@ $("#maritalstatus_2").prop('checked', true);
   $('#spouse_dob').val(spouse_dob);
   $('#weeding_date').val(weeding_date);
   $('#ismarried').val(ismarried);
+
+
   $('#Profession').val(Profession);
   $('#MemberImage_value').val(MemberImage);
   $('#SpouseImage_value').val(SpouseImage);
@@ -807,7 +873,6 @@ function updateTable(dataAsJsonArry) {
       {
         "render": function (data, type, JsonResultRow, meta) {
           var image = JsonResultRow.MemberImage;
-          console.log("IMAGE"+image);
           return '<img src="' + image + '" alt="" class="img-thumbnail img-responsive imagefit">';
         }
       },
@@ -824,7 +889,6 @@ function updateTable(dataAsJsonArry) {
       {
         "render": function (data, type, JsonResultRow, meta) {
           var image = JsonResultRow.SpouseImage;
-          console.log("IMAGE"+image);
           return '<img src="' + image + '" alt="" class="img-thumbnail img-responsive">';
         }
       },

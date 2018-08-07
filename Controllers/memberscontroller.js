@@ -130,7 +130,7 @@ module.exports.updateMember = function(req, res) {
 }
 
 module.exports.listMembers = function(req, res) {
-    var sql = "SELECT * FROM `club_app_member_contact_info` ORDER BY `name` ASC"
+    var sql = "SELECT * FROM `club_app_member_contact_info` ORDER BY `cid` DESC"
     console.log(sql);
     connection.query(sql, function(err, result, fields) {
         if (err) {
@@ -141,7 +141,7 @@ module.exports.listMembers = function(req, res) {
 
             })
         } else {
-            // console.log(result);
+            console.log(result);
             res.json({
                 status: true,
                 message: "Successful",

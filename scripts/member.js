@@ -446,7 +446,6 @@ clearModel() {
   $('#child_mobile_no').val("");
   $('#child_office_no').val("");
   $('#child_dob').val("");
-
   $('#childimage_value').val("");
   $("#childimage").fileinput('clear');
   

@@ -1,5 +1,7 @@
 
 $(function () {
+
+
   $("#input-14").fileinput({
     theme: "gly",
     showRemove: false,
@@ -96,6 +98,7 @@ $(document).ready(function () {
 
 $("#hasimage").val("false");
     
+
   $("#input-14").change(function () {
 
 

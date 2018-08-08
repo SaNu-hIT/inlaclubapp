@@ -178,7 +178,7 @@ module.exports.uploadimagebase = function (req, res) {
     console.log("uploadpath" + uploadpath);
 
     uploadpath = './uploads/' + name;
-    var paathwithdata='https://inlaclubapp.herokuapp.com/static/uploads/'+name
+    var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+name
 
     file.mv(uploadpath, function (err) {
       if (err) {

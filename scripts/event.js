@@ -366,7 +366,7 @@ function updateDropdown(res) {
 
     $("#type_id").append("<option value='" + id + "'>" + event_type_name + "</option>");
   }
-  $("#type_id").append('<option value="-1">Select event type</option>');
+  $("#type_id").append('<option value="-1">Select Event Type</option>');
   $("#type_id").val('-1');
 
 }

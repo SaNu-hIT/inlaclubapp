@@ -23,7 +23,7 @@ $(function () {
 
     if (validateForm(news_title, news_description, news_date, images,hasimages)) {
 
-      
+      $(".modal").show();
       data.news_title = news_title; //input
       data.news_description = news_description; //input
       data.news_date = news_date; //input
@@ -50,6 +50,7 @@ $(function () {
           var status = res.status
           console.log("Message" + message);
           console.log("status" + status);
+
           if (status) {
 
 
@@ -60,9 +61,11 @@ $(function () {
             LoadDataDromDb();
             swal("Success", message, "success");
             clearAll()
+              $(".modal").hide();
 
           }
           else {
+              $(".modal").hide();
             swal("Oops", message, "error");
 
           }
@@ -313,6 +316,8 @@ $(document).on('click', '.btnDeleteImage', function (e){
 
 
 function LoadDataDromDb() {
+
+       $(".modal").show();
 clearAll();
 
   $.ajax({
@@ -334,12 +339,12 @@ clearAll();
 
 
         updateDataTable(res);
-
+     $(".modal").hide();
 
 
       }
       else {
-
+     $(".modal").hide();
 
       }
 
@@ -353,7 +358,7 @@ clearAll();
 
 
 function LoadImageAlso(id) {
-
+     $(".modal").show();
       console.log("data before call ",data);
  var data = {};
     data.code = id; 
@@ -380,10 +385,11 @@ function LoadImageAlso(id) {
 
        UpdateNewsImageGrid(res);
 
-
+     $(".modal").hide();
 
       }
       else {
+             $(".modal").hide();
 
 
       }

@@ -14,6 +14,7 @@ $(function () {
     var event_venue = $('#event_venue').val();
     if (validateForm(type_id, event_title, event_description, event_date, event_time, event_venue)) {
       // var MemberImage=req.files.MemberImage.name
+          $(".modal").show();
       data.type_id = type_id; //input
       data.event_title = event_title; //input
       data.event_description = event_description; //input
@@ -47,9 +48,11 @@ $(function () {
             LoadDataDromDb();
             swal("Success", message, "success");
             clearAll()
+                 $(".modal").hide();
 
           }
           else {
+                 $(".modal").hide();
             swal("Oops", message, "error");
 
           }
@@ -194,7 +197,7 @@ swal({
 
 
 function LoadDataDromDb() {
-
+     $(".modal").show();
 
   $.ajax({
     type: 'POST',
@@ -216,12 +219,14 @@ function LoadDataDromDb() {
 
         updateDataTable(res);
 
+             $(".modal").hide();
+
 
 
       }
       else {
 
-
+     $(".modal").hide();
       }
 
 

@@ -303,10 +303,14 @@ clearAll();
 
   });
   $("#SpouseImage").change(function () {
+
+
    
     var file = $("#SpouseImage").prop("files")[0];
    
     uploadData(file, "spo")
+
+
   });
 
 
@@ -454,6 +458,8 @@ clearModel() {
 }
 
 function uploadData(file_data, detail) {
+
+  $(".modal").show();
   var imagedata;
   var img;
   var form_data = new FormData();
@@ -473,13 +479,9 @@ function uploadData(file_data, detail) {
 
         if (detail == "mem") {
 
-          // var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
           memberimage = img;
 
           $('#MemberImage_value').val(memberimage);
-
-
-          // MemberImage_value
         }
         else if (detail == "spo") {
           // var paathwithdata='https://inlaclubapp.herokuapp.com/static/'+img
@@ -493,18 +495,26 @@ function uploadData(file_data, detail) {
           $('#childimage_value').val(childimage);
         }
 
+         $(".modal").hide();
+
       }
       else {
+        $(".modal").hide();
 
         swal("Failed", "Error", "error");
       }
     }, error: function (datass) {
       console.log("error");
+
+      swal("Failed", "Error", "error");
+      $(".modal").hide();
     }
   });
 }
 
 function LoadDataDromDb() {
+
+       $(".modal").show();
   jQuery.ajax({
     type: 'POST',
     //input data to be sent to the server
@@ -516,8 +526,10 @@ function LoadDataDromDb() {
       var dataarray = res.data
       if (status) {
         updateTable(res);
+             $(".modal").hide();
       }
       else {
+             $(".modal").hide();
       }
     }
   });

@@ -21,7 +21,7 @@ $(function () {
     form_data.append("upfile", file_data);
     form_data.append("eventname", event_name);
     console.log("form_data" + form_data);
-
+      $(".modal").show();
     $.ajax({
       url: "/api/upload", 
       cache: true,
@@ -33,9 +33,11 @@ $(function () {
         console.log('data' + datas);
         var status = datas.status;
         if (status) {
+          $(".modal").hide();
           LoadDataDromDb();
           swal("Success", datas.message, "success");
           clearAlls();
+
         }
         else {
 
@@ -167,6 +169,7 @@ swal({
 
 
 function LoadDataDromDb() {
+        $(".modal").show();
   $.ajax({
     type: 'POST',
     //input data to be sent to the server
@@ -185,12 +188,13 @@ function LoadDataDromDb() {
 
 
         updateDataTable(res);
+              $(".modal").hide();
 
 
 
       }
       else {
-
+      $(".modal").hide();
 
       }
 
@@ -263,6 +267,7 @@ function updateDataTable(dataAsJsonArry) {
 }
 
 function loadDrpdown() {
+        $(".modal").show();
   console.log("drop downvalue");
   $.ajax({
     type: 'POST',
@@ -277,6 +282,7 @@ function loadDrpdown() {
       var dataarray = res.data
       if (status) {
         updateDropdown(res);
+              $(".modal").hide();
       }
       else {
 

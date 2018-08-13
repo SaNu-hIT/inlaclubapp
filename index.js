@@ -117,7 +117,7 @@ app.get('/category',sessionChecker, function (req, res) {
 
 
 app.get('/member', sessionChecker,  function (req, res) {
-    console.log("User session",req.session.user);
+ 
     res.render('addmember.ejs');
 
 });

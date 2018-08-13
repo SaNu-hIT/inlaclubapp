@@ -2,7 +2,8 @@ var express = require("express");
 var bodyParser = require('body-parser');
 var engine = require('ejs-locals');
 var multer = require('multer');
-var session = require('express-session')
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var app = express();
 var upload = require('express-fileupload');
 app.use(upload()); 
@@ -22,6 +23,62 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/Views');
 app.engine('html', require('ejs').renderFile);
 app.engine('ejs', engine);
+
+
+
+
+app.use(cookieParser());
+
+// initialize express-session to allow us track the logged-in user across sessions.
+app.use(session({
+    key: 'user_sid',
+    secret: '0',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}));
+
+
+// This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
+// This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
+app.use((req, res, next) => {
+    if (req.cookies.user_sid && !req.session.user) {
+        res.clearCookie('user_sid');        
+    }
+    next();
+});
+
+
+// middleware function to check for logged-in users
+var sessionChecker = (req, res, next) => {
+    console.log("User id",req.session.user)
+    if (req.session.user =='2') {
+          next();
+       
+    } else {
+     
+     res.redirect('/login'); 
+    }    
+};
+
+app.get('/', sessionChecker, (req, res) => {
+
+
+    res.redirect('/login');
+});
+
+app.get('/logout', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.clearCookie('user_sid');
+        res.redirect('/');
+    } else {
+        res.redirect('/login');
+    }
+});
+
+
 app.get('/s', function (req, res) {
     res.sendFile(__dirname + '/Views/uploadfile.html');
 })
@@ -30,7 +87,9 @@ app.post('/api/uploadimagenews', newstcontroller.uploadimagenews)
 app.post('/api/uploadimage', eventtypecontroller.uploadimagebase)
 app.post('/api/listMembers', memberscontroller.listMembers);
 
-app.get('/', function (req, res) {
+app.get('/login', function (req, res) {
+
+  
     res.render('login.html');
 });
 
@@ -39,38 +98,36 @@ app.get('/base', function (req, res) {
 
 });
 
-app.get('/forgot', function (req, res) {
+app.get('/forgot',sessionChecker, function (req, res) {
     res.render('forgot.html');
 
 });
 
-app.get('/events', function (req, res) {
+app.get('/events', sessionChecker,function (req, res) {
 
     res.render('addevents.ejs');
 
 });
 
-app.get('/category', function (req, res) {
+app.get('/category',sessionChecker, function (req, res) {
     res.render('category.ejs');
 
 });
 
-app.get('/base', function (req, res) {
-    res.render('basetemplate.html');
 
-});
 
-app.get('/member', function (req, res) {
+app.get('/member', sessionChecker,  function (req, res) {
+    console.log("User session",req.session.user);
     res.render('addmember.ejs');
 
 });
 
-app.get('/news', function (req, res) {
+app.get('/news', sessionChecker,function (req, res) {
     res.render('addnews.ejs');
 
 });
     
-app.get('/eventtype', function (req, res) {
+app.get('/eventtype', sessionChecker,function (req, res) {
     res.render('eventtype.ejs');
 
 });

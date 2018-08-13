@@ -16,7 +16,9 @@ module.exports.authenticate = function (req, res) {
 
     } else {
       if (results.length > 0) {
+         console.log("results"+results[0]);
         if (password == results[0].password) {
+          req.session.user="2";
           res.json({
             status: true,
             message: 'Successfully authenticated'

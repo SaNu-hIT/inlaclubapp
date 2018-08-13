@@ -1,4 +1,7 @@
 $(function () {
+
+
+
   $('#sumbitbutton').click(function (e) {
     e.preventDefault();
     console.log('Load_button clicked');
@@ -31,8 +34,9 @@ $(function () {
         console.log("status" + status);
         if (status) {
           LoadDataDromDb();
+          
+          clearAll();
           swal("Success", message, "success");
-          clearAll()
 
         }
         else {
@@ -42,6 +46,14 @@ $(function () {
       }
     });
    }
+
+  });
+
+   $('#resetbutton').click(function (e) {
+    e.preventDefault();
+
+
+clearAll();
 
   });
 
@@ -246,7 +258,7 @@ function updateDataTable(dataAsJsonArry) {
           html += '</div>';
           return html;
         }
-      }
+      ,"bSortable": false}
     ]
 
   });

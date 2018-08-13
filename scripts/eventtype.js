@@ -8,6 +8,9 @@ $(function () {
     showClose: true,
     hideThumbnailContent: false // hide image, pdf, text or other content in the thumbnail preview
 });
+
+
+
   $('#uploadbutton').click(function (e) {
     e.preventDefault();
     console.log('uploadbutton clicked');
@@ -36,8 +39,7 @@ $(function () {
           $(".modal").hide();
           LoadDataDromDb();
           swal("Success", datas.message, "success");
-          clearAlls();
-
+          clearAll();
         }
         else {
 
@@ -55,7 +57,13 @@ $(function () {
 
 
   });
+$('#resetbutton').click(function (e) {
+    e.preventDefault();
 
+
+clearAll();
+
+  });
 
   
 });
@@ -255,7 +263,7 @@ function updateDataTable(dataAsJsonArry) {
           html += '</div>';
           return html;
         }
-      }
+      ,"bSortable": false}
     ]
 
   });
@@ -310,7 +318,7 @@ function updateDropdown(res) {
 }
 
 
-function clearAlls() {
+function clearAll() {
   console.log("clear all")
 
   $('#name').val("");

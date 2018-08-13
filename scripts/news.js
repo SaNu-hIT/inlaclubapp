@@ -9,6 +9,9 @@ $(function () {
     showClose: true,
     hideThumbnailContent: false // hide image, pdf, text or other content in the thumbnail preview
 });
+
+
+
   $('#sumbitbutton').click(function (e) {
     e.preventDefault();
     console.log('Load_button clicked');
@@ -84,7 +87,13 @@ $(function () {
 
 
  
+$('#resetbutton').click(function (e) {
+    e.preventDefault();
 
+
+clearAll();
+
+  });
 
 
 
@@ -436,10 +445,12 @@ function Updatevalue(res) {
   window.itemid = data[0].news_id
   console.log("itemid  " + itemid);
 
+  var news_dates = new Date(news_date).toISOString().slice(0,10);
+
   $('#news_title').val(news_title);
 
   $('#news_description').val(news_description);
-  $('#news_date').val(news_date);
+  $('#news_date').val(news_dates);
 
   $("#memberimagesrc").attr("src", Image);
   $("#memberimagesrc").show();
@@ -500,7 +511,7 @@ function updateDataTable(dataAsJsonArry) {
     columns: [
       { data: "news_id" },
       { data: "news_title" },
-      { data: "news_description" },
+      { data: "news_description" ,"bSortable": false},
       { data: "news_date" },
 
 
@@ -512,7 +523,7 @@ function updateDataTable(dataAsJsonArry) {
           html += '</div>';
           return html;
         }
-      }
+      ,"bSortable": false}
     ]
 
   });

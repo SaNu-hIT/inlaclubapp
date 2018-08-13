@@ -1,5 +1,8 @@
 
 $(function () {
+
+  
+
   $('#sumbitbutton').click(function (e) {
     e.preventDefault();
     console.log('Load_button clicked');
@@ -66,7 +69,13 @@ $(function () {
     
   });
 
+$('#resetbutton').click(function (e) {
+    e.preventDefault();
 
+
+clearAll();
+
+  });
 });
 
 
@@ -262,8 +271,9 @@ function Updatevalue(res) {
 
   var event_venue = data[0].event_venue
 
-  $('#sumbitbutton').text("UPDATE");
 
+   var event_dates = new Date(event_date).toISOString().slice(0,10);
+  $('#sumbitbutton').text("UPDATE");
   window.itemid = data[0].event_id
   console.log("type_id  " + type_id);
   
@@ -273,7 +283,7 @@ function Updatevalue(res) {
 
   // $('#selectBasic option:selected').selected=1
   $('#event_description').val(event_description);
-  $('#event_date').val(event_date);
+  $('#event_date').val(event_dates);
   $('#event_time').val(event_time);
   $('#event_venue').val(event_venue);
 
@@ -299,7 +309,7 @@ function updateDataTable(dataAsJsonArry) {
       { data: "type_id" },
       // { data: "MemberImage"},
       { data: "event_title" },
-      { data: "event_description" },
+      { data: "event_description" ,"bSortable": false},
       { data: "event_date" },
 
       { data: "event_time" },
@@ -312,7 +322,7 @@ function updateDataTable(dataAsJsonArry) {
           html += '</div>';
           return html;
         }
-      }
+      ,"bSortable": false}
     ]
 
   });

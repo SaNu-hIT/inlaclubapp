@@ -145,7 +145,7 @@ module.exports.updatevents = function (req, res) {
   var event_title = req.body.event_title; //input
   var event_description = req.body.event_description; //input
   var event_date = req.body.event_date; //input
-  var event_time = req.body.devent_timeob;
+  var event_time = req.body.event_time;
   var event_venue = req.body.event_venue;
   // var sql = "UPDATE 'categories' SET name = '"+categoryname+"' WHERE id = '"+code+"'";
   var sql = "UPDATE club_app_events_list SET type_id='" + type_id + "',event_title='" + event_title + "',event_description=" + connection.escape(event_description) + ", event_date='" + event_date + "',event_time='" + event_time + "',event_venue='" + event_venue + "' WHERE event_id=" + event_id;

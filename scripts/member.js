@@ -19,8 +19,7 @@ var isedit=false;
     showClose: true,
     hideThumbnailContent: false // hide image, pdf, text or other content in the thumbnail preview
   });
-
-
+ 
   $('#sumbitbutton').click(function (e) {
     e.preventDefault();
     var MemberImagefile = $("#MemberImage").prop("files")[0];
@@ -168,7 +167,13 @@ swal("Oops", "Member can not add spouce deatils, Check Married Option for", "err
 
   });
 
+$('#resetbutton').click(function (e) {
+    e.preventDefault();
 
+
+clearAll();
+
+  });
 });
 
 var mytable;
@@ -821,6 +826,13 @@ function Updatevalue(res) {
 
 
 
+console.log("weeding_date with out format",weeding_date);
+
+  
+var weeding_date_new = new Date(weeding_date).toISOString().slice(0,10);
+var spouse_dob_new = new Date(spouse_dob).toISOString().slice(0,10);
+var dob_new = new Date(dob).toISOString().slice(0,10);
+
 if (ismarried=="YES") {
 $("#maritalstatus_1").prop('checked', true);
    $("#spousediv").show();
@@ -828,7 +840,6 @@ $("#maritalstatus_1").prop('checked', true);
    $("#ismarried").val("YES");
 }
 if (ismarried=="NO") {
-
 $("#maritalstatus_2").prop('checked', true);
 
   $("#married_div").hide();
@@ -845,13 +856,13 @@ $("#maritalstatus_2").prop('checked', true);
   $('#mobile_no').val(mobile_no);
   $('#email').val(email);
   $('#office_no').val(office_no);
-  $('#dob').val(dob);
+  $('#dob').val(dob_new);
   $('#address').val(address);
   $('#nameOf_spouse').val(nameOf_spouse);
   $('#spouse_mobileNo').val(spouse_mobileNo);
   $('#spouse_email').val(spouse_email);
-  $('#spouse_dob').val(spouse_dob);
-  $('#weeding_date').val(weeding_date);
+  $('#spouse_dob').val(spouse_dob_new);
+  $('#weeding_date').val(weeding_date_new);
   $('#ismarried').val(ismarried);
 
 
@@ -886,7 +897,7 @@ function updateTable(dataAsJsonArry) {
           var image = JsonResultRow.MemberImage;
           return '<img src="' + image + '" alt="" class="img-thumbnail img-responsive imagefit">';
         }
-      },
+      ,"bSortable": false},
       { data: "name" },
       { data: "address" },
       { data: "mobile_no" },
@@ -902,7 +913,7 @@ function updateTable(dataAsJsonArry) {
           var image = JsonResultRow.SpouseImage;
           return '<img src="' + image + '" alt="" class="img-thumbnail img-responsive">';
         }
-      },
+      ,"bSortable": false},
 
       { data: "Profession" },
       {
@@ -913,7 +924,7 @@ function updateTable(dataAsJsonArry) {
           html += '</div>';
           return html;
         }
-      }
+      ,"bSortable": false}
     ]
   });
   mytable.draw();

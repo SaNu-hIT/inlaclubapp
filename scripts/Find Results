@@ -1,0 +1,638 @@
+Searching 10519 files for "connected by"
+
+/Users/intellyelabs/inlaclubapp/node_modules/mysql/Readme.md:
+  585  
+  586  Re-connecting a connection is done by establishing a new connection. Once
+  587: terminated, an existing connection object cannot be re-connected by design.
+  588  
+  589  With Pool, disconnected connections will be removed from the pool freeing up
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/codemirror/lib/codemirror.js:
+ 3212    // These objects are used to represent the visible (currently drawn)
+ 3213    // part of the document. A LineView may correspond to multiple
+ 3214:   // logical lines, if those are connected by collapsed ranges.
+ 3215    function LineView(doc, line, lineN) {
+ 3216      // The starting line
+
+2 matches across 2 files
+
+
+Searching 10519 files for "Connected "
+
+/Users/intellyelabs/inlaclubapp/package.json:
+    2    "name": "clubapp",
+    3    "version": "1.0.0",
+    4:   "description": "New application console for connected app",
+    5    "main": "index.js",
+    6    "scripts": {
+
+/Users/intellyelabs/inlaclubapp/node_modules/express-session/index.js:
+  184  
+  185      // Handle connection as if there is no session if
+  186:     // the store has temporarily disconnected etc
+  187      if (!storeReady) {
+  188        debug('store is disconnected')
+
+/Users/intellyelabs/inlaclubapp/node_modules/mysql/Readme.md:
+  157    }
+  158  
+  159:   console.log('connected as id ' + connection.threadId);
+  160  });
+  161  ```
+  ...
+  585  
+  586  Re-connecting a connection is done by establishing a new connection. Once
+  587: terminated, an existing connection object cannot be re-connected by design.
+  588  
+  589: With Pool, disconnected connections will be removed from the pool freeing up
+  590  space for a new connection to be created on the next getConnection call.
+  591  
+  ...
+  893  connection.connect(function(err) {
+  894    if (err) throw err;
+  895:   console.log('connected as id ' + connection.threadId);
+  896  });
+  897  ```
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/bootstrap-colorpickersliders/index.html:
+  376            <tr>
+  377              <td><code>color</code></td>
+  378:             <td>This is the initial color if there is no valid (any CSS formatted) color value on the connected input element. Can be in any format that <a href="https://github.com/bgrins/TinyColor" target="_blank">Tiny Color supports</a>.</td>
+  379            </tr>
+  380            <tr>
+  ...
+  415            <tr>
+  416              <td><code>flat</code></td>
+  417:             <td><code><strong>false</strong></code>: The color picker is rendered in a popup, which is shown on focus of the connected element.<br>
+  418:               <code>true</code>: The color picker is rendered right after the connected element, and is always visible.</td>
+  419            </tr>
+  420            <tr>
+  ...
+  434            <tr>
+  435              <td><code>connectedinput</code></td>
+  436:             <td><code><strong>selector or jQuery object</strong></code>: The connected input elements value will be automatically updated in sync with the color picker. The color format which the color is represented i the input can be set via the <code>data-color-format</code> property. It can be any of <code>hex</code>, <code>hsl</code> or <code>rgb</code>. If it is hex, then the opacity will be discarded.</td>
+  437            </tr>
+  438            <tr>
+  ...
+  442            <tr>
+  443              <td><code>previewontriggerelement</code></td>
+  444:             <td><code><strong>true</strong></code>: Preview of the color on the connected element's background.<br>
+  445:               <code>false</code>: No preview on the connected element.</td>
+  446            </tr>
+  447            <tr>
+  ...
+  475            <tr>
+  476              <td><code>onchange</code></td>
+  477:             <td><code>function(container, color)</code>: This function is triggered when the color is changed with the sliders or via a connected input. The <code>color</code> parameter holds the actual color object in the following formats: rgb object, hsl object, cie lch object, <a href="https://github.com/bgrins/TinyColor" target="_blank">Tiny Color</a> object.</td>
+  478            </tr>
+  479            <tr>
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/bootstrap-colorpickersliders/nocielch.html:
+  376            <tr>
+  377              <td><code>color</code></td>
+  378:             <td>This is the initial color if there is no valid (any CSS formatted) color value on the connected input element. Can be in any format that <a href="https://github.com/bgrins/TinyColor" target="_blank">Tiny Color supports</a>.</td>
+  379            </tr>
+  380            <tr>
+  ...
+  411            <tr>
+  412              <td><code>flat</code></td>
+  413:             <td><code><strong>false</strong></code>: The color picker is rendered in a popup, which is shown on focus of the connected element.<br>
+  414:               <code>true</code>: The color picker is rendered right after the connected element, and is always visible.</td>
+  415            </tr>
+  416            <tr>
+  ...
+  430            <tr>
+  431              <td><code>connectedinput</code></td>
+  432:             <td><code><strong>selector or jQuery object</strong></code>: The connected input elements value will be automatically updated in sync with the color picker. The color format which the color is represented i the input can be set via the <code>data-color-format</code> property. It can be any of <code>hex</code>, <code>hsl</code> or <code>rgb</code>. If it is hex, then the opacity will be discarded.</td>
+  433            </tr>
+  434            <tr>
+  ...
+  438            <tr>
+  439              <td><code>previewontriggerelement</code></td>
+  440:             <td><code><strong>true</strong></code>: Preview of the color on the connected element's background.<br>
+  441:               <code>false</code>: No preview on the connected element.</td>
+  442            </tr>
+  443            <tr>
+  ...
+  471            <tr>
+  472              <td><code>onchange</code></td>
+  473:             <td><code>function(container, color)</code>: This function is triggered when the color is changed with the sliders or via a connected input. The <code>color</code> parameter holds the actual color object in the following formats: rgb object, hsl object, cie lch object, <a href="https://github.com/bgrins/TinyColor" target="_blank">Tiny Color</a> object.</td>
+  474            </tr>
+  475            <tr>
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/bootstrapck4-skin/core/dom/node.js:
+   79  
+   80  CKEDITOR.POSITION_IDENTICAL = 0;
+   81: CKEDITOR.POSITION_DISCONNECTED = 1;
+   82  CKEDITOR.POSITION_FOLLOWING = 2;
+   83  CKEDITOR.POSITION_PRECEDING = 4;
+   ..
+  514  
+  515  			if ( 'sourceIndex' in $ )
+  516: 				return ( $.sourceIndex < 0 || $other.sourceIndex < 0 ) ? CKEDITOR.POSITION_DISCONNECTED : ( $.sourceIndex < $other.sourceIndex ) ? CKEDITOR.POSITION_PRECEDING : CKEDITOR.POSITION_FOLLOWING;
+  517  
+  518  		}
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/clockface/test/libs/jquery/jquery-1.8.2.js:
+ 1382  	support.checkClone = fragment.cloneNode( true ).cloneNode( true ).lastChild.checked;
+ 1383  
+ 1384: 	// Check if a disconnected checkbox will retain its checked
+ 1385  	// value of true after appended to the DOM (IE6/7)
+ 1386  	support.appendChecked = input.checked;
+ ....
+ 5280  			assert(function( div ) {
+ 5281  				// Check to see if it's possible to do matchesSelector
+ 5282: 				// on a disconnected node (IE 9)
+ 5283  				disconnectedMatch = matches.call( div, "div" );
+ 5284  
+ ....
+ 5303  						var ret = matches.call( elem, expr );
+ 5304  
+ 5305: 						// IE 9's matchesSelector returns false on disconnected nodes
+ 5306  						if ( ret || disconnectedMatch ||
+ 5307: 								// As well, disconnected nodes are said to be in a document
+ 5308  								// fragment in IE 9
+ 5309  								elem.document && elem.document.nodeType !== 11 ) {
+ ....
+ 8968  
+ 8969  // Remove in 2.0 - this supports IE8's panic based approach
+ 8970: // to setting things on disconnected nodes
+ 8971  
+ 8972  Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
+ ....
+ 9219  	docElem = doc.documentElement;
+ 9220  
+ 9221: 	// Make sure it's not a disconnected DOM node
+ 9222  	if ( !jQuery.contains( docElem, elem ) ) {
+ 9223  		return box;
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/code-prettify/tests/test_base.js:
+   40      if (!newlineRe.test(content)) { return true; }  // Don't care
+   41      var whitespace = '';
+   42:     // For disconnected nodes, IE has no currentStyle.
+   43      if (node.currentStyle) {
+   44        whitespace = node.currentStyle.whiteSpace;
+   45      } else if (window.getComputedStyle) {
+   46:       // Firefox makes a best guess if node is disconnected whereas Safari
+   47        // returns the empty string.
+   48        whitespace = window.getComputedStyle(node, null).whiteSpace;
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/codemirror/lib/codemirror.js:
+ 3212    // These objects are used to represent the visible (currently drawn)
+ 3213    // part of the document. A LineView may correspond to multiple
+ 3214:   // logical lines, if those are connected by collapsed ranges.
+ 3215    function LineView(doc, line, lineN) {
+ 3216      // The starting line
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/codemirror/mode/julia/julia.js:
+  364        }
+  365  
+  366:       // Handle '.' connected identifiers
+  367        if (current === '.') {
+  368          style = stream.match(identifiers, false) || stream.match(macro, false) ||
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/codemirror/mode/perl/perl.js:
+  373                  pack                            :1,     // - convert a list into a binary representation
+  374                  'package'                       :1,     // - declare a separate global namespace
+  375:                 pipe                            :1,     // - open a pair of connected filehandles
+  376                  pop                             :1,     // - remove the last element from an array and return it
+  377                  pos                             :1,     // - find or set the offset for the last/next m//g search
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/codemirror/mode/sql/sql.js:
+  341      name:       "sql",
+  342      client:     set("appinfo arraysize autocommit autoprint autorecovery autotrace blockterminator break btitle cmdsep colsep compatibility compute concat copycommit copytypecheck define describe echo editfile embedded escape exec execute feedback flagger flush heading headsep instance linesize lno loboffset logsource long longchunksize markup native newpage numformat numwidth pagesize pause pno recsep recsepchar release repfooter repheader serveroutput shiftinout show showmode size spool sqlblanklines sqlcase sqlcode sqlcontinue sqlnumber sqlpluscompatibility sqlprefix sqlprompt sqlterminator suffix tab term termout time timing trimout trimspool ttitle underline verify version wrap"),
+  343:     keywords:   set("abort accept access add all alter and any array arraylen as asc assert assign at attributes audit authorization avg base_table begin between binary_integer body boolean by case cast char char_base check close cluster clusters colauth column comment commit compress connect connected constant constraint crash create current currval cursor data_base database date dba deallocate debugoff debugon decimal declare default definition delay delete desc digits dispose distinct do drop else elseif elsif enable end entry escape exception exception_init exchange exclusive exists exit external fast fetch file for force form from function generic goto grant group having identified if immediate in increment index indexes indicator initial initrans insert interface intersect into is key level library like limited local lock log logging long loop master maxextents maxtrans member minextents minus mislabel mode modify multiset new next no noaudit nocompress nologging noparallel not nowait number_base object of off offline on online only open option or order out package parallel partition pctfree pctincrease pctused pls_integer positive positiven pragma primary prior private privileges procedure public raise range raw read rebuild record ref references refresh release rename replace resource restrict return returning returns reverse revoke rollback row rowid rowlabel rownum rows run savepoint schema segment select separate session set share snapshot some space split sql start statement storage subtype successful synonym tabauth table tables tablespace task terminate then to trigger truncate type union unique unlimited unrecoverable unusable update use using validate value values variable view views when whenever where while with work"),
+  344      builtin:    set("abs acos add_months ascii asin atan atan2 average bfile bfilename bigserial bit blob ceil character chartorowid chr clob concat convert cos cosh count dec decode deref dual dump dup_val_on_index empty error exp false float floor found glb greatest hextoraw initcap instr instrb int integer isopen last_day least lenght lenghtb ln lower lpad ltrim lub make_ref max min mlslabel mod months_between natural naturaln nchar nclob new_time next_day nextval nls_charset_decl_len nls_charset_id nls_charset_name nls_initcap nls_lower nls_sort nls_upper nlssort no_data_found notfound null number numeric nvarchar2 nvl others power rawtohex real reftohex round rowcount rowidtochar rowtype rpad rtrim serial sign signtype sin sinh smallint soundex sqlcode sqlerrm sqrt stddev string substr substrb sum sysdate tan tanh to_char text to_date to_label to_multi_byte to_number to_single_byte translate true trunc uid unlogged upper user userenv varchar varchar2 variance varying vsize xml"),
+  345      operatorChars: /^[*+\-%<>!=~]/,
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/codemirror/mode/vb/vb.js:
+  200          var current = stream.current();
+  201  
+  202:         // Handle '.' connected identifiers
+  203          if (current === '.') {
+  204              style = state.tokenize(stream, state);
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/codemirror/mode/vbscript/vbscript.js:
+  287          var current = stream.current();
+  288  
+  289:         // Handle '.' connected identifiers
+  290          if (current === '.') {
+  291              style = state.tokenize(stream, state);
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/flot/API.md:
+  816  
+  817  For lines, "steps" specifies whether two adjacent data points are
+  818: connected with a straight (possibly diagonal) line or with first a
+  819  horizontal and then a vertical line. Note that this transforms the
+  820  data by adding extra points.
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/flot/jquery.js:
+ 1383  	support.checkClone = fragment.cloneNode( true ).cloneNode( true ).lastChild.checked;
+ 1384  
+ 1385: 	// Check if a disconnected checkbox will retain its checked
+ 1386  	// value of true after appended to the DOM (IE6/7)
+ 1387  	support.appendChecked = input.checked;
+ ....
+ 5293  			assert(function( div ) {
+ 5294  				// Check to see if it's possible to do matchesSelector
+ 5295: 				// on a disconnected node (IE 9)
+ 5296  				disconnectedMatch = matches.call( div, "div" );
+ 5297  
+ ....
+ 5316  						var ret = matches.call( elem, expr );
+ 5317  
+ 5318: 						// IE 9's matchesSelector returns false on disconnected nodes
+ 5319  						if ( ret || disconnectedMatch ||
+ 5320: 								// As well, disconnected nodes are said to be in a document
+ 5321  								// fragment in IE 9
+ 5322  								elem.document && elem.document.nodeType !== 11 ) {
+ ....
+ 8997  
+ 8998  // Remove in 2.0 - this supports IE8's panic based approach
+ 8999: // to setting things on disconnected nodes
+ 9000  
+ 9001  Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
+ ....
+ 9251  	docElem = doc.documentElement;
+ 9252  
+ 9253: 	// Make sure it's not a disconnected DOM node
+ 9254  	if ( !jQuery.contains( docElem, elem ) ) {
+ 9255  		return box;
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/flot/examples/ajax/index.html:
+   91  				}
+   92  
+   93: 				// Normally we call the same URL - a script connected to a
+   94  				// database - but in this case we only have static example
+   95  				// files, so we need to modify the URL.
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/flot/examples/axes-time-zones/tz/europe:
+ 1003  # ``I do not [know] exactly but there are some little different
+ 1004  # (confusing) rules for International Air and Railway Transport Schedules
+ 1005: # conversion in Sunday connected with end of summer time in Estonia....
+ 1006  # A discussion is running about the summer time efficiency and effect on
+ 1007  # human physiology.  It seems that Estonia maybe will not change to
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/flot/examples/zooming/index.html:
+  133  		</div>
+  134  
+  135: 		<p>Selection support makes it easy to construct flexible zooming schemes. With a few lines of code, the small overview plot to the right has been connected to the large plot. Try selecting a rectangle on either of them.</p>
+  136  
+  137  	</div>
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/fullcalendar/CHANGELOG.md:
+  679  	- IE6/7 bug where an entire view becomes invisible ([320])
+  680  	- error when rendering a hidden calendar (in jquery ui tabs for example) in IE ([340])
+  681: 	- interconnected bugs related to calendar resizing and scrollbars
+  682  		- when switching views or clicking prev/next, calendar would "blink" ([333])
+  683  		- liquid-width calendar's events shifted (depending on initial height of browser) ([341])
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery/dist/jquery.js:
+ 1253  		assert(function( div ) {
+ 1254  			// Check to see if it's possible to do matchesSelector
+ 1255: 			// on a disconnected node (IE 9)
+ 1256  			support.disconnectedMatch = matches.call( div, "div" );
+ 1257  
+ ....
+ 1320  			1;
+ 1321  
+ 1322: 		// Disconnected nodes
+ 1323  		if ( compare & 1 ||
+ 1324  			(!support.sortDetached && b.compareDocumentPosition( a ) === compare) ) {
+ ....
+ 1418  			var ret = matches.call( elem, expr );
+ 1419  
+ 1420: 			// IE 9's matchesSelector returns false on disconnected nodes
+ 1421  			if ( ret || support.disconnectedMatch ||
+ 1422: 					// As well, disconnected nodes are said to be in a document
+ 1423  					// fragment in IE 9
+ 1424  					elem.document && elem.document.nodeType !== 11 ) {
+ ....
+ 5963  
+ 5964  		// Support: IE11 only
+ 5965: 		// Running getBoundingClientRect on a disconnected node
+ 5966  		// in IE throws an error.
+ 5967  		if ( elem.getClientRects().length ) {
+ ....
+ 6437  
+ 6438  // Support: IE9
+ 6439: // Panic based approach to setting things on disconnected nodes
+ 6440  Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
+ 6441  	set: function( tween ) {
+ ....
+ 9582  		docElem = doc.documentElement;
+ 9583  
+ 9584: 		// Make sure it's not a disconnected DOM node
+ 9585  		if ( !jQuery.contains( docElem, elem ) ) {
+ 9586  			return box;
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery/dist/jquery.slim.js:
+ 1300  		assert(function( el ) {
+ 1301  			// Check to see if it's possible to do matchesSelector
+ 1302: 			// on a disconnected node (IE 9)
+ 1303  			support.disconnectedMatch = matches.call( el, "*" );
+ 1304  
+ ....
+ 1367  			1;
+ 1368  
+ 1369: 		// Disconnected nodes
+ 1370  		if ( compare & 1 ||
+ 1371  			(!support.sortDetached && b.compareDocumentPosition( a ) === compare) ) {
+ ....
+ 1465  			var ret = matches.call( elem, expr );
+ 1466  
+ 1467: 			// IE 9's matchesSelector returns false on disconnected nodes
+ 1468  			if ( ret || support.disconnectedMatch ||
+ 1469: 					// As well, disconnected nodes are said to be in a document
+ 1470  					// fragment in IE 9
+ 1471  					elem.document && elem.document.nodeType !== 11 ) {
+ ....
+ 4506  
+ 4507  					// Support: Firefox <=42 - 43
+ 4508: 					// Don't set inline display on disconnected elements with computed display: none
+ 4509  					jQuery.contains( elem.ownerDocument, elem ) ) {
+ 4510  
+ ....
+ 6141  
+ 6142  	// Support: IE <= 11 only
+ 6143: 	// Running getBoundingClientRect on a disconnected node
+ 6144  	// in IE throws an error.
+ 6145  	if ( elem.getClientRects().length ) {
+ ....
+ 6347  					// getBoundingClientRect().width unless display is changed.
+ 6348  					// Support: IE <= 11 only
+ 6349: 					// Running getBoundingClientRect on a disconnected node
+ 6350  					// in IE throws an error.
+ 6351  					( !elem.getClientRects().length || !elem.getBoundingClientRect().width ) ?
+ ....
+ 7644  		// Support: IE<=11+
+ 7645  		// Running getBoundingClientRect on a
+ 7646: 		// disconnected node in IE throws an error
+ 7647  		if ( !elem.getClientRects().length ) {
+ 7648  			return { top: 0, left: 0 };
+ ....
+ 7663  		}
+ 7664  
+ 7665: 		// Return zeros for disconnected and hidden elements (gh-2310)
+ 7666  		return rect;
+ 7667  	},
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery/src/css.js:
+  130  
+  131  		// Support: IE11 only
+  132: 		// Running getBoundingClientRect on a disconnected node
+  133  		// in IE throws an error.
+  134  		if ( elem.getClientRects().length ) {
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery/src/offset.js:
+   94  		docElem = doc.documentElement;
+   95  
+   96: 		// Make sure it's not a disconnected DOM node
+   97  		if ( !jQuery.contains( docElem, elem ) ) {
+   98  			return box;
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery/src/selector-native.js:
+   25   *   (e.g., $div.find("div > *") now matches children of $div)
+   26   * Matching against non-elements
+   27:  * Reliable sorting of disconnected nodes
+   28   * querySelectorAll bug fixes (e.g., unreliable :focus on WebKit)
+   29   *
+   ..
+   61  		1;
+   62  
+   63: 	// Disconnected nodes
+   64  	if ( compare & 1 ) {
+   65  
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery/src/effects/Tween.js:
+   95  
+   96  // Support: IE9
+   97: // Panic based approach to setting things on disconnected nodes
+   98  Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
+   99  	set: function( tween ) {
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery-ui/jquery-ui.js:
+  288  		}
+  289  	},
+  290: 	call: function( instance, name, args, allowDisconnected ) {
+  291  		var i,
+  292  			set = instance.plugins[ name ];
+  ...
+  296  		}
+  297  
+  298: 		if ( !allowDisconnected && ( !instance.element[ 0 ].parentNode || instance.element[ 0 ].parentNode.nodeType === 11 ) ) {
+  299  			return;
+  300  		}
+  ...
+ 3570  		if ( this.type === "checkbox" || this.type === "radio" ) {
+ 3571  			// we don't search against the document in case the element
+ 3572: 			// is disconnected from the DOM
+ 3573  			ancestor = this.element.parents().last();
+ 3574  			labelSelector = "label[for='" + this.element.attr("id") + "']";
+ ....
+ 4062  			this._disableDatepicker( target );
+ 4063  		}
+ 4064: 		// Set display:block in place of inst.dpDiv.show() which won't work on disconnected elements
+ 4065  		// http://bugs.jqueryui.com/ticket/7552 - A Datepicker created on a detached div has zero height
+ 4066  		inst.dpDiv.css( "display", "block" );
+ ....
+ 6582  				// Prevent this Sortable from removing the helper.
+ 6583  				// However, don't set the draggable to remove the helper
+ 6584: 				// either as another connected Sortable may yet handle the removal.
+ 6585  				sortable.cancelHelperRemoval = true;
+ 6586  
+ ....
+ 14213  			item = this.items[i];
+ 14214  
+ 14215: 			//We ignore calculating positions of all connected containers when we're not over them
+ 14216  			if(item.instance !== this.currentContainer && this.currentContainer && item.item[0] !== this.currentItem[0]) {
+ 14217  				continue;
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery-ui/ui/button.js:
+  214  		if ( this.type === "checkbox" || this.type === "radio" ) {
+  215  			// we don't search against the document in case the element
+  216: 			// is disconnected from the DOM
+  217  			ancestor = this.element.parents().last();
+  218  			labelSelector = "label[for='" + this.element.attr("id") + "']";
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery-ui/ui/core.js:
+  282  		}
+  283  	},
+  284: 	call: function( instance, name, args, allowDisconnected ) {
+  285  		var i,
+  286  			set = instance.plugins[ name ];
+  ...
+  290  		}
+  291  
+  292: 		if ( !allowDisconnected && ( !instance.element[ 0 ].parentNode || instance.element[ 0 ].parentNode.nodeType === 11 ) ) {
+  293  			return;
+  294  		}
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery-ui/ui/datepicker.js:
+  308  			this._disableDatepicker( target );
+  309  		}
+  310: 		// Set display:block in place of inst.dpDiv.show() which won't work on disconnected elements
+  311  		// http://bugs.jqueryui.com/ticket/7552 - A Datepicker created on a detached div has zero height
+  312  		inst.dpDiv.css( "display", "block" );
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery-ui/ui/draggable.js:
+  759  				// Prevent this Sortable from removing the helper.
+  760  				// However, don't set the draggable to remove the helper
+  761: 				// either as another connected Sortable may yet handle the removal.
+  762  				sortable.cancelHelperRemoval = true;
+  763  
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jquery-ui/ui/sortable.js:
+  742  			item = this.items[i];
+  743  
+  744: 			//We ignore calculating positions of all connected containers when we're not over them
+  745  			if(item.instance !== this.currentContainer && this.currentContainer && item.item[0] !== this.currentItem[0]) {
+  746  				continue;
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/jvectormap/tests/assets/jquery-1.8.2.js:
+ 1382  	support.checkClone = fragment.cloneNode( true ).cloneNode( true ).lastChild.checked;
+ 1383  
+ 1384: 	// Check if a disconnected checkbox will retain its checked
+ 1385  	// value of true after appended to the DOM (IE6/7)
+ 1386  	support.appendChecked = input.checked;
+ ....
+ 5280  			assert(function( div ) {
+ 5281  				// Check to see if it's possible to do matchesSelector
+ 5282: 				// on a disconnected node (IE 9)
+ 5283  				disconnectedMatch = matches.call( div, "div" );
+ 5284  
+ ....
+ 5303  						var ret = matches.call( elem, expr );
+ 5304  
+ 5305: 						// IE 9's matchesSelector returns false on disconnected nodes
+ 5306  						if ( ret || disconnectedMatch ||
+ 5307: 								// As well, disconnected nodes are said to be in a document
+ 5308  								// fragment in IE 9
+ 5309  								elem.document && elem.document.nodeType !== 11 ) {
+ ....
+ 8968  
+ 8969  // Remove in 2.0 - this supports IE8's panic based approach
+ 8970: // to setting things on disconnected nodes
+ 8971  
+ 8972  Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
+ ....
+ 9219  	docElem = doc.documentElement;
+ 9220  
+ 9221: 	// Make sure it's not a disconnected DOM node
+ 9222  	if ( !jQuery.contains( docElem, elem ) ) {
+ 9223  		return box;
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/material-design-iconic-font/less/icons.less:
+ 1003    }
+ 1004  }
+ 1005: .@{zmdi-icon-prefix}-cast-connected {
+ 1006    &:before {
+ 1007      content: @zmdi-var-cast-connected;
+ ....
+ 2683    }
+ 2684  }
+ 2685: .@{zmdi-icon-prefix}-bluetooth-connected {
+ 2686    &:before {
+ 2687      content: @zmdi-var-bluetooth-connected;
+ ....
+ 5666    }
+ 5667  }
+ 5668: .@{md-icon-prefix}-cast-connected {
+ 5669    &:before {
+ 5670      content: @md-iconset-cast-connected;
+ ....
+ 7346    }
+ 7347  }
+ 7348: .@{md-icon-prefix}-bluetooth-connected {
+ 7349    &:before {
+ 7350      content: @md-iconset-bluetooth-connected;
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/material-design-iconic-font/scss/_icons.scss:
+ 1003    }
+ 1004  }
+ 1005: .#{$zmdi-icon-prefix}-cast-connected {
+ 1006    &:before {
+ 1007      content: $zmdi-var-cast-connected;
+ ....
+ 2683    }
+ 2684  }
+ 2685: .#{$zmdi-icon-prefix}-bluetooth-connected {
+ 2686    &:before {
+ 2687      content: $zmdi-var-bluetooth-connected;
+ ....
+ 5666    }
+ 5667  }
+ 5668: .#{$md-icon-prefix}-cast-connected {
+ 5669    &:before {
+ 5670      content: $md-iconset-cast-connected;
+ ....
+ 7346    }
+ 7347  }
+ 7348: .#{$md-icon-prefix}-bluetooth-connected {
+ 7349    &:before {
+ 7350      content: $md-iconset-bluetooth-connected;
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/raphael/raphael.js:
+ 4180       * Return set of elements that create glow-like effect around given element. See @Paper.set.
+ 4181       *
+ 4182:      * Note: Glow is not connected to the element. If you change element attributes it won’t adjust itself.
+ 4183       **
+ 4184       > Parameters
+
+/Users/intellyelabs/inlaclubapp/Public/plugins/tinycolor/demo/jquery-1.9.1.js:
+ 1421    fragment.appendChild( input );
+ 1422  
+ 1423:   // Check if a disconnected checkbox will retain its checked
+ 1424    // value of true after appended to the DOM (IE6/7)
+ 1425    support.appendChecked = input.checked;
+ ....
+ 4235      assert(function( div ) {
+ 4236        // Check to see if it's possible to do matchesSelector
+ 4237:       // on a disconnected node (IE 9)
+ 4238        support.disconnectedMatch = matches.call( div, "div" );
+ 4239  
+ ....
+ 4375        var ret = matches.call( elem, expr );
+ 4376  
+ 4377:       // IE 9's matchesSelector returns false on disconnected nodes
+ 4378        if ( ret || support.disconnectedMatch ||
+ 4379:           // As well, disconnected nodes are said to be in a document
+ 4380            // fragment in IE 9
+ 4381            elem.document && elem.document.nodeType !== 11 ) {
+ ....
+ 9086  
+ 9087  // Remove in 2.0 - this supports IE8's panic based approach
+ 9088: // to setting things on disconnected nodes
+ 9089  
+ 9090  Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
+ ....
+ 9382    docElem = doc.documentElement;
+ 9383  
+ 9384:   // Make sure it's not a disconnected DOM node
+ 9385    if ( !jQuery.contains( docElem, elem ) ) {
+ 9386      return box;
+
+/Users/intellyelabs/inlaclubapp/Views/HeaderAndFooter/head.ejs:
+    2  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    3  <meta name="viewport" content="width=device-width, initial-scale=1">
+    4: <title>Connected -By Intellyze</title>
+    5  <!-- Bootstrap File Input-->
+    6  <link rel="stylesheet" type="text/css" href="../plugins/bootstrap-fileinput/css/fileinput.min.css">
+
+102 matches across 38 files
+
+
+Searching 10519 files for "Connected - "
+
+0 matches
+
+Searching 10519 files for "Connected -By "
+
+/Users/intellyelabs/inlaclubapp/Views/HeaderAndFooter/head.ejs:
+    2  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    3  <meta name="viewport" content="width=device-width, initial-scale=1">
+    4: <title>Connected - By Intellyze</title>
+    5  <!-- Bootstrap File Input-->
+    6  <link rel="stylesheet" type="text/css" href="../plugins/bootstrap-fileinput/css/fileinput.min.css">
+
+1 match in 1 file

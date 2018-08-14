@@ -53,7 +53,7 @@ app.use((req, res, next) => {
 
 // middleware function to check for logged-in users
 var sessionChecker = (req, res, next) => {
-    console.log("User id",req.session.user)
+    
     if (req.session.user =='2') {
           next();
        

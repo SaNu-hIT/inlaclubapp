@@ -156,13 +156,13 @@ else
         }
       });
     }
-    else {
+//     else {
 
-swal("Oops", "Member can not add spouce deatils, Check Married Option for", "error");
+// // swal("Oops", "Member can not add spouce deatils, Check Married Option for", "error");
 
 
-      console.log("Hey lo cancelss");
-    }
+//       console.log("Hey lo cancelss");
+//     }
 
 
   });
@@ -555,8 +555,8 @@ function validateFormchild(child_title, child_name, child_mobile_no, child_email
     return isvaid;
 
   }
-  else if (!child_name.match(name_regex) || child_name.length == 0) {
-    alerts("name is required");
+  else if (check_Alpha(child_name)) {
+
     isvaid = false;
     return isvaid;
   }
@@ -600,7 +600,22 @@ function validateFormchild(child_title, child_name, child_mobile_no, child_email
 
 }
 
+function check_Alpha(letters){
+    var regex = /^[a-zA-Z]+$/;
 
+     if(letters == " "){
+      alerts("Name Field cannot be left empty");
+      letters.yourname.focus();
+      return false;
+    }
+    if(regex.test(letters) == false){
+   alerts("Name must be in alphabets only");
+   letters.yourname.focus();
+   return false;
+    }
+   
+    return true;
+  }
 
 // function validateForm(memberimage, spouceimage,name, title,  mobile_no, email, office_no, dob, address,
 //   title_for_spouse, nameOf_spouse, spouse_mobileNo, spouse_email, spouse_dob, weeding_date, ismarried, Profession) {
@@ -618,8 +633,8 @@ function validateForm(title, name, mobile_no, email, office_no, dob, address, me
     return isvaid;
 
   }
-  else if (name.length == 0) {
-    alerts("Name  Required");
+  else if (!check_Alpha(name)) {
+  
     isvaid = false;
     return isvaid;
   }
@@ -669,29 +684,29 @@ function validateForm(title, name, mobile_no, email, office_no, dob, address, me
     isvaid = false;
     return isvaid;
   }else if (title_for_spouse == "") {
-    alerts("Spouse Tittle Required");
+    alerts("Partner Tittle Required");
     isvaid = false;
     return isvaid;
   }
 
   else if (nameOf_spouse.length == 0) {
-    alerts("Spouse Name Required");
+    alerts("Partner Name Required");
     isvaid = false;
     return isvaid;
   }
   else if (spouse_mobileNo.length == 0) {
-    alerts("Spouse Mobile Number Required");
+    alerts("Partner Mobile Number Required");
     isvaid = false;
     return isvaid;
   }
   else if (!spouse_email.match(email_regex) || spouse_email.length == 0) {
     // else if (spouse_email == "") {
-    alerts("Spouse Email Id Required");
+    alerts("Partner Email Id Required");
     isvaid = false;
     return isvaid;
   }
   else if (spouse_dob == "") {
-    alerts("Spouse Date Of Birth Required");
+    alerts("Partner Date Of Birth Required");
     isvaid = false;
     return isvaid;
   }
@@ -701,7 +716,7 @@ function validateForm(title, name, mobile_no, email, office_no, dob, address, me
     return isvaid;
   } 
   else if (spouceimage == "") {
-    alerts("Spouce Image  Required");
+    alerts("Partner Image  Required");
     isvaid = false;
     return isvaid;
   }
@@ -829,15 +844,16 @@ function Updatevalue(res) {
 console.log("weeding_date with out format",weeding_date);
 
   
-var weeding_date_new = new Date(weeding_date).toISOString().slice(0,10);
-var spouse_dob_new = new Date(spouse_dob).toISOString().slice(0,10);
+
 var dob_new = new Date(dob).toISOString().slice(0,10);
 
 if (ismarried=="YES") {
+var weeding_date_new = new Date(weeding_date).toISOString().slice(0,10);
+var spouse_dob_new = new Date(spouse_dob).toISOString().slice(0,10);
 $("#maritalstatus_1").prop('checked', true);
    $("#spousediv").show();
   $("#married_div").show();
-   $("#ismarried").val("YES");
+   $("#ismarried").val("YES");  
 }
 if (ismarried=="NO") {
 $("#maritalstatus_2").prop('checked', true);

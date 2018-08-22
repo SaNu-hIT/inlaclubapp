@@ -4,7 +4,10 @@ var engine = require('ejs-locals');
 var multer = require('multer');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+    
+const mime = require('mime');
 var app = express();
+var fs = require('fs');
 var upload = require('express-fileupload');
 app.use(upload()); 
 var authenticateController = require('./Controllers/authenicate_controller');
@@ -158,7 +161,9 @@ app.post('/api/addChild', memberscontroller.addChild);
 
 app.post('/api/updatemember', memberscontroller.updateMember);
 app.post('/api/listMembers', memberscontroller.listMembers);
-
+app.post('/api/addChildrenDetails', memberscontroller.saveChildDetails);
+app.post('/api/updateChildDetails', memberscontroller.UpdateChildDetails);
+app.post('/api/listChildbyid', memberscontroller.listChildbyid);
 app.post('/api/listMemberbyid', memberscontroller.listMemberbyid);
 app.post('/api/deleteMember', memberscontroller.deleteMember);
 app.post('/api/addevents', eventcontroller.addevents);

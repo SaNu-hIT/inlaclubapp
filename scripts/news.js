@@ -631,13 +631,13 @@ function validateForm(news_title, news_description, news_date, images,hasimage) 
     return isvaid;
   }
 
-  else if (hasimage=="false") {
+  // else if (hasimage=="false") {
    
-    alerts("Images is required");
-    isvaid = false;
-    return isvaid;
+  //   alerts("Images is required");
+  //   isvaid = false;
+  //   return isvaid;
   
-  }
+  // }
   else {
     isvaid = true;
     return isvaid;

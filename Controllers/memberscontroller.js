@@ -1,4 +1,6 @@
 var connection = require('./../Config');
+var fs = require('fs');
+const mime = require('mime');
 module.exports.addmember = function(req, res) {
     var title = req.body.title; //input
     var name = req.body.name; //input
@@ -17,13 +19,15 @@ module.exports.addmember = function(req, res) {
     var Profession = req.body.Profession; //input
     var memberimage = req.body.memberimage; //input
     var spouceimage = req.body.spouceimage; //input
+        var empProfession = req.body.empProfession; //input
+    
    console.log("memberimage"+memberimage);
    console.log("spouceimage"+spouceimage);
 
 
 
    
-    var sql = "INSERT INTO `club_app_member_contact_info`( `title`, `name`, `mobile_no`, `email`,`office_no`, `dob`, `address`, `title_for_spouse`, `nameOf_spouse`, `spouse_mobileNo`,`spouse_email`, `spouse_dob`, `weeding_date`, `ismarried`, `MemberImage`, `SpouseImage`,`Profession`) VALUES ('" + title + "','" + name + "','" + mobile_no + "','" + email + "','" + office_no + "','" + dob + "','" + address + "','" + title_for_spouse + "','" + nameOf_spouse + "','" + spouse_mobileNo + "','" + spouse_email + "','" + spouse_dob + "','" + weeding_date + "','" + ismarried + "','" + memberimage + "','" + spouceimage + "','" + Profession + "');"
+    var sql = "INSERT INTO `club_app_member_contact_info`( `title`, `name`, `mobile_no`, `email`,`office_no`, `dob`, `address`, `title_for_spouse`, `nameOf_spouse`, `spouse_mobileNo`,`spouse_email`, `spouse_dob`, `weeding_date`, `ismarried`, `MemberImage`, `SpouseImage`,`Profession`,`Member_Profession`) VALUES ('" + title + "','" + name + "','" + mobile_no + "','" + email + "','" + office_no + "','" + dob + "','" + address + "','" + title_for_spouse + "','" + nameOf_spouse + "','" + spouse_mobileNo + "','" + spouse_email + "','" + spouse_dob + "','" + weeding_date + "','" + ismarried + "','" + memberimage + "','" + spouceimage + "','" + Profession + "','" + empProfession + "');"
     connection.query(sql, function(err, result) {
         console.log(err);
         if (err) {
@@ -131,17 +135,15 @@ module.exports.updateMember = function(req, res) {
 
 module.exports.listMembers = function(req, res) {
     var sql = "SELECT * FROM `club_app_member_contact_info` ORDER BY `cid` DESC"
-    console.log(sql);
     connection.query(sql, function(err, result, fields) {
         if (err) {
 
             res.json({
                 status: false,
-                message: "No data found"
+                message: "No data found"    
 
             })
         } else {
-            console.log(result);
             res.json({
                 status: true,
                 message: "Successful",
@@ -158,6 +160,32 @@ module.exports.listMemberbyid = function(req, res) {
     var codes = req.body.code;
     console.log(codes);
     var sql = "SELECT * FROM club_app_member_contact_info WHERE cid = '" + codes + "'";
+    console.log(sql);
+    connection.query(sql, function(err, result, fields) {
+        if (err) {
+            console.log(err)
+            res.json({
+                status: false,
+                message: "No data found"
+            })
+        } else {
+            res.json({
+                status: true,
+                message: "Successful",
+                data: result
+            })
+        }
+
+    });
+
+
+
+
+}
+module.exports.listChildbyid = function(req, res) {
+    var codes = req.body.code;
+    console.log(codes);
+    var sql = "SELECT * FROM club_app_children_contact_info WHERE cid = '" + codes + "'";
     console.log(sql);
     connection.query(sql, function(err, result, fields) {
         if (err) {
@@ -203,3 +231,163 @@ module.exports.deleteMember = function(req, res) {
         }
     });
 }
+
+
+
+
+function decodeBase64Image(dataString) {
+  var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+    response = {};
+
+  if (matches.length !== 3) {
+    return new Error('Invalid input string');
+  }
+
+  response.type = matches[1];
+  response.data = new Buffer(matches[2], 'base64');
+
+  return response;
+}
+
+
+module.exports.saveChildDetails = function (req, res) {
+
+
+    var datas = req.body;
+ 
+ console.log("data",datas)
+
+
+
+
+for (var i = 0; i < datas.length; i++) {
+
+
+
+var title = datas[i].Tittle;
+var S_ChildId = datas[i].S_ChildId;
+var name = datas[i].Name;
+var mobile_no = datas[i].Mobile_Number;
+var office_no = datas[i].Land_Line_Number
+var email = datas[i].Email
+var dob = datas[i].Date_Of_Birth
+var Child_Image = datas[i].Child_Image;
+var cid = datas[i].memberid;
+
+
+
+if (Child_Image=="") {
+
+childimage_value="";
+}
+else
+{
+var decodedImg = decodeBase64Image(Child_Image);
+var imageBuffer = decodedImg.data;
+var type = decodedImg.type;
+var extension = mime.getExtension(type);
+var childimage_value="";
+var fileName =  name+"image." + extension;
+fileName =fileName.replace(/\s/g,'');
+console.log("fileName",fileName);
+ try{
+       fs.writeFileSync("./uploads/" + fileName, imageBuffer, 'utf8');
+       childimage_value = "https://inlaclubapp.herokuapp.com/static/"+fileName
+    }
+ catch(err){
+    console.error(err)
+ }
+}
+
+ console.log("childimage_value",childimage_value);
+var sql = "INSERT INTO `club_app_children_contact_info`( `cid`, `title`, `name`, `mobile_no`,`email`, `office_no`, `dob`, `imageUrl`) VALUES ('" + cid + "','" + title + "','" + name +
+     "','" + mobile_no + "','" + email + "','" + office_no + "','" + dob + "','" + childimage_value +"');"
+     console.log("SQL",sql);
+     connection.query(sql, function(err, result) {
+        console.log(err);
+
+    });
+
+
+   
+}
+
+
+res.json({
+                status: true,
+                message: "Successfully saved"
+            })
+
+
+}
+
+
+
+module.exports.UpdateChildDetails = function (req, res) {
+    var datas = req.body;
+
+console.log("DATA",datas);
+
+
+
+
+
+for (var i = 0; i < datas.length; i++) {
+var title = datas[i].Tittle;
+var S_ChildId = datas[i].S_ChildId;
+var name = datas[i].Name;
+var mobile_no = datas[i].Mobile_Number;
+var office_no = datas[i].Land_Line_Number
+var email = datas[i].Email
+var dob = datas[i].Date_Of_Birth
+var Child_Image = datas[i].Child_Image;
+var cid = datas[i].memberid;
+
+
+ console.log("cid",cid);
+  console.log("S_ChildId",S_ChildId);
+
+if (Child_Image=="") {
+
+childimage_value="";
+}
+else
+{
+
+
+
+
+var decodedImg = decodeBase64Image(Child_Image);
+ var imageBuffer = decodedImg.data;
+ var type = decodedImg.type;
+
+  var extension = mime.getExtension(type);
+var childimage_value="";
+ var fileName =  name+"image." + extension;
+ fileName =fileName.replace(/\s/g,'');
+
+ console.log("fileName",fileName);
+ try{
+       fs.writeFileSync("./uploads/" + fileName, imageBuffer, 'utf8');
+
+        childimage_value = "https://inlaclubapp.herokuapp.com/static/"+fileName
+    }
+ catch(err){
+    console.error(err)
+ }
+
+}
+   var sql = "UPDATE club_app_children_contact_info SET title='" + title + "',name='" + name + "', email='" + email + "',office_no='" + office_no + "',imageUrl='" + childimage_value + "' ,dob='" + dob + "' WHERE childID=" + S_ChildId;
+     console.log("fileName",sql);
+
+
+     connection.query(sql, function(err, result) {
+        console.log(err);
+      
+    });
+}
+res.json({ status: true,
+           message: "Successfully saved"
+            })
+}
+

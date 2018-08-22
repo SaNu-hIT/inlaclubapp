@@ -1,9 +1,6 @@
 
 $(function () {
-
-
 var isedit=false;
-
   $("#SpouseImage").fileinput({
     theme: "gly",
     showRemove: false,
@@ -11,7 +8,6 @@ var isedit=false;
     showClose: true,
     hideThumbnailContent: false // hide image, pdf, text or other content in the thumbnail preview
   });
-
   $("#MemberImage").fileinput({
     theme: "gly",
     showRemove: false,
@@ -19,7 +15,6 @@ var isedit=false;
     showClose: true,
     hideThumbnailContent: false // hide image, pdf, text or other content in the thumbnail preview
   });
- 
   $('#sumbitbutton').click(function (e) {
     e.preventDefault();
     var MemberImagefile = $("#MemberImage").prop("files")[0];
@@ -39,6 +34,7 @@ var isedit=false;
     var spouse_dob = $('#spouse_dob').val();
     var weeding_date = $('#weeding_date').val();
     var Profession = $('#Profession').val();
+        var empProfession = $('#empProfession').val();
     var memberimage = $('#MemberImage_value').val();
     var spouceimage = $('#SpouseImage_value').val();
 
@@ -107,6 +103,7 @@ else
       data.append("weeding_date", weeding_date);
       data.append("ismarried", ismarried);
       data.append("Profession", Profession);
+      data.append("empProfession", empProfession);
 
 
       var url;
@@ -132,18 +129,9 @@ else
           if (status) {
 
             window.lastid = res.lastid;
-            LoadDataDromDb();
 
-            if (ismarredflag) {
-
-
-            UpdateChildrenDetails("Saved","Do you want to add  children details");
-          }
-          else
-          {
-              swal("Success", "Member Added", "success");
-          }
-
+            uploadChildDetails(lastid);
+      
 
             clearAll()
           }
@@ -167,18 +155,40 @@ else
 
   });
 
+
+
+
 $('#resetbutton').click(function (e) {
     e.preventDefault();
 
-
+// calculate_Totals();
+// uploadChildDetails(9);
 clearAll();
 
   });
 });
 
 var mytable;
+function readURL(input,attrValue) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $(attrValue).attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+};
 
 $(document).ready(function () {
+
+
+// GenerateTableRows();  
+
+
+
 
 
 
@@ -332,6 +342,7 @@ clearAll();
    $('#isedits').val("YES");
 
     var id = $(this).attr('data_id');
+    console.log("id",id);
     var data = {};
     data.code = id; //input
     jQuery.ajax({
@@ -364,6 +375,69 @@ clearAll();
       }
     });
 
+    jQuery.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      url: '/api/listChildbyid',
+      success: function (res) {
+        var message = res.message
+        var status = res.status
+
+
+        var dataarray = res.data
+        if (status) {
+
+          // LoadDataDromDb();
+
+          UpdateChildvalue(res);
+
+
+
+        }
+        else {
+
+
+        }
+
+
+
+      }
+    });
+
+
+
+
+    
+
+
+
+  });
+
+
+
+
+ $(document).on("click", ".btnRemoveRow", function () {
+        console.log($(this).parent().closest('tr'));
+        if ($('#tblItemsList tbody tr').length == 1) {
+            swal("Warning", "The last item from the table can't be removed.", "warning");
+            return;
+        }
+        $(this).parent().closest('tr').remove();
+        $('#tblItemsList tbody tr').each(function (i) {
+            //  $("td:first", this).html(i + 1);
+            $("td:first", this).find('label').each(function () {
+                $(this).html(i + 1);
+                // console.log('value: ' + $(this).value);
+            });
+        });
+        $("#hiddenNosItems").val($('#tblItemsList tbody tr').length);
+    });
+
+  $(document).on('click', '#btnAddAnoutherLine', function (e) {
+    // child_title child_name  child_mobile_no  child_email  child_office_no  child_dob
+    e.preventDefault();
+    GenerateTableRows();  
 
 
   });
@@ -802,10 +876,16 @@ $("#maritalstatus_2").prop('checked', true);
   // $("#spousediv").hide();
 
 
- $("#ismarried").val("NO");
+ // var html="";
+ //  $('#tblItemsList').append(html);
+  var elmtTable = document.getElementById('#tblItemsList');
+var tableRows = elmtTable.getElementsByTagName('tr');
+var rowCount = tableRows.length;
+for (var x=rowCount-1; x>0; x--) {
+   elmtTable.removeChild(tableRows[x]);
+}
 
- var html="";
-  $('#tblItemsList').append(html);
+ $("#ismarried").val("NO");
 
 
 }
@@ -841,6 +921,7 @@ function Updatevalue(res) {
 
   var SpouseImage = data[0].SpouseImage
   var Profession = data[0].Profession
+  var Member_Profession = data[0].Member_Profession
 
 
 
@@ -865,7 +946,6 @@ $("#maritalstatus_2").prop('checked', true);
      $("#ismarried").val("NO");
      // $("#spousediv").hide();
 }
-
   $('#sumbitbutton').text("UPDATE");
   $('#textCategoryName').val("");
   $('#textCategoryId').val("");
@@ -888,10 +968,15 @@ $("#maritalstatus_2").prop('checked', true);
   $('#Profession').val(Profession);
   $('#MemberImage_value').val(MemberImage);
   $('#SpouseImage_value').val(SpouseImage);
+    $('#empProfession').val(Member_Profession);
+
+
   $("#memberimagesrc").attr("src", MemberImage);
   $("#spuseimagesrc").attr("src", SpouseImage);
   $("#memberimagesrc").show();
   $("#spuseimagesrc").show();
+
+  
 
 
 
@@ -978,5 +1063,215 @@ function UpdateChildrenDetails(tittle,texts) {
     });
 
  
+
+}
+
+
+function GenerateTableRows() {
+    var i = $("#hiddenNosItems").val();
+    i++;
+    $("#hiddenNosItems").val(i);
+    var html = '<tr>';
+    html += ' <td> <label>' + i + '.</label>';
+    html += '<input type="hidden" data-attr-id="S_ChildId" id="txt_ChildId' + i + '" value="0">';
+    html += '<a href="javascript:void(0)" data-toggle="tooltip" title="" class="btnRemoveRow btn btn-outline btn-danger" alf="" data-original-title="Delete"><i class="fa fa-times"></i></a>';
+    html += '</td>'; 
+    html += '<td width="8%">';
+    html += '  <select id="textTittle' + i + '" data-attr-id="Tittle"  data_id=' + i + ' class="form-control">'+
+                                                      '<option value="Mr.">Mr.</option>'+
+                                                       ' <option value="Mrs.">Mrs.</option>'+
+                                                          '<option value="Ms.">Ms.</option>'+
+                                                        '<option value="Miss">Miss</option>'+
+                                                    '</select>';
+    html += '</td>';
+    html += ' <td width="15%">';
+    html += '<input value="" data_id=' + i + ' data-attr-id="Name" type="text" id="txt_Name_Id' + i + '" name="Name' + i + '" class="form-control S_Name" placeholder="Enter Name">';
+    html += '</td>';  
+    html += ' <td width="15%">';
+    html += ' <input  data_id=' + i + ' type="number" data-attr-id="Mobile_Number" id="txtMobile_Number' + i + '" name="Mobile_Number' + i + '" class="form-control S_Mobile_Number" placeholder="Mobile Number">';
+    html += '</td>';
+    html += '<td width="15%">';
+    html += '<input  type="text" data-attr-id="Email" data_id=' + i + ' id="txt_Email' + i + '" name="EmailId' + i + '" class="form-control S_Email" placeholder="Email">';
+    html += ' </td>';
+    html += '<td width="15%">';
+    html += '<input data_id=' + i + ' data-attr-id="Land_Line_Number" type="number" id="txt_Land_Line_Number_ID' + i + '" name="Land_Line_Number' + i + '" class="form-control S_Land_Line_Number" placeholder="Land Line Number">';
+    html += ' </td>';
+    html += '<td width="15%">';
+    html += '<input data_id=' + i + ' data-attr-id="Date_Of_Birth" type="text" id="txt_Date_Of_Birth_Id' + i + '" name="Date_Of_Birth' + i + '"  class="form-control date" placeholder=" Date Of Birth">';
+    html += ' </td>';
+    html += '<td width="15%">';
+    html += ' <input  class="inputFile" data_id=' + i + ' type="file" name="input14[]" data-attr-id="Child_Image"  id="txt_ChildImage' + i + '" accept="image/*" '+'>';
+    html  += '  <img data_id=' + i + ' src="" id="childimagepreview' + i + '" type="hidden"  style="width:60%" class="imagefitcover">'
+    html += ' </td>';
+    html += '</tr>';
+    $('#tblItemsList').append(html);
+
+
+    
+      $(".inputFile").on('change',function(){
+        console.log('change file');
+        var data_id= $(this).attr('data_id');
+        readURL(this,"#childimagepreview"+data_id);
+    });
+
+    // $('.Account_Id').select2();
+    // loadItemsList_autocomplete($("#txtItem_Id_" + i));
+    // loadTaxGroupList_autocomplete($("#txtTax_Group_Id_" + i))
+    // $("#txtItem_Id_" + i).focus();
+    
+} 
+
+function GenerateTableEditRows(res) {
+
+
+  console.log("res Child details from db",res);
+
+console.log("res length",res.data.length);
+for (var i = 0; i < res.data.length; i++) {
+  
+    $("#hiddenNosItems").val(i+1);
+    var html = '<tr>';
+    html += ' <td> <label>' + i+1 + '.</label>';
+    html += '<input type="hidden" data-attr-id="S_ChildId" id="txt_ChildId' + i + '" value="'+res.data[i].childID+'">';
+    html += '<a href="javascript:void(0)" data-toggle="tooltip" title="" class="btnRemoveRow btn btn-outline btn-danger" alf="" data-original-title="Delete"><i class="fa fa-times"></i></a>';
+    html += '</td>'; 
+    html += '<td width="8%">';
+    html += '  <select value="'+res.data[i].title+'" id="textTittle' + i + '" data-attr-id="Tittle"  data_id=' + i + ' class="form-control">'+
+                                                      '<option value="Mr.">Mr.</option>'+
+                                                       ' <option value="Mrs.">Mrs.</option>'+
+                                                          '<option value="Ms.">Ms.</option>'+
+                                                        '<option value="Miss">Miss</option>'+
+                                                    '</select>';
+    html += '</td>';
+    html += ' <td width="15%">';
+    html += '<input value="'+res.data[i].name+'" data_id=' + i + ' data-attr-id="Name" type="text" id="txt_Name_Id' + i + '" name="Name' + i + '" class="form-control S_Name" placeholder="Enter Name">';
+    html += '</td>';  
+    html += ' <td width="15%">';
+    html += ' <input value="'+res.data[i].mobile_no+'" data_id=' + i + ' type="number" data-attr-id="Mobile_Number" id="txtMobile_Number' + i + '" name="Mobile_Number' + i + '" class="form-control S_Mobile_Number" placeholder="Mobile Number">';
+    html += '</td>';
+    html += '<td width="15%">';
+    html += '<input value="'+res.data[i].email+'" type="text" data-attr-id="Email" data_id=' + i + ' id="txt_Email' + i + '" name="EmailId' + i + '" class="form-control S_Email" placeholder="Email">';
+    html += ' </td>';
+    html += '<td width="15%">';
+    html += '<input value="'+res.data[i].office_no+'" data_id=' + i + ' data-attr-id="Land_Line_Number" type="number" id="txt_Land_Line_Number_ID' + i + '" name="Land_Line_Number' + i + '" class="form-control S_Land_Line_Number" placeholder="Land Line Number">';
+    html += ' </td>';
+    html += '<td width="15%">';
+    html += '<input value="'+res.data[i].dob+'" data_id=' + i + ' data-attr-id="Date_Of_Birth" type="text" id="txt_Date_Of_Birth_Id' + i + '" name="Date_Of_Birth' + i + '"  class="form-control date" placeholder=" Date Of Birth">';
+    html += ' </td>';
+    html += '<td width="15%">';
+    html += ' <input  class="inputFile" data_id=' + i + ' type="file" name="input14[]" data-attr-id="Child_Image"  id="txt_ChildImage' + i + '" accept="image/*" '+'>';
+    html  += '  <img data_id=' + i + ' src="'+res.data[i].imageUrl+'" id="childimagepreview' + i + '" type="hidden"  style="width:60%" class="imagefitcover">'
+    html += ' </td>';
+    html += '</tr>';
+    $('#tblItemsList').append(html);
+
+
+
+
+    
+      $(".inputFile").on('change',function(){
+        console.log('change file');
+        var data_id= $(this).attr('data_id');
+        readURL(this,"#childimagepreview"+data_id);
+    });
+      }
+
+
+    
+}
+
+
+function UpdateChildvalue(res) {
+  console.log("res",res);
+ GenerateTableEditRows(res);
+
+}
+
+
+function uploadChildDetails(memberid) {
+
+
+    var itemList = [];
+    var myRows = [];  
+    var myRows = [];
+    var ItemsDataResult = [];
+    var jsonRow = [];
+    var data = new FormData();
+    let isValid = true;
+                    
+    $('#tblItemsList tbody tr').each(function (i) {     
+        myRows[i] = {};
+     
+        $("td", this).find('input, select, label, textarea').each(function () {
+          var attrVal = $(this).attr('data-attr-id');
+          if (this.tagName == 'INPUT' && attrVal == 'Child_Image') {
+              let valueItemId = $(this).prop('item_id')
+              var attrVal = $(this).attr('data-attr-id');
+              var attr_data_id= $(this).attr('data_id');
+              myRows[i][attrVal] = valueItemId;
+              myRows[i]["memberid"] = memberid;
+              let isFileAvailable=true;
+              // check file
+              if(isFileAvailable){
+                let imageSrc= $("#childimagepreview"+attr_data_id).attr('src');
+                // var data = imageSrc.replace(/^data:image\/\w+;base64,/, "");
+                 var attrVal = $(this).attr('data-attr-id');
+                  myRows[i][attrVal] = imageSrc ;
+              }
+
+          }
+      
+          
+           else {
+              var attrVal = $(this).attr('data-attr-id');
+              myRows[i][attrVal] = this.value;
+          }
+
+
+            
+        });
+       
+        ItemsDataResult.push(myRows[i]);
+
+ 
+        
+    });
+
+     
+    
+   console.log(ItemsDataResult)
+
+
+
+
+
+      var url;
+      if ($('#sumbitbutton').text() == "Submit") {
+        url = "/api/addChildrenDetails"
+      } else {
+        url = "/api/updateChildDetails"
+      }
+      console.log(url)
+
+      jQuery.ajax({
+      type: 'POST',
+      data: JSON.stringify(ItemsDataResult),
+      contentType: 'application/json',
+      url: url,
+      success: function (res) { 
+        var message = res.message
+        var status = res.status
+        var dataarray = res.data
+        if (status) {
+            LoadDataDromDb();
+               swal("Success", message, "success");
+        }
+        else {
+          swal("Failed", "Error", "Error");
+        }
+
+
+      }
+    });
 
 }

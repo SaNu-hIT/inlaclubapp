@@ -4,10 +4,9 @@
   "description": "New application console for connected app",
   "main": "index.js",
   "scripts": {
-  "prestart": "next build",
   "start": "node index.js",
    "test": "echo \"Error: no test specified\" && exit 1"
-},
+  },
   "author": "saneesh vs",
   "license": "ISC",
   "dependencies": {

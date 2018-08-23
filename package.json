@@ -23,6 +23,11 @@
      "mime": "^2.3.1",
      "engines": {
     "node": "8.9.4"
+  },"scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "postinstall": "npm run build",
+    "start": "NODE_ENV=production node server.js"
   }
   
   }

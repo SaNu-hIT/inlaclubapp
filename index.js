@@ -5,7 +5,7 @@ var multer = require('multer');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
     
-// const mime = require('mime');
+const mime = require('mime');
 var app = express();
 var fs = require('fs');
 var upload = require('express-fileupload');

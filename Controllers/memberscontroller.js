@@ -24,10 +24,8 @@ module.exports.addmember = function(req, res) {
    console.log("memberimage"+memberimage);
    console.log("spouceimage"+spouceimage);
 
-
-
-   
     var sql = "INSERT INTO `club_app_member_contact_info`( `title`, `name`, `mobile_no`, `email`,`office_no`, `dob`, `address`, `title_for_spouse`, `nameOf_spouse`, `spouse_mobileNo`,`spouse_email`, `spouse_dob`, `weeding_date`, `ismarried`, `MemberImage`, `SpouseImage`,`Profession`,`Member_Profession`) VALUES ('" + title + "','" + name + "','" + mobile_no + "','" + email + "','" + office_no + "','" + dob + "','" + address + "','" + title_for_spouse + "','" + nameOf_spouse + "','" + spouse_mobileNo + "','" + spouse_email + "','" + spouse_dob + "','" + weeding_date + "','" + ismarried + "','" + memberimage + "','" + spouceimage + "','" + Profession + "','" + empProfession + "');"
+       console.log("Add member",sql);
     connection.query(sql, function(err, result) {
         console.log(err);
         if (err) {
@@ -169,6 +167,8 @@ module.exports.listMemberbyid = function(req, res) {
                 message: "No data found"
             })
         } else {
+
+             console.log("Member by id ",result)
             res.json({
                 status: true,
                 message: "Successful",
@@ -377,7 +377,18 @@ var childimage_value="";
  }
 
 }
-   var sql = "UPDATE club_app_children_contact_info SET title='" + title + "',name='" + name + "', email='" + email + "',office_no='" + office_no + "',imageUrl='" + childimage_value + "' ,dob='" + dob + "' WHERE childID=" + S_ChildId;
+
+
+if (S_ChildId == '0') {
+
+var sql = "INSERT INTO `club_app_children_contact_info`( `cid`, `title`, `name`, `mobile_no`,`email`, `office_no`, `dob`, `imageUrl`) VALUES ('" + cid + "','" + title + "','" + name +
+     "','" + mobile_no + "','" + email + "','" + office_no + "','" + dob + "','" + childimage_value +"');"
+}
+else
+{
+       var sql = "UPDATE club_app_children_contact_info SET title='" + title + "',mobile_no='" + mobile_no + "',name='" + name + "', email='" + email + "',office_no='" + office_no + "',imageUrl='" + childimage_value + "' ,dob='" + dob + "' WHERE childID=" + S_ChildId;
+}
+
      console.log("fileName",sql);
 
 

@@ -128,9 +128,22 @@ else
           var status = res.status
           if (status) {
 
+
             window.lastid = res.lastid;
 
-            uploadChildDetails(lastid);
+            var lastid=window.lastid;
+
+       if ($('#sumbitbutton').text() == "Submit") {
+           uploadChildDetails(lastid);
+      } 
+      else {
+
+        var cid = window.itemid;
+             uploadChildDetails(cid);
+        
+      }
+
+
       
 
             clearAll()
@@ -878,12 +891,7 @@ $("#maritalstatus_2").prop('checked', true);
 
  // var html="";
  //  $('#tblItemsList').append(html);
-  var elmtTable = document.getElementById('#tblItemsList');
-var tableRows = elmtTable.getElementsByTagName('tr');
-var rowCount = tableRows.length;
-for (var x=rowCount-1; x>0; x--) {
-   elmtTable.removeChild(tableRows[x]);
-}
+
 
  $("#ismarried").val("NO");
 
@@ -1133,6 +1141,7 @@ for (var i = 0; i < res.data.length; i++) {
     var html = '<tr>';
     html += ' <td> <label>' + i+1 + '.</label>';
     html += '<input type="hidden" data-attr-id="S_ChildId" id="txt_ChildId' + i + '" value="'+res.data[i].childID+'">';
+    html += '<input type="hidden" data-attr-id="S_MmeberId" id="txt_MemberId' + i + '" value="'+res.data[i].childID+'">';
     html += '<a href="javascript:void(0)" data-toggle="tooltip" title="" class="btnRemoveRow btn btn-outline btn-danger" alf="" data-original-title="Delete"><i class="fa fa-times"></i></a>';
     html += '</td>'; 
     html += '<td width="8%">';

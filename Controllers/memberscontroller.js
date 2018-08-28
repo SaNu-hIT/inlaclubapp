@@ -1,6 +1,9 @@
 var connection = require('./../Config');
 var fs = require('fs');
 const mime = require('mime');
+var isDataURL.regex = /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i;
+
+
 module.exports.addmember = function(req, res) {
     var title = req.body.title; //input
     var name = req.body.name; //input
@@ -237,6 +240,10 @@ module.exports.deleteMember = function(req, res) {
 
 function decodeBase64Image(dataString) {
   // var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+
+
+
+
   var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
     response = {};
 
@@ -246,10 +253,12 @@ function decodeBase64Image(dataString) {
     return new Error('Invalid input string');
   }
 
-  response.type = matches[1];
+  response.type = dataString.substring(dataString.indexOf('/') + 1, dataString.indexOf(';base64'));;
   response.data = new Buffer(matches[2], 'base64');
 
   return response;
+
+
 }
 
 
@@ -287,9 +296,9 @@ else
 {
 var decodedImg = decodeBase64Image(Child_Image);
 var imageBuffer = decodedImg.data;
-var type = mime.getType(decodedImg.type);
+var type = decodedImg.type;
 console.log("type",type);
-var extension = mime.getExtension(type);
+var extension = type;
 var childimage_value="";
 var fileName =  name+"image." + extension;
 fileName =fileName.replace(/\s/g,'');
@@ -359,14 +368,16 @@ childimage_value="";
 else
 {
 
+if (isDataURL(Child_Image)) {
+
 
 
 
 var decodedImg = decodeBase64Image(Child_Image);
  var imageBuffer = decodedImg.data;
 
-var type = mime.getType(decodedImg.type);
-  var extension = mime.getExtension(type);
+var type = decodedImg.type;
+var extension = type;
 var childimage_value="";
  var fileName =  name+"image." + extension;
  fileName =fileName.replace(/\s/g,'');
@@ -379,6 +390,13 @@ var childimage_value="";
     }
  catch(err){
     console.error(err)
+ }
+ }
+ else
+ {
+
+    console.log("not a base 64");
+    childimage_value = Child_Image;
  }
 
 }
@@ -407,3 +425,6 @@ res.json({ status: true,
             })
 }
 
+function isDataURL(s) {
+    return !!s.match(isDataURL.regex);
+}

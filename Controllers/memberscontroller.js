@@ -287,7 +287,8 @@ else
 {
 var decodedImg = decodeBase64Image(Child_Image);
 var imageBuffer = decodedImg.data;
-var type = decodedImg.type;
+var type = mime.getType(decodedImg.type);
+console.log("type",type);
 var extension = mime.getExtension(type);
 var childimage_value="";
 var fileName =  name+"image." + extension;
@@ -363,8 +364,8 @@ else
 
 var decodedImg = decodeBase64Image(Child_Image);
  var imageBuffer = decodedImg.data;
- var type = decodedImg.type;
 
+var type = mime.getType(decodedImg.type);
   var extension = mime.getExtension(type);
 var childimage_value="";
  var fileName =  name+"image." + extension;

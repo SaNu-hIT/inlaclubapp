@@ -884,6 +884,9 @@ function clearAll() {
 
 $("#maritalstatus_2").prop('checked', true);
 
+  $("#memberimagesrc").hide();
+  
+    $("#spuseimagesrc").hide();
 
   $("#married_div").hide();
   // $("#spousediv").hide();

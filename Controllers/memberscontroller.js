@@ -240,6 +240,8 @@ function decodeBase64Image(dataString) {
   var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
     response = {};
 
+    console.log("matches length :",matches.length);
+
   if (matches.length !== 3) {
     return new Error('Invalid input string');
   }

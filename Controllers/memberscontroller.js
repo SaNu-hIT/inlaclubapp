@@ -329,7 +329,7 @@ res.json({
 module.exports.UpdateChildDetails = function (req, res) {
     var datas = req.body;
 
-console.log("DATA",datas);
+// console.log("DATA",datas);
 
 
 
@@ -349,6 +349,7 @@ var cid = datas[i].memberid;
 
  console.log("cid",cid);
   console.log("S_ChildId",S_ChildId);
+    console.log("Child_Image",Child_Image);
 
 if (Child_Image=="") {
 

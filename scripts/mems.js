@@ -889,11 +889,12 @@ $("#maritalstatus_2").prop('checked', true);
   // $("#spousediv").hide();
 
 
- // var html="";
- //  $('#tblItemsList').append(html);
+ 
 
-
+  $('#tblItemsList').html('');
  $("#ismarried").val("NO");
+
+
 
 
 }

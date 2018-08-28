@@ -1,7 +1,6 @@
 var connection = require('./../Config');
 var fs = require('fs');
 const mime = require('mime');
-var isDataURL.regex = /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i;
 
 
 module.exports.addmember = function(req, res) {
@@ -426,5 +425,7 @@ res.json({ status: true,
 }
 
 function isDataURL(s) {
-    return !!s.match(isDataURL.regex);
+    var isDataURLregex = /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i;
+
+    return !!s.match(isDataURLregex);
 }

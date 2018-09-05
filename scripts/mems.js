@@ -200,9 +200,16 @@ $(document).ready(function () {
 
 // GenerateTableRows();  
 
+  $(document).on('click', '#btnAddAnoutherLine', function () {
+    // child_title child_name  child_mobile_no  child_email  child_office_no  child_dob
+    // e.preventDefault();    
+
+    GenerateTableRows();
 
 
 
+
+  });
 
 
 $("#isedits").val("NO");
@@ -272,7 +279,7 @@ if($(this).prop("checked")) {
 
 swal({
     title: "Are you sure?",
-    text: "You will not be able to recover this member !",
+    text: "You will not be able to recover this member!",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: '#DD6B55',
@@ -354,6 +361,7 @@ clearAll();
   $(document).on('click', '.btnEdit', function () {
    $('#isedits').val("YES");
 
+
     var id = $(this).attr('data_id');
     console.log("id",id);
     var data = {};
@@ -373,6 +381,7 @@ clearAll();
 
           // LoadDataDromDb();
 
+          // clearAll();
           Updatevalue(res);
 
 
@@ -431,12 +440,13 @@ clearAll();
 
 
  $(document).on("click", ".btnRemoveRow", function () {
+
         console.log($(this).parent().closest('tr'));
         if ($('#tblItemsList tbody tr').length == 1) {
             swal("Warning", "The last item from the table can't be removed.", "warning");
             return;
         }
-        $(this).parent().closest('tr').remove();
+        
         $('#tblItemsList tbody tr').each(function (i) {
             //  $("td:first", this).html(i + 1);
             $("td:first", this).find('label').each(function () {
@@ -445,15 +455,70 @@ clearAll();
             });
         });
         $("#hiddenNosItems").val($('#tblItemsList tbody tr').length);
+
+
+           var attr_data_id= $(this).attr('data_id');
+          console.log("attr_data_id id ",attr_data_id)
+          let id= $("#txt_ChildId"+attr_data_id).value;
+          console.log("Student id ",id)
+
+
+swal({
+    title: "Are you sure?",
+    text: "You will not be able to recover this member !",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: '#DD6B55',
+    confirmButtonText: 'Yes, I am sure!',
+    cancelButtonText: "No, cancel it!",
+    closeOnConfirm: false,
+    closeOnCancel: false
+ },
+ function(isConfirm){
+
+   if (isConfirm){
+  jQuery.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      url: 'api/deleteChild',
+      success: function (res) {
+        var message = res.message
+        var status = res.status
+        var dataarray = res.data
+        if (status) {
+
+          $(this).parent().closest('tr').remove();
+     
+          // swal("Success", message, "success");
+
+
+        }
+        else {
+          swal("Failed", "Error", "Error");
+        }
+
+
+      }
     });
 
-  $(document).on('click', '#btnAddAnoutherLine', function (e) {
-    // child_title child_name  child_mobile_no  child_email  child_office_no  child_dob
-    e.preventDefault();
-    GenerateTableRows();  
+
+    } else {
+      swal("Cancelled", "Click ok to close");
+         e.preventDefault();
+    }
+ });
+
+// $(this).parent().closest('tr').remove();
 
 
-  });
+
+
+    });
+
+
+
+
   $(document).on('click', '#sumbitbuttonchild', function (e) {
     // child_title child_name  child_mobile_no  child_email  child_office_no  child_dob
     e.preventDefault();
@@ -739,11 +804,11 @@ function validateForm(title, name, mobile_no, email, office_no, dob, address, me
 
   }
   
-  else if (office_no == "") {
-    alerts("Office Number Required");
-    isvaid = false;
-    return isvaid;
-  }
+  // else if (office_no == "") {
+  //   alerts("Office Number Required");
+  //   isvaid = false;
+  //   return isvaid;
+  // }
   else if (dob == "") {
     alerts("Date Of Birth Required");
     isvaid = false;
@@ -754,15 +819,15 @@ function validateForm(title, name, mobile_no, email, office_no, dob, address, me
     isvaid = false;
     return isvaid;
   }
-  else if (memberimage == "") {
+  // else if (memberimage == "") {
     
-    alerts("Memberimage Required");
+  //   alerts("Memberimage Required");
 
-    // swal("Good job!", "You clicked the button!", "warning")
-    isvaid = false;
-    return isvaid;
+  //   // swal("Good job!", "You clicked the button!", "warning")
+  //   isvaid = false;
+  //   return isvaid;
   
-  }
+  // }
   
   else if (ismarredflag) {
 
@@ -776,8 +841,8 @@ function validateForm(title, name, mobile_no, email, office_no, dob, address, me
     return isvaid;
   }
 
-  else if (nameOf_spouse.length == 0) {
-    alerts("Partner Name Required");
+  else if (!check_Alphas(nameOf_spouse)) {
+  
     isvaid = false;
     return isvaid;
   }
@@ -786,9 +851,9 @@ function validateForm(title, name, mobile_no, email, office_no, dob, address, me
     isvaid = false;
     return isvaid;
   }
-  else if (!spouse_email.match(email_regex) || spouse_email.length == 0) {
+  else if (!spouse_email.match(email_regex)) {
     // else if (spouse_email == "") {
-    alerts("Partner Email Id Required");
+    alerts("Enter A Valid Partner Email Id");
     isvaid = false;
     return isvaid;
   }
@@ -797,16 +862,23 @@ function validateForm(title, name, mobile_no, email, office_no, dob, address, me
     isvaid = false;
     return isvaid;
   }
-  else if (Profession == "") {
-    alerts("Profession  required");
+  else if (!ValidateChildDetails()) {
+
+    // alerts(" Required");
     isvaid = false;
     return isvaid;
-  } 
-  else if (spouceimage == "") {
-    alerts("Partner Image  Required");
-    isvaid = false;
-    return isvaid;
+
   }
+  // else if (Profession == "") {
+  //   alerts("Profession  required");
+  //   isvaid = false;
+  //   return isvaid;
+  // } 
+  // else if (spouceimage == "") {
+  //   alerts("Partner Image  Required");
+  //   isvaid = false;
+  //   return isvaid;
+  // }
   else
   {
 
@@ -870,10 +942,15 @@ function clearAll() {
   $('#MemberImage_value').val("");
   $('#SpouseImage_value').val("");
   $('#Profession').val("");
+
+    $('#empProfession').val("");
+
   $('#memberimagesrc').attr('src', '');
   $('#spuseimagesrc').attr('src', '');
   $("#memberimagesrc").hide();
   $("#spuseimagesrc").hide();
+
+
   $('#sumbitbutton').text("Submit");
 
 
@@ -1080,12 +1157,19 @@ function UpdateChildrenDetails(tittle,texts) {
 
 
 function GenerateTableRows() {
+
+
+ 
+
+
+        // $( ".dates" ).datetimepicker( "destroy" );
+
     var i = $("#hiddenNosItems").val();
     i++;
     $("#hiddenNosItems").val(i);
     var html = '<tr>';
     html += ' <td> <label>' + i + '.</label>';
-    html += '<input type="hidden" data-attr-id="S_ChildId" id="txt_ChildId' + i + '" value="0">';
+    html += '<input type="hidden" data_id=' + i + ' data-attr-id="S_ChildId" id="txt_ChildId' + i + '" value="0">';
     html += '<a href="javascript:void(0)" data-toggle="tooltip" title="" class="btnRemoveRow btn btn-outline btn-danger" alf="" data-original-title="Delete"><i class="fa fa-times"></i></a>';
     html += '</td>'; 
     html += '<td width="8%">';
@@ -1109,7 +1193,7 @@ function GenerateTableRows() {
     html += '<input data_id=' + i + ' data-attr-id="Land_Line_Number" type="number" id="txt_Land_Line_Number_ID' + i + '" name="Land_Line_Number' + i + '" class="form-control S_Land_Line_Number" placeholder="Land Line Number">';
     html += ' </td>';
     html += '<td width="15%">';
-    html += '<input data_id=' + i + ' data-attr-id="Date_Of_Birth" type="text" id="txt_Date_Of_Birth_Id' + i + '" name="Date_Of_Birth' + i + '"  class="form-control date" placeholder=" Date Of Birth">';
+    html += '<input data_id=' + i + ' data-attr-id="Date_Of_Birth" type="text" id="txt_Date_Of_Birth_Id' + i + '" name="Date_Of_Birth' + i + '"  class="form-control" placeholder=" Date Of Birth">';
     html += ' </td>';
     html += '<td width="15%">';
     html += ' <input  class="inputFile" data_id=' + i + ' type="file" name="input14[]" data-attr-id="Child_Image"  id="txt_ChildImage' + i + '" accept="image/*" '+'>';
@@ -1126,6 +1210,13 @@ function GenerateTableRows() {
         readURL(this,"#childimagepreview"+data_id);
     });
 
+
+  var lengt= $('#tblItemsList tbody tr').length;
+   console.log(lengt);
+var id ="txt_Date_Of_Birth_Id"+lengt;
+   console.log(id);   
+ $("#txt_Date_Of_Birth_Id"+lengt).datetimepicker({
+format: 'YYYY-MM-DD' });  
     // $('.Account_Id').select2();
     // loadItemsList_autocomplete($("#txtItem_Id_" + i));
     // loadTaxGroupList_autocomplete($("#txtTax_Group_Id_" + i))
@@ -1134,7 +1225,7 @@ function GenerateTableRows() {
 } 
 
 function GenerateTableEditRows(res) {
-
+$('#tblItemsList').html('');
 
   console.log("res Child details from db",res);
 
@@ -1144,8 +1235,8 @@ for (var i = 0; i < res.data.length; i++) {
     $("#hiddenNosItems").val(i+1);
     var html = '<tr>';
     html += ' <td> <label>' + i+1 + '.</label>';
-    html += '<input type="hidden" data-attr-id="S_ChildId" id="txt_ChildId' + i + '" value="'+res.data[i].childID+'">';
-    html += '<input type="hidden" data-attr-id="S_MmeberId" id="txt_MemberId' + i + '" value="'+res.data[i].childID+'">';
+    html += '<input type="hidden" data_id=' + i + ' data-attr-id="S_ChildId" id="txt_ChildId' + i + '" value="'+res.data[i].childID+'">';
+    html += '<input type="hidden" data_id=' + i + ' data-attr-id="S_MmeberId" id="txt_MemberId' + i + '" value="'+res.data[i].childID+'">';
     html += '<a href="javascript:void(0)" data-toggle="tooltip" title="" class="btnRemoveRow btn btn-outline btn-danger" alf="" data-original-title="Delete"><i class="fa fa-times"></i></a>';
     html += '</td>'; 
     html += '<td width="8%">';
@@ -1169,7 +1260,7 @@ for (var i = 0; i < res.data.length; i++) {
     html += '<input value="'+res.data[i].office_no+'" data_id=' + i + ' data-attr-id="Land_Line_Number" type="number" id="txt_Land_Line_Number_ID' + i + '" name="Land_Line_Number' + i + '" class="form-control S_Land_Line_Number" placeholder="Land Line Number">';
     html += ' </td>';
     html += '<td width="15%">';
-    html += '<input value="'+res.data[i].dob+'" data_id=' + i + ' data-attr-id="Date_Of_Birth" type="text" id="txt_Date_Of_Birth_Id' + i + '" name="Date_Of_Birth' + i + '"  class="form-control date" placeholder=" Date Of Birth">';
+    html += '<input value="'+res.data[i].dob+'" data_id=' + i + ' data-attr-id="Date_Of_Birth" type="text" id="txt_Date_Of_Birth_Id' + i + '" name="Date_Of_Birth' + i + '"  class="form-control date"  placeholder=" Date Of Birth">';
     html += ' </td>';
     html += '<td width="15%">';
     html += ' <input  class="inputFile" data_id=' + i + ' type="file" name="input14[]" data-attr-id="Child_Image"  id="txt_ChildImage' + i + '" accept="image/*" '+'>';
@@ -1200,6 +1291,46 @@ function UpdateChildvalue(res) {
 
 }
 
+function ValidateChildDetails()
+{
+
+                    
+    $('#tblItemsList tbody tr').each(function (i) {     
+     
+     
+        $("td", this).find('input, select, label, textarea').each(function () {
+          var attrVal = $(this).attr('data-attr-id');
+
+
+ 
+
+
+             if (this.tagName == 'INPUT' && attrVal == 'txt_Name_Id') {
+              let valueItemId = $(this).attr('txt_Name_Id');
+              if (valueItemId == '' || valueItemId == undefined || valueItemId == '0' || valueItemId == null ) {
+                   $($(this)).attr('style', 'border: red 1px solid !important;');
+                    return false;
+              }
+              else {
+                return true;
+
+                  $($(this)).attr('style', '');
+              }
+          }
+
+            
+        });
+       
+      
+
+ 
+        
+    });
+
+
+  
+}
+
 
 function uploadChildDetails(memberid) {
 
@@ -1211,13 +1342,24 @@ function uploadChildDetails(memberid) {
     var jsonRow = [];
     var data = new FormData();
     let isValid = true;
+
+
+
+
+
                     
     $('#tblItemsList tbody tr').each(function (i) {     
         myRows[i] = {};
      
         $("td", this).find('input, select, label, textarea').each(function () {
           var attrVal = $(this).attr('data-attr-id');
-          if (this.tagName == 'INPUT' && attrVal == 'Child_Image') {
+
+
+ 
+
+
+
+           if (this.tagName == 'INPUT' && attrVal == 'Child_Image') {
               let valueItemId = $(this).prop('item_id')
               var attrVal = $(this).attr('data-attr-id');
               var attr_data_id= $(this).attr('data_id');
@@ -1288,3 +1430,8 @@ function uploadChildDetails(memberid) {
     });
 
 }
+
+
+
+
+

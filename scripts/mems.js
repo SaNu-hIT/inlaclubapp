@@ -1041,6 +1041,8 @@ $("#maritalstatus_2").prop('checked', true);
 
 
 
+
+
   $('#sumbitbutton').text("UPDATE");
   $('#textCategoryName').val("");
   $('#textCategoryId').val("");
@@ -1063,17 +1065,23 @@ $("#maritalstatus_2").prop('checked', true);
   $('#Profession').val(Profession);
   $('#MemberImage_value').val(MemberImage);
   $('#SpouseImage_value').val(SpouseImage);
-    $('#empProfession').val(Member_Profession);
+  $('#empProfession').val(Member_Profession);
 
 
-  $("#memberimagesrc").attr("src", MemberImage);
-  $("#spuseimagesrc").attr("src", SpouseImage);
-  $("#memberimagesrc").show();
-  $("#spuseimagesrc").show();
+
+
 
   
+if (MemberImage!="") {
+  $("#memberimagesrc").attr("src", MemberImage);
+    $("#memberimagesrc").show();
+}
 
+if (SpouseImage!="") {
+   $("#spuseimagesrc").attr("src", SpouseImage);
+    $("#spuseimagesrc").show();
 
+}
 
 
 }

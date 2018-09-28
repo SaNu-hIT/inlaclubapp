@@ -147,6 +147,11 @@ swal({
     var id = $(this).attr('data_id');
     console.log(id);
     var data = {};
+
+
+    $('#name').focus();
+window.scrollBy(0, -50)
+
     data.code = id; //input
     $.ajax({
       type: 'POST',

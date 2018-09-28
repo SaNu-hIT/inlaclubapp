@@ -866,6 +866,7 @@ $("#maritalstatus_2").prop('checked', true);
      // $("#spousediv").hide();
 }
 
+window.scrollBy(0, -50);
   $('#sumbitbutton').text("UPDATE");
   $('#textCategoryName').val("");
   $('#textCategoryId').val("");

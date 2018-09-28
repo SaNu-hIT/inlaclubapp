@@ -126,6 +126,12 @@ swal({
   $(document).on('click', '.btnEdit', function () {
     var id = $(this).attr('data_id');
     console.log("DATA ID"+id);
+
+
+    $('#textCategoryName').focus();
+window.scrollBy(0, -50);
+
+
     var data = {};
     data.code = id; 
       $.ajax({

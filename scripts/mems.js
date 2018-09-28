@@ -361,6 +361,9 @@ clearAll();
   $(document).on('click', '.btnEdit', function () {
    $('#isedits').val("YES");
 
+// name
+$('#name').focus();
+window.scrollBy(0, -50);
 
     var id = $(this).attr('data_id');
     console.log("id",id);
@@ -465,7 +468,7 @@ clearAll();
 
 swal({
     title: "Are you sure?",
-    text: "You will not be able to recover this member !",
+    text: "You will not be able to recover this member!", 
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: '#DD6B55',
@@ -1035,6 +1038,9 @@ $("#maritalstatus_2").prop('checked', true);
      $("#ismarried").val("NO");
      // $("#spousediv").hide();
 }
+
+
+
   $('#sumbitbutton').text("UPDATE");
   $('#textCategoryName').val("");
   $('#textCategoryId').val("");
@@ -1174,10 +1180,9 @@ function GenerateTableRows() {
     html += '</td>'; 
     html += '<td width="8%">';
     html += '  <select id="textTittle' + i + '" data-attr-id="Tittle"  data_id=' + i + ' class="form-control">'+
-                                                      '<option value="Mr.">Mr.</option>'+
-                                                       ' <option value="Mrs.">Mrs.</option>'+
-                                                          '<option value="Ms.">Ms.</option>'+
-                                                        '<option value="Miss">Miss</option>'+
+                                                      '<option value="Miss.">Miss.</option>'+
+                                                       ' <option value="Master.">Master.</option>'+
+                                                        
                                                     '</select>';
     html += '</td>';
     html += ' <td width="15%">';
@@ -1294,7 +1299,11 @@ function UpdateChildvalue(res) {
 function ValidateChildDetails()
 {
 
+
+
+ if ($('#tblItemsList tbody tr').length > 1)  {
                     
+                    console.log("GREATER THAN 1")
     $('#tblItemsList tbody tr').each(function (i) {     
      
      
@@ -1326,6 +1335,13 @@ function ValidateChildDetails()
  
         
     });
+  }
+  else
+  { 
+     console.log("LESS THAN 1") 
+    return true;
+
+  }
 
 
   

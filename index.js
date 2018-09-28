@@ -3,8 +3,7 @@ var bodyParser = require('body-parser');
 var engine = require('ejs-locals');
 var multer = require('multer');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
-    
+var session = require('express-session');   
 // const mime = require('mime');
 var app = express();
 var fs = require('fs');
@@ -26,12 +25,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/Views');
 app.engine('html', require('ejs').renderFile);
 app.engine('ejs', engine);
-
-
-
-
 app.use(cookieParser());
-
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(session({
     key: 'user_sid',
@@ -42,8 +36,6 @@ app.use(session({
         expires: 600000
     }
 }));
-
-
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use((req, res, next) => {

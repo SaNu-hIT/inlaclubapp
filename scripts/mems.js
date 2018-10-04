@@ -198,7 +198,7 @@ function readURL(input,attrValue) {
 $(document).ready(function () {
 
 
-// GenerateTableRows();  
+GenerateTableRows();  
 
   $(document).on('click', '#btnAddAnoutherLine', function () {
     // child_title child_name  child_mobile_no  child_email  child_office_no  child_dob
@@ -221,6 +221,8 @@ $("#maritalstatus_2").prop('checked', true);
 
 
   $("#married_div").hide();
+   $("#spousedivss").hide();
+  
   // $("#spousediv").hide();
 
 
@@ -236,7 +238,8 @@ $("#maritalstatus_1").on('click change', function() {
 if($(this).prop("checked")) {
 
   $("#married_div").show();
-    $("#spousediv").show();
+  $("#spousedivss").show();
+  
         $("#ismarried").val("YES");
 
       }
@@ -253,7 +256,7 @@ $("#maritalstatus_2").on('click change', function() {
    
 if($(this).prop("checked")) {
     $("#married_div").hide();  
-     // $("#spousediv").hide();
+     $("#spousedivss").hide();
     $("#ismarried").val("NO");
      
         
@@ -969,7 +972,9 @@ $("#maritalstatus_2").prop('checked', true);
     $("#spuseimagesrc").hide();
 
   $("#married_div").hide();
-  // $("#spousediv").hide();
+
+ $("#spousedivss").hide();
+   // $("#spousediv").hide();
 
 
  
@@ -1027,14 +1032,16 @@ if (ismarried=="YES") {
 var weeding_date_new = new Date(weeding_date).toISOString().slice(0,10);
 var spouse_dob_new = new Date(spouse_dob).toISOString().slice(0,10);
 $("#maritalstatus_1").prop('checked', true);
-   $("#spousediv").show();
+   $("#spousedivss").show();
   $("#married_div").show();
+
    $("#ismarried").val("YES");  
 }
 if (ismarried=="NO") {
 $("#maritalstatus_2").prop('checked', true);
 
   $("#married_div").hide();
+   $("#spousedivss").hide();
      $("#ismarried").val("NO");
      // $("#spousediv").hide();
 }
@@ -1196,16 +1203,16 @@ function GenerateTableRows() {
     html += ' <td width="15%">';
     html += '<input value="" data_id=' + i + ' data-attr-id="Name" type="text" id="txt_Name_Id' + i + '" name="Name' + i + '" class="form-control S_Name" placeholder="Enter Name">';
     html += '</td>';  
-    html += ' <td width="15%">';
+    html += ' <td width="20%">';
     html += ' <input  data_id=' + i + ' type="number" data-attr-id="Mobile_Number" id="txtMobile_Number' + i + '" name="Mobile_Number' + i + '" class="form-control S_Mobile_Number" placeholder="Mobile Number">';
     html += '</td>';
-    html += '<td width="15%">';
+    html += '<td width="20%">';
     html += '<input  type="text" data-attr-id="Email" data_id=' + i + ' id="txt_Email' + i + '" name="EmailId' + i + '" class="form-control S_Email" placeholder="Email">';
     html += ' </td>';
-    html += '<td width="15%">';
+    html += '<td width="20%">';
     html += '<input data_id=' + i + ' data-attr-id="Land_Line_Number" type="number" id="txt_Land_Line_Number_ID' + i + '" name="Land_Line_Number' + i + '" class="form-control S_Land_Line_Number" placeholder="Land Line Number">';
     html += ' </td>';
-    html += '<td width="15%">';
+    html += '<td width="20%">';
     html += '<input data_id=' + i + ' data-attr-id="Date_Of_Birth" type="text" id="txt_Date_Of_Birth_Id' + i + '" name="Date_Of_Birth' + i + '"  class="form-control" placeholder=" Date Of Birth">';
     html += ' </td>';
     html += '<td width="15%">';
